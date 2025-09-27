@@ -117,6 +117,50 @@ func (x *MapFetchInput) GetKey() string {
 	return ""
 }
 
+type MapDeleteInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MapDeleteInput) Reset() {
+	*x = MapDeleteInput{}
+	mi := &file_data_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MapDeleteInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MapDeleteInput) ProtoMessage() {}
+
+func (x *MapDeleteInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MapDeleteInput.ProtoReflect.Descriptor instead.
+func (*MapDeleteInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *MapDeleteInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
 type MapInsertResult struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Result        int32                  `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
@@ -126,7 +170,7 @@ type MapInsertResult struct {
 
 func (x *MapInsertResult) Reset() {
 	*x = MapInsertResult{}
-	mi := &file_data_proto_msgTypes[2]
+	mi := &file_data_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -138,7 +182,7 @@ func (x *MapInsertResult) String() string {
 func (*MapInsertResult) ProtoMessage() {}
 
 func (x *MapInsertResult) ProtoReflect() protoreflect.Message {
-	mi := &file_data_proto_msgTypes[2]
+	mi := &file_data_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -151,7 +195,7 @@ func (x *MapInsertResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MapInsertResult.ProtoReflect.Descriptor instead.
 func (*MapInsertResult) Descriptor() ([]byte, []int) {
-	return file_data_proto_rawDescGZIP(), []int{2}
+	return file_data_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *MapInsertResult) GetResult() int32 {
@@ -170,7 +214,7 @@ type MapFetchResult struct {
 
 func (x *MapFetchResult) Reset() {
 	*x = MapFetchResult{}
-	mi := &file_data_proto_msgTypes[3]
+	mi := &file_data_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -182,7 +226,7 @@ func (x *MapFetchResult) String() string {
 func (*MapFetchResult) ProtoMessage() {}
 
 func (x *MapFetchResult) ProtoReflect() protoreflect.Message {
-	mi := &file_data_proto_msgTypes[3]
+	mi := &file_data_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -195,7 +239,7 @@ func (x *MapFetchResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MapFetchResult.ProtoReflect.Descriptor instead.
 func (*MapFetchResult) Descriptor() ([]byte, []int) {
-	return file_data_proto_rawDescGZIP(), []int{3}
+	return file_data_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *MapFetchResult) GetValue() string {
@@ -203,6 +247,50 @@ func (x *MapFetchResult) GetValue() string {
 		return x.Value
 	}
 	return ""
+}
+
+type MapDeleteResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        int32                  `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MapDeleteResult) Reset() {
+	*x = MapDeleteResult{}
+	mi := &file_data_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MapDeleteResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MapDeleteResult) ProtoMessage() {}
+
+func (x *MapDeleteResult) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MapDeleteResult.ProtoReflect.Descriptor instead.
+func (*MapDeleteResult) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *MapDeleteResult) GetResult() int32 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
 }
 
 var File_data_proto protoreflect.FileDescriptor
@@ -215,14 +303,19 @@ const file_data_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value\"!\n" +
 	"\rMapFetchInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\"\"\n" +
+	"\x0eMapDeleteInput\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\")\n" +
 	"\x0fMapInsertResult\x12\x16\n" +
 	"\x06result\x18\x01 \x01(\x05R\x06result\"&\n" +
 	"\x0eMapFetchResult\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\tR\x05value2l\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value\")\n" +
+	"\x0fMapDeleteResult\x12\x16\n" +
+	"\x06result\x18\x01 \x01(\x05R\x06result2\x9c\x01\n" +
 	"\rCacheInteract\x12.\n" +
 	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResult\x12+\n" +
-	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResultB\bZ\x06proto/b\x06proto3"
+	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResult\x12.\n" +
+	"\tMapDelete\x12\x0f.MapDeleteInput\x1a\x10.MapDeleteResultB\bZ\x06proto/b\x06proto3"
 
 var (
 	file_data_proto_rawDescOnce sync.Once
@@ -236,20 +329,24 @@ func file_data_proto_rawDescGZIP() []byte {
 	return file_data_proto_rawDescData
 }
 
-var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_data_proto_goTypes = []any{
 	(*MapInsertInput)(nil),  // 0: MapInsertInput
 	(*MapFetchInput)(nil),   // 1: MapFetchInput
-	(*MapInsertResult)(nil), // 2: MapInsertResult
-	(*MapFetchResult)(nil),  // 3: MapFetchResult
+	(*MapDeleteInput)(nil),  // 2: MapDeleteInput
+	(*MapInsertResult)(nil), // 3: MapInsertResult
+	(*MapFetchResult)(nil),  // 4: MapFetchResult
+	(*MapDeleteResult)(nil), // 5: MapDeleteResult
 }
 var file_data_proto_depIdxs = []int32{
 	0, // 0: CacheInteract.MapInsert:input_type -> MapInsertInput
 	1, // 1: CacheInteract.MapFetch:input_type -> MapFetchInput
-	2, // 2: CacheInteract.MapInsert:output_type -> MapInsertResult
-	3, // 3: CacheInteract.MapFetch:output_type -> MapFetchResult
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	2, // 2: CacheInteract.MapDelete:input_type -> MapDeleteInput
+	3, // 3: CacheInteract.MapInsert:output_type -> MapInsertResult
+	4, // 4: CacheInteract.MapFetch:output_type -> MapFetchResult
+	5, // 5: CacheInteract.MapDelete:output_type -> MapDeleteResult
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -266,7 +363,7 @@ func file_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_data_proto_rawDesc), len(file_data_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

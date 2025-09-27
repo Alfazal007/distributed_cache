@@ -26,3 +26,8 @@ func (writer *Writer) GetValueFromHashMap(key string) []byte {
 	}
 	return value
 }
+
+func (writer *Writer) DeleteValueFromHashMap(key string) bool {
+	success := writer.HashMap.Delete(key)
+	return success
+}

@@ -37,6 +37,10 @@ func (hashmap *Map) Get(key string) ([]byte, bool) {
 	data, ok := hashmap.Name[key]
 	if ok {
 		now := time.Now()
+		if data.expired_in <= now.Unix() {
+			delete(hashmap.Name, key)
+			return nil, false
+		}
 		future := now.Add(24 * time.Hour).Unix()
 		data.expired_in = future
 		hashmap.Name[key] = data
