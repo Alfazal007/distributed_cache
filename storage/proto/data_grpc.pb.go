@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	CacheInteract_MapInsert_FullMethodName = "/CacheInteract/MapInsert"
+	CacheInteract_MapFetch_FullMethodName  = "/CacheInteract/MapFetch"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CacheInteractClient interface {
 	MapInsert(ctx context.Context, in *MapInsertInput, opts ...grpc.CallOption) (*MapInsertResult, error)
+	MapFetch(ctx context.Context, in *MapFetchInput, opts ...grpc.CallOption) (*MapFetchResult, error)
 }
 
 type cacheInteractClient struct {
@@ -47,11 +49,22 @@ func (c *cacheInteractClient) MapInsert(ctx context.Context, in *MapInsertInput,
 	return out, nil
 }
 
+func (c *cacheInteractClient) MapFetch(ctx context.Context, in *MapFetchInput, opts ...grpc.CallOption) (*MapFetchResult, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MapFetchResult)
+	err := c.cc.Invoke(ctx, CacheInteract_MapFetch_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
 type CacheInteractServer interface {
 	MapInsert(context.Context, *MapInsertInput) (*MapInsertResult, error)
+	MapFetch(context.Context, *MapFetchInput) (*MapFetchResult, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedCacheInteractServer struct{}
 
 func (UnimplementedCacheInteractServer) MapInsert(context.Context, *MapInsertInput) (*MapInsertResult, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MapInsert not implemented")
+}
+func (UnimplementedCacheInteractServer) MapFetch(context.Context, *MapFetchInput) (*MapFetchResult, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MapFetch not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -104,6 +120,24 @@ func _CacheInteract_MapInsert_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_MapFetch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MapFetchInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).MapFetch(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_MapFetch_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).MapFetch(ctx, req.(*MapFetchInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MapInsert",
 			Handler:    _CacheInteract_MapInsert_Handler,
+		},
+		{
+			MethodName: "MapFetch",
+			Handler:    _CacheInteract_MapFetch_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

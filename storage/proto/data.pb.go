@@ -73,6 +73,50 @@ func (x *MapInsertInput) GetValue() string {
 	return ""
 }
 
+type MapFetchInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MapFetchInput) Reset() {
+	*x = MapFetchInput{}
+	mi := &file_data_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MapFetchInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MapFetchInput) ProtoMessage() {}
+
+func (x *MapFetchInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MapFetchInput.ProtoReflect.Descriptor instead.
+func (*MapFetchInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *MapFetchInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
 type MapInsertResult struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Result        int32                  `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
@@ -82,7 +126,7 @@ type MapInsertResult struct {
 
 func (x *MapInsertResult) Reset() {
 	*x = MapInsertResult{}
-	mi := &file_data_proto_msgTypes[1]
+	mi := &file_data_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -94,7 +138,7 @@ func (x *MapInsertResult) String() string {
 func (*MapInsertResult) ProtoMessage() {}
 
 func (x *MapInsertResult) ProtoReflect() protoreflect.Message {
-	mi := &file_data_proto_msgTypes[1]
+	mi := &file_data_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -107,7 +151,7 @@ func (x *MapInsertResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MapInsertResult.ProtoReflect.Descriptor instead.
 func (*MapInsertResult) Descriptor() ([]byte, []int) {
-	return file_data_proto_rawDescGZIP(), []int{1}
+	return file_data_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *MapInsertResult) GetResult() int32 {
@@ -115,6 +159,50 @@ func (x *MapInsertResult) GetResult() int32 {
 		return x.Result
 	}
 	return 0
+}
+
+type MapFetchResult struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         string                 `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MapFetchResult) Reset() {
+	*x = MapFetchResult{}
+	mi := &file_data_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MapFetchResult) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MapFetchResult) ProtoMessage() {}
+
+func (x *MapFetchResult) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MapFetchResult.ProtoReflect.Descriptor instead.
+func (*MapFetchResult) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *MapFetchResult) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
 }
 
 var File_data_proto protoreflect.FileDescriptor
@@ -125,11 +213,16 @@ const file_data_proto_rawDesc = "" +
 	"data.proto\"8\n" +
 	"\x0eMapInsertInput\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\tR\x05value\")\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\"!\n" +
+	"\rMapFetchInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\")\n" +
 	"\x0fMapInsertResult\x12\x16\n" +
-	"\x06result\x18\x01 \x01(\x05R\x06result2?\n" +
+	"\x06result\x18\x01 \x01(\x05R\x06result\"&\n" +
+	"\x0eMapFetchResult\x12\x14\n" +
+	"\x05value\x18\x01 \x01(\tR\x05value2l\n" +
 	"\rCacheInteract\x12.\n" +
-	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResultB\bZ\x06proto/b\x06proto3"
+	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResult\x12+\n" +
+	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResultB\bZ\x06proto/b\x06proto3"
 
 var (
 	file_data_proto_rawDescOnce sync.Once
@@ -143,16 +236,20 @@ func file_data_proto_rawDescGZIP() []byte {
 	return file_data_proto_rawDescData
 }
 
-var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_data_proto_goTypes = []any{
 	(*MapInsertInput)(nil),  // 0: MapInsertInput
-	(*MapInsertResult)(nil), // 1: MapInsertResult
+	(*MapFetchInput)(nil),   // 1: MapFetchInput
+	(*MapInsertResult)(nil), // 2: MapInsertResult
+	(*MapFetchResult)(nil),  // 3: MapFetchResult
 }
 var file_data_proto_depIdxs = []int32{
 	0, // 0: CacheInteract.MapInsert:input_type -> MapInsertInput
-	1, // 1: CacheInteract.MapInsert:output_type -> MapInsertResult
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	1, // 1: CacheInteract.MapFetch:input_type -> MapFetchInput
+	2, // 2: CacheInteract.MapInsert:output_type -> MapInsertResult
+	3, // 3: CacheInteract.MapFetch:output_type -> MapFetchResult
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -169,7 +266,7 @@ func file_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_data_proto_rawDesc), len(file_data_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
