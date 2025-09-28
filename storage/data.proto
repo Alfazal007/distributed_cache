@@ -6,6 +6,11 @@ service CacheInteract {
   rpc MapInsert(MapInsertInput) returns (MapInsertResult);
   rpc MapFetch(MapFetchInput) returns (MapFetchResult);
   rpc MapDelete(MapDeleteInput) returns (MapDeleteResult);
+
+  rpc QueueInsertFront(QueueInsertInput) returns (QueueInsertOutput);
+  rpc QueueInsertBack(QueueInsertInput) returns (QueueInsertOutput);
+  rpc QueueRemoveFront(QueueRemoveInput) returns (QueueRemoveOutput);
+  rpc QueueRemoveBack(QueueRemoveInput) returns (QueueRemoveOutput);
 }
 
 message MapInsertInput {
@@ -32,4 +37,21 @@ message MapFetchResult {
 
 message MapDeleteResult {
   int32 result=1;
+}
+
+message QueueInsertInput {
+  string key=1;
+  bytes value=2;
+}
+
+message QueueInsertOutput {
+  int32 result=1;
+}
+
+message QueueRemoveInput {
+  string key=1;
+}
+
+message QueueRemoveOutput {
+  bytes value=1;
 }

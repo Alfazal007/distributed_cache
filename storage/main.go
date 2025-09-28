@@ -5,8 +5,10 @@ import (
 	"cacheServer/grpc"
 	maphandler "cacheServer/mapHandler"
 	"cacheServer/proto"
+	queuehandler "cacheServer/queueHandler"
 	"log"
 	"net"
+	"time"
 
 	"google.golang.org/grpc"
 )
@@ -17,6 +19,9 @@ func main() {
 		HashMap: maphandler.Map{
 			Name: make(map[string]maphandler.Value),
 		},
+		Queue: queuehandler.Queue{
+			Name: make(map[string][]queuehandler.Value),
+		},
 	}
 	proto.RegisterCacheInteractServer(s, &server.Server{
 		Writer: writer,
@@ -25,5 +30,13 @@ func main() {
 	if err != nil {
 		log.Fatal("There was an error with the server setup ", err)
 	}
+	go StartDeletion(&writer)
 	s.Serve(listener)
+}
+
+func StartDeletion(writer *datahandler.Writer) {
+	for {
+		time.Sleep(10 * time.Second)
+		writer.FreeUpSpace()
+	}
 }

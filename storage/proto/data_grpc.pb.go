@@ -19,9 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CacheInteract_MapInsert_FullMethodName = "/CacheInteract/MapInsert"
-	CacheInteract_MapFetch_FullMethodName  = "/CacheInteract/MapFetch"
-	CacheInteract_MapDelete_FullMethodName = "/CacheInteract/MapDelete"
+	CacheInteract_MapInsert_FullMethodName        = "/CacheInteract/MapInsert"
+	CacheInteract_MapFetch_FullMethodName         = "/CacheInteract/MapFetch"
+	CacheInteract_MapDelete_FullMethodName        = "/CacheInteract/MapDelete"
+	CacheInteract_QueueInsertFront_FullMethodName = "/CacheInteract/QueueInsertFront"
+	CacheInteract_QueueInsertBack_FullMethodName  = "/CacheInteract/QueueInsertBack"
+	CacheInteract_QueueRemoveFront_FullMethodName = "/CacheInteract/QueueRemoveFront"
+	CacheInteract_QueueRemoveBack_FullMethodName  = "/CacheInteract/QueueRemoveBack"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -31,6 +35,10 @@ type CacheInteractClient interface {
 	MapInsert(ctx context.Context, in *MapInsertInput, opts ...grpc.CallOption) (*MapInsertResult, error)
 	MapFetch(ctx context.Context, in *MapFetchInput, opts ...grpc.CallOption) (*MapFetchResult, error)
 	MapDelete(ctx context.Context, in *MapDeleteInput, opts ...grpc.CallOption) (*MapDeleteResult, error)
+	QueueInsertFront(ctx context.Context, in *QueueInsertInput, opts ...grpc.CallOption) (*QueueInsertOutput, error)
+	QueueInsertBack(ctx context.Context, in *QueueInsertInput, opts ...grpc.CallOption) (*QueueInsertOutput, error)
+	QueueRemoveFront(ctx context.Context, in *QueueRemoveInput, opts ...grpc.CallOption) (*QueueRemoveOutput, error)
+	QueueRemoveBack(ctx context.Context, in *QueueRemoveInput, opts ...grpc.CallOption) (*QueueRemoveOutput, error)
 }
 
 type cacheInteractClient struct {
@@ -71,6 +79,46 @@ func (c *cacheInteractClient) MapDelete(ctx context.Context, in *MapDeleteInput,
 	return out, nil
 }
 
+func (c *cacheInteractClient) QueueInsertFront(ctx context.Context, in *QueueInsertInput, opts ...grpc.CallOption) (*QueueInsertOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueueInsertOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_QueueInsertFront_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) QueueInsertBack(ctx context.Context, in *QueueInsertInput, opts ...grpc.CallOption) (*QueueInsertOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueueInsertOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_QueueInsertBack_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) QueueRemoveFront(ctx context.Context, in *QueueRemoveInput, opts ...grpc.CallOption) (*QueueRemoveOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueueRemoveOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_QueueRemoveFront_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) QueueRemoveBack(ctx context.Context, in *QueueRemoveInput, opts ...grpc.CallOption) (*QueueRemoveOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueueRemoveOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_QueueRemoveBack_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
@@ -78,6 +126,10 @@ type CacheInteractServer interface {
 	MapInsert(context.Context, *MapInsertInput) (*MapInsertResult, error)
 	MapFetch(context.Context, *MapFetchInput) (*MapFetchResult, error)
 	MapDelete(context.Context, *MapDeleteInput) (*MapDeleteResult, error)
+	QueueInsertFront(context.Context, *QueueInsertInput) (*QueueInsertOutput, error)
+	QueueInsertBack(context.Context, *QueueInsertInput) (*QueueInsertOutput, error)
+	QueueRemoveFront(context.Context, *QueueRemoveInput) (*QueueRemoveOutput, error)
+	QueueRemoveBack(context.Context, *QueueRemoveInput) (*QueueRemoveOutput, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -96,6 +148,18 @@ func (UnimplementedCacheInteractServer) MapFetch(context.Context, *MapFetchInput
 }
 func (UnimplementedCacheInteractServer) MapDelete(context.Context, *MapDeleteInput) (*MapDeleteResult, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MapDelete not implemented")
+}
+func (UnimplementedCacheInteractServer) QueueInsertFront(context.Context, *QueueInsertInput) (*QueueInsertOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueueInsertFront not implemented")
+}
+func (UnimplementedCacheInteractServer) QueueInsertBack(context.Context, *QueueInsertInput) (*QueueInsertOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueueInsertBack not implemented")
+}
+func (UnimplementedCacheInteractServer) QueueRemoveFront(context.Context, *QueueRemoveInput) (*QueueRemoveOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueueRemoveFront not implemented")
+}
+func (UnimplementedCacheInteractServer) QueueRemoveBack(context.Context, *QueueRemoveInput) (*QueueRemoveOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueueRemoveBack not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -172,6 +236,78 @@ func _CacheInteract_MapDelete_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_QueueInsertFront_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueueInsertInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).QueueInsertFront(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_QueueInsertFront_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).QueueInsertFront(ctx, req.(*QueueInsertInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_QueueInsertBack_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueueInsertInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).QueueInsertBack(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_QueueInsertBack_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).QueueInsertBack(ctx, req.(*QueueInsertInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_QueueRemoveFront_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueueRemoveInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).QueueRemoveFront(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_QueueRemoveFront_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).QueueRemoveFront(ctx, req.(*QueueRemoveInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_QueueRemoveBack_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueueRemoveInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).QueueRemoveBack(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_QueueRemoveBack_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).QueueRemoveBack(ctx, req.(*QueueRemoveInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +326,22 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MapDelete",
 			Handler:    _CacheInteract_MapDelete_Handler,
+		},
+		{
+			MethodName: "QueueInsertFront",
+			Handler:    _CacheInteract_QueueInsertFront_Handler,
+		},
+		{
+			MethodName: "QueueInsertBack",
+			Handler:    _CacheInteract_QueueInsertBack_Handler,
+		},
+		{
+			MethodName: "QueueRemoveFront",
+			Handler:    _CacheInteract_QueueRemoveFront_Handler,
+		},
+		{
+			MethodName: "QueueRemoveBack",
+			Handler:    _CacheInteract_QueueRemoveBack_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
