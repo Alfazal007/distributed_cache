@@ -19,17 +19,23 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CacheInteract_MapInsert_FullMethodName        = "/CacheInteract/MapInsert"
-	CacheInteract_MapFetch_FullMethodName         = "/CacheInteract/MapFetch"
-	CacheInteract_MapDelete_FullMethodName        = "/CacheInteract/MapDelete"
-	CacheInteract_QueueInsertFront_FullMethodName = "/CacheInteract/QueueInsertFront"
-	CacheInteract_QueueInsertBack_FullMethodName  = "/CacheInteract/QueueInsertBack"
-	CacheInteract_QueueRemoveFront_FullMethodName = "/CacheInteract/QueueRemoveFront"
-	CacheInteract_QueueRemoveBack_FullMethodName  = "/CacheInteract/QueueRemoveBack"
-	CacheInteract_InsertToSet_FullMethodName      = "/CacheInteract/InsertToSet"
-	CacheInteract_GetSetValues_FullMethodName     = "/CacheInteract/GetSetValues"
-	CacheInteract_SetHasMember_FullMethodName     = "/CacheInteract/SetHasMember"
-	CacheInteract_SetRemoveMember_FullMethodName  = "/CacheInteract/SetRemoveMember"
+	CacheInteract_MapInsert_FullMethodName           = "/CacheInteract/MapInsert"
+	CacheInteract_MapFetch_FullMethodName            = "/CacheInteract/MapFetch"
+	CacheInteract_MapDelete_FullMethodName           = "/CacheInteract/MapDelete"
+	CacheInteract_QueueInsertFront_FullMethodName    = "/CacheInteract/QueueInsertFront"
+	CacheInteract_QueueInsertBack_FullMethodName     = "/CacheInteract/QueueInsertBack"
+	CacheInteract_QueueRemoveFront_FullMethodName    = "/CacheInteract/QueueRemoveFront"
+	CacheInteract_QueueRemoveBack_FullMethodName     = "/CacheInteract/QueueRemoveBack"
+	CacheInteract_InsertToSet_FullMethodName         = "/CacheInteract/InsertToSet"
+	CacheInteract_GetSetValues_FullMethodName        = "/CacheInteract/GetSetValues"
+	CacheInteract_SetHasMember_FullMethodName        = "/CacheInteract/SetHasMember"
+	CacheInteract_SetRemoveMember_FullMethodName     = "/CacheInteract/SetRemoveMember"
+	CacheInteract_InsertToSortedSet_FullMethodName   = "/CacheInteract/InsertToSortedSet"
+	CacheInteract_RemoveFromSortedSet_FullMethodName = "/CacheInteract/RemoveFromSortedSet"
+	CacheInteract_GetScoreSortedSet_FullMethodName   = "/CacheInteract/GetScoreSortedSet"
+	CacheInteract_GetRankSortedSet_FullMethodName    = "/CacheInteract/GetRankSortedSet"
+	CacheInteract_GetRankMembersAsc_FullMethodName   = "/CacheInteract/GetRankMembersAsc"
+	CacheInteract_GetRankMembersDesc_FullMethodName  = "/CacheInteract/GetRankMembersDesc"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -47,6 +53,12 @@ type CacheInteractClient interface {
 	GetSetValues(ctx context.Context, in *GetSetValuesInput, opts ...grpc.CallOption) (*GetSetValuesOutput, error)
 	SetHasMember(ctx context.Context, in *SetHasMemberInput, opts ...grpc.CallOption) (*SetHasMemberOutput, error)
 	SetRemoveMember(ctx context.Context, in *SetRemoveMemberInput, opts ...grpc.CallOption) (*SetRemoveMemberOutput, error)
+	InsertToSortedSet(ctx context.Context, in *InsertToSortedSetInput, opts ...grpc.CallOption) (*InsertToSortedSetOutput, error)
+	RemoveFromSortedSet(ctx context.Context, in *RemoveFromSortedSetInput, opts ...grpc.CallOption) (*RemoveFromSortedSetOutput, error)
+	GetScoreSortedSet(ctx context.Context, in *GetScoreSortedSetInput, opts ...grpc.CallOption) (*GetScoreSortedSetOutput, error)
+	GetRankSortedSet(ctx context.Context, in *GetRankSortedSetInput, opts ...grpc.CallOption) (*GetRankSortedSetOutput, error)
+	GetRankMembersAsc(ctx context.Context, in *GetRankMembersInput, opts ...grpc.CallOption) (*GetRankMembersOutput, error)
+	GetRankMembersDesc(ctx context.Context, in *GetRankMembersInput, opts ...grpc.CallOption) (*GetRankMembersOutput, error)
 }
 
 type cacheInteractClient struct {
@@ -167,6 +179,66 @@ func (c *cacheInteractClient) SetRemoveMember(ctx context.Context, in *SetRemove
 	return out, nil
 }
 
+func (c *cacheInteractClient) InsertToSortedSet(ctx context.Context, in *InsertToSortedSetInput, opts ...grpc.CallOption) (*InsertToSortedSetOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InsertToSortedSetOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_InsertToSortedSet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) RemoveFromSortedSet(ctx context.Context, in *RemoveFromSortedSetInput, opts ...grpc.CallOption) (*RemoveFromSortedSetOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveFromSortedSetOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_RemoveFromSortedSet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) GetScoreSortedSet(ctx context.Context, in *GetScoreSortedSetInput, opts ...grpc.CallOption) (*GetScoreSortedSetOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetScoreSortedSetOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_GetScoreSortedSet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) GetRankSortedSet(ctx context.Context, in *GetRankSortedSetInput, opts ...grpc.CallOption) (*GetRankSortedSetOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRankSortedSetOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_GetRankSortedSet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) GetRankMembersAsc(ctx context.Context, in *GetRankMembersInput, opts ...grpc.CallOption) (*GetRankMembersOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRankMembersOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_GetRankMembersAsc_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) GetRankMembersDesc(ctx context.Context, in *GetRankMembersInput, opts ...grpc.CallOption) (*GetRankMembersOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRankMembersOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_GetRankMembersDesc_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
@@ -182,6 +254,12 @@ type CacheInteractServer interface {
 	GetSetValues(context.Context, *GetSetValuesInput) (*GetSetValuesOutput, error)
 	SetHasMember(context.Context, *SetHasMemberInput) (*SetHasMemberOutput, error)
 	SetRemoveMember(context.Context, *SetRemoveMemberInput) (*SetRemoveMemberOutput, error)
+	InsertToSortedSet(context.Context, *InsertToSortedSetInput) (*InsertToSortedSetOutput, error)
+	RemoveFromSortedSet(context.Context, *RemoveFromSortedSetInput) (*RemoveFromSortedSetOutput, error)
+	GetScoreSortedSet(context.Context, *GetScoreSortedSetInput) (*GetScoreSortedSetOutput, error)
+	GetRankSortedSet(context.Context, *GetRankSortedSetInput) (*GetRankSortedSetOutput, error)
+	GetRankMembersAsc(context.Context, *GetRankMembersInput) (*GetRankMembersOutput, error)
+	GetRankMembersDesc(context.Context, *GetRankMembersInput) (*GetRankMembersOutput, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -224,6 +302,24 @@ func (UnimplementedCacheInteractServer) SetHasMember(context.Context, *SetHasMem
 }
 func (UnimplementedCacheInteractServer) SetRemoveMember(context.Context, *SetRemoveMemberInput) (*SetRemoveMemberOutput, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetRemoveMember not implemented")
+}
+func (UnimplementedCacheInteractServer) InsertToSortedSet(context.Context, *InsertToSortedSetInput) (*InsertToSortedSetOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InsertToSortedSet not implemented")
+}
+func (UnimplementedCacheInteractServer) RemoveFromSortedSet(context.Context, *RemoveFromSortedSetInput) (*RemoveFromSortedSetOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromSortedSet not implemented")
+}
+func (UnimplementedCacheInteractServer) GetScoreSortedSet(context.Context, *GetScoreSortedSetInput) (*GetScoreSortedSetOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetScoreSortedSet not implemented")
+}
+func (UnimplementedCacheInteractServer) GetRankSortedSet(context.Context, *GetRankSortedSetInput) (*GetRankSortedSetOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRankSortedSet not implemented")
+}
+func (UnimplementedCacheInteractServer) GetRankMembersAsc(context.Context, *GetRankMembersInput) (*GetRankMembersOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRankMembersAsc not implemented")
+}
+func (UnimplementedCacheInteractServer) GetRankMembersDesc(context.Context, *GetRankMembersInput) (*GetRankMembersOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRankMembersDesc not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -444,6 +540,114 @@ func _CacheInteract_SetRemoveMember_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_InsertToSortedSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InsertToSortedSetInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).InsertToSortedSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_InsertToSortedSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).InsertToSortedSet(ctx, req.(*InsertToSortedSetInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_RemoveFromSortedSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveFromSortedSetInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).RemoveFromSortedSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_RemoveFromSortedSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).RemoveFromSortedSet(ctx, req.(*RemoveFromSortedSetInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_GetScoreSortedSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetScoreSortedSetInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).GetScoreSortedSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_GetScoreSortedSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).GetScoreSortedSet(ctx, req.(*GetScoreSortedSetInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_GetRankSortedSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRankSortedSetInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).GetRankSortedSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_GetRankSortedSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).GetRankSortedSet(ctx, req.(*GetRankSortedSetInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_GetRankMembersAsc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRankMembersInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).GetRankMembersAsc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_GetRankMembersAsc_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).GetRankMembersAsc(ctx, req.(*GetRankMembersInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_GetRankMembersDesc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRankMembersInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).GetRankMembersDesc(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_GetRankMembersDesc_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).GetRankMembersDesc(ctx, req.(*GetRankMembersInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -494,6 +698,30 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetRemoveMember",
 			Handler:    _CacheInteract_SetRemoveMember_Handler,
+		},
+		{
+			MethodName: "InsertToSortedSet",
+			Handler:    _CacheInteract_InsertToSortedSet_Handler,
+		},
+		{
+			MethodName: "RemoveFromSortedSet",
+			Handler:    _CacheInteract_RemoveFromSortedSet_Handler,
+		},
+		{
+			MethodName: "GetScoreSortedSet",
+			Handler:    _CacheInteract_GetScoreSortedSet_Handler,
+		},
+		{
+			MethodName: "GetRankSortedSet",
+			Handler:    _CacheInteract_GetRankSortedSet_Handler,
+		},
+		{
+			MethodName: "GetRankMembersAsc",
+			Handler:    _CacheInteract_GetRankMembersAsc_Handler,
+		},
+		{
+			MethodName: "GetRankMembersDesc",
+			Handler:    _CacheInteract_GetRankMembersDesc_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

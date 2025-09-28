@@ -1,3 +1,6 @@
+# github.com/ryszard/goskiplist v0.0.0-20150312221310-2dfbae5fcf46
+## explicit
+github.com/ryszard/goskiplist/skiplist
 # golang.org/x/net v0.44.0
 ## explicit; go 1.24.0
 golang.org/x/net/http/httpguts

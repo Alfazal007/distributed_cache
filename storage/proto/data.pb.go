@@ -853,6 +853,538 @@ func (x *SetRemoveMemberOutput) GetResult() int32 {
 	return 0
 }
 
+type InsertToSortedSetInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         int64                  `protobuf:"varint,2,opt,name=value,proto3" json:"value,omitempty"`
+	MainKey       string                 `protobuf:"bytes,3,opt,name=mainKey,proto3" json:"mainKey,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertToSortedSetInput) Reset() {
+	*x = InsertToSortedSetInput{}
+	mi := &file_data_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertToSortedSetInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertToSortedSetInput) ProtoMessage() {}
+
+func (x *InsertToSortedSetInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertToSortedSetInput.ProtoReflect.Descriptor instead.
+func (*InsertToSortedSetInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *InsertToSortedSetInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *InsertToSortedSetInput) GetValue() int64 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
+}
+
+func (x *InsertToSortedSetInput) GetMainKey() string {
+	if x != nil {
+		return x.MainKey
+	}
+	return ""
+}
+
+type InsertToSortedSetOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        int32                  `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertToSortedSetOutput) Reset() {
+	*x = InsertToSortedSetOutput{}
+	mi := &file_data_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertToSortedSetOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertToSortedSetOutput) ProtoMessage() {}
+
+func (x *InsertToSortedSetOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertToSortedSetOutput.ProtoReflect.Descriptor instead.
+func (*InsertToSortedSetOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *InsertToSortedSetOutput) GetResult() int32 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
+}
+
+type RemoveFromSortedSetInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	MainKey       string                 `protobuf:"bytes,2,opt,name=mainKey,proto3" json:"mainKey,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveFromSortedSetInput) Reset() {
+	*x = RemoveFromSortedSetInput{}
+	mi := &file_data_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveFromSortedSetInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveFromSortedSetInput) ProtoMessage() {}
+
+func (x *RemoveFromSortedSetInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveFromSortedSetInput.ProtoReflect.Descriptor instead.
+func (*RemoveFromSortedSetInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *RemoveFromSortedSetInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *RemoveFromSortedSetInput) GetMainKey() string {
+	if x != nil {
+		return x.MainKey
+	}
+	return ""
+}
+
+type RemoveFromSortedSetOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        int32                  `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveFromSortedSetOutput) Reset() {
+	*x = RemoveFromSortedSetOutput{}
+	mi := &file_data_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveFromSortedSetOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveFromSortedSetOutput) ProtoMessage() {}
+
+func (x *RemoveFromSortedSetOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveFromSortedSetOutput.ProtoReflect.Descriptor instead.
+func (*RemoveFromSortedSetOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *RemoveFromSortedSetOutput) GetResult() int32 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
+}
+
+type GetScoreSortedSetInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	MainKey       string                 `protobuf:"bytes,2,opt,name=mainKey,proto3" json:"mainKey,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetScoreSortedSetInput) Reset() {
+	*x = GetScoreSortedSetInput{}
+	mi := &file_data_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetScoreSortedSetInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetScoreSortedSetInput) ProtoMessage() {}
+
+func (x *GetScoreSortedSetInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetScoreSortedSetInput.ProtoReflect.Descriptor instead.
+func (*GetScoreSortedSetInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *GetScoreSortedSetInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *GetScoreSortedSetInput) GetMainKey() string {
+	if x != nil {
+		return x.MainKey
+	}
+	return ""
+}
+
+type GetScoreSortedSetOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Score         int64                  `protobuf:"varint,1,opt,name=score,proto3" json:"score,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetScoreSortedSetOutput) Reset() {
+	*x = GetScoreSortedSetOutput{}
+	mi := &file_data_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetScoreSortedSetOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetScoreSortedSetOutput) ProtoMessage() {}
+
+func (x *GetScoreSortedSetOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetScoreSortedSetOutput.ProtoReflect.Descriptor instead.
+func (*GetScoreSortedSetOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *GetScoreSortedSetOutput) GetScore() int64 {
+	if x != nil {
+		return x.Score
+	}
+	return 0
+}
+
+type GetRankSortedSetInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	MainKey       string                 `protobuf:"bytes,2,opt,name=mainKey,proto3" json:"mainKey,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRankSortedSetInput) Reset() {
+	*x = GetRankSortedSetInput{}
+	mi := &file_data_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRankSortedSetInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRankSortedSetInput) ProtoMessage() {}
+
+func (x *GetRankSortedSetInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRankSortedSetInput.ProtoReflect.Descriptor instead.
+func (*GetRankSortedSetInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *GetRankSortedSetInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *GetRankSortedSetInput) GetMainKey() string {
+	if x != nil {
+		return x.MainKey
+	}
+	return ""
+}
+
+type GetRankSortedSetOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Rank          int32                  `protobuf:"varint,1,opt,name=rank,proto3" json:"rank,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRankSortedSetOutput) Reset() {
+	*x = GetRankSortedSetOutput{}
+	mi := &file_data_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRankSortedSetOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRankSortedSetOutput) ProtoMessage() {}
+
+func (x *GetRankSortedSetOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRankSortedSetOutput.ProtoReflect.Descriptor instead.
+func (*GetRankSortedSetOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *GetRankSortedSetOutput) GetRank() int32 {
+	if x != nil {
+		return x.Rank
+	}
+	return 0
+}
+
+type GetRankMembersInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MainKey       string                 `protobuf:"bytes,1,opt,name=mainKey,proto3" json:"mainKey,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRankMembersInput) Reset() {
+	*x = GetRankMembersInput{}
+	mi := &file_data_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRankMembersInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRankMembersInput) ProtoMessage() {}
+
+func (x *GetRankMembersInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRankMembersInput.ProtoReflect.Descriptor instead.
+func (*GetRankMembersInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *GetRankMembersInput) GetMainKey() string {
+	if x != nil {
+		return x.MainKey
+	}
+	return ""
+}
+
+type GetRankMembersOutput struct {
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	MembersAndScore []*ScoreAndName        `protobuf:"bytes,1,rep,name=membersAndScore,proto3" json:"membersAndScore,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *GetRankMembersOutput) Reset() {
+	*x = GetRankMembersOutput{}
+	mi := &file_data_proto_msgTypes[27]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRankMembersOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRankMembersOutput) ProtoMessage() {}
+
+func (x *GetRankMembersOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[27]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRankMembersOutput.ProtoReflect.Descriptor instead.
+func (*GetRankMembersOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *GetRankMembersOutput) GetMembersAndScore() []*ScoreAndName {
+	if x != nil {
+		return x.MembersAndScore
+	}
+	return nil
+}
+
+type ScoreAndName struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Score         int64                  `protobuf:"varint,1,opt,name=score,proto3" json:"score,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ScoreAndName) Reset() {
+	*x = ScoreAndName{}
+	mi := &file_data_proto_msgTypes[28]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ScoreAndName) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ScoreAndName) ProtoMessage() {}
+
+func (x *ScoreAndName) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[28]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ScoreAndName.ProtoReflect.Descriptor instead.
+func (*ScoreAndName) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *ScoreAndName) GetScore() int64 {
+	if x != nil {
+		return x.Score
+	}
+	return 0
+}
+
+func (x *ScoreAndName) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
 var File_data_proto protoreflect.FileDescriptor
 
 const file_data_proto_rawDesc = "" +
@@ -899,7 +1431,35 @@ const file_data_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value\"/\n" +
 	"\x15SetRemoveMemberOutput\x12\x16\n" +
-	"\x06result\x18\x01 \x01(\x05R\x06result2\xf0\x04\n" +
+	"\x06result\x18\x01 \x01(\x05R\x06result\"Z\n" +
+	"\x16InsertToSortedSetInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\x03R\x05value\x12\x18\n" +
+	"\amainKey\x18\x03 \x01(\tR\amainKey\"1\n" +
+	"\x17InsertToSortedSetOutput\x12\x16\n" +
+	"\x06result\x18\x01 \x01(\x05R\x06result\"F\n" +
+	"\x18RemoveFromSortedSetInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x18\n" +
+	"\amainKey\x18\x02 \x01(\tR\amainKey\"3\n" +
+	"\x19RemoveFromSortedSetOutput\x12\x16\n" +
+	"\x06result\x18\x01 \x01(\x05R\x06result\"D\n" +
+	"\x16GetScoreSortedSetInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x18\n" +
+	"\amainKey\x18\x02 \x01(\tR\amainKey\"/\n" +
+	"\x17GetScoreSortedSetOutput\x12\x14\n" +
+	"\x05score\x18\x01 \x01(\x03R\x05score\"C\n" +
+	"\x15GetRankSortedSetInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x18\n" +
+	"\amainKey\x18\x02 \x01(\tR\amainKey\",\n" +
+	"\x16GetRankSortedSetOutput\x12\x12\n" +
+	"\x04rank\x18\x01 \x01(\x05R\x04rank\"/\n" +
+	"\x13GetRankMembersInput\x12\x18\n" +
+	"\amainKey\x18\x01 \x01(\tR\amainKey\"O\n" +
+	"\x14GetRankMembersOutput\x127\n" +
+	"\x0fmembersAndScore\x18\x01 \x03(\v2\r.ScoreAndNameR\x0fmembersAndScore\"8\n" +
+	"\fScoreAndName\x12\x14\n" +
+	"\x05score\x18\x01 \x01(\x03R\x05score\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name2\x98\b\n" +
 	"\rCacheInteract\x12.\n" +
 	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResult\x12+\n" +
 	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResult\x12.\n" +
@@ -911,7 +1471,13 @@ const file_data_proto_rawDesc = "" +
 	"\vInsertToSet\x12\x11.InsertToSetInput\x1a\x12.InsertToSetOutput\x127\n" +
 	"\fGetSetValues\x12\x12.GetSetValuesInput\x1a\x13.GetSetValuesOutput\x127\n" +
 	"\fSetHasMember\x12\x12.SetHasMemberInput\x1a\x13.SetHasMemberOutput\x12@\n" +
-	"\x0fSetRemoveMember\x12\x15.SetRemoveMemberInput\x1a\x16.SetRemoveMemberOutputB\bZ\x06proto/b\x06proto3"
+	"\x0fSetRemoveMember\x12\x15.SetRemoveMemberInput\x1a\x16.SetRemoveMemberOutput\x12F\n" +
+	"\x11InsertToSortedSet\x12\x17.InsertToSortedSetInput\x1a\x18.InsertToSortedSetOutput\x12L\n" +
+	"\x13RemoveFromSortedSet\x12\x19.RemoveFromSortedSetInput\x1a\x1a.RemoveFromSortedSetOutput\x12F\n" +
+	"\x11GetScoreSortedSet\x12\x17.GetScoreSortedSetInput\x1a\x18.GetScoreSortedSetOutput\x12C\n" +
+	"\x10GetRankSortedSet\x12\x16.GetRankSortedSetInput\x1a\x17.GetRankSortedSetOutput\x12@\n" +
+	"\x11GetRankMembersAsc\x12\x14.GetRankMembersInput\x1a\x15.GetRankMembersOutput\x12A\n" +
+	"\x12GetRankMembersDesc\x12\x14.GetRankMembersInput\x1a\x15.GetRankMembersOutputB\bZ\x06proto/b\x06proto3"
 
 var (
 	file_data_proto_rawDescOnce sync.Once
@@ -925,55 +1491,79 @@ func file_data_proto_rawDescGZIP() []byte {
 	return file_data_proto_rawDescData
 }
 
-var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
 var file_data_proto_goTypes = []any{
-	(*MapInsertInput)(nil),        // 0: MapInsertInput
-	(*MapFetchInput)(nil),         // 1: MapFetchInput
-	(*MapDeleteInput)(nil),        // 2: MapDeleteInput
-	(*MapInsertResult)(nil),       // 3: MapInsertResult
-	(*MapFetchResult)(nil),        // 4: MapFetchResult
-	(*MapDeleteResult)(nil),       // 5: MapDeleteResult
-	(*QueueInsertInput)(nil),      // 6: QueueInsertInput
-	(*QueueInsertOutput)(nil),     // 7: QueueInsertOutput
-	(*QueueRemoveInput)(nil),      // 8: QueueRemoveInput
-	(*QueueRemoveOutput)(nil),     // 9: QueueRemoveOutput
-	(*InsertToSetInput)(nil),      // 10: InsertToSetInput
-	(*InsertToSetOutput)(nil),     // 11: InsertToSetOutput
-	(*GetSetValuesInput)(nil),     // 12: GetSetValuesInput
-	(*GetSetValuesOutput)(nil),    // 13: GetSetValuesOutput
-	(*SetHasMemberInput)(nil),     // 14: SetHasMemberInput
-	(*SetHasMemberOutput)(nil),    // 15: SetHasMemberOutput
-	(*SetRemoveMemberInput)(nil),  // 16: SetRemoveMemberInput
-	(*SetRemoveMemberOutput)(nil), // 17: SetRemoveMemberOutput
+	(*MapInsertInput)(nil),            // 0: MapInsertInput
+	(*MapFetchInput)(nil),             // 1: MapFetchInput
+	(*MapDeleteInput)(nil),            // 2: MapDeleteInput
+	(*MapInsertResult)(nil),           // 3: MapInsertResult
+	(*MapFetchResult)(nil),            // 4: MapFetchResult
+	(*MapDeleteResult)(nil),           // 5: MapDeleteResult
+	(*QueueInsertInput)(nil),          // 6: QueueInsertInput
+	(*QueueInsertOutput)(nil),         // 7: QueueInsertOutput
+	(*QueueRemoveInput)(nil),          // 8: QueueRemoveInput
+	(*QueueRemoveOutput)(nil),         // 9: QueueRemoveOutput
+	(*InsertToSetInput)(nil),          // 10: InsertToSetInput
+	(*InsertToSetOutput)(nil),         // 11: InsertToSetOutput
+	(*GetSetValuesInput)(nil),         // 12: GetSetValuesInput
+	(*GetSetValuesOutput)(nil),        // 13: GetSetValuesOutput
+	(*SetHasMemberInput)(nil),         // 14: SetHasMemberInput
+	(*SetHasMemberOutput)(nil),        // 15: SetHasMemberOutput
+	(*SetRemoveMemberInput)(nil),      // 16: SetRemoveMemberInput
+	(*SetRemoveMemberOutput)(nil),     // 17: SetRemoveMemberOutput
+	(*InsertToSortedSetInput)(nil),    // 18: InsertToSortedSetInput
+	(*InsertToSortedSetOutput)(nil),   // 19: InsertToSortedSetOutput
+	(*RemoveFromSortedSetInput)(nil),  // 20: RemoveFromSortedSetInput
+	(*RemoveFromSortedSetOutput)(nil), // 21: RemoveFromSortedSetOutput
+	(*GetScoreSortedSetInput)(nil),    // 22: GetScoreSortedSetInput
+	(*GetScoreSortedSetOutput)(nil),   // 23: GetScoreSortedSetOutput
+	(*GetRankSortedSetInput)(nil),     // 24: GetRankSortedSetInput
+	(*GetRankSortedSetOutput)(nil),    // 25: GetRankSortedSetOutput
+	(*GetRankMembersInput)(nil),       // 26: GetRankMembersInput
+	(*GetRankMembersOutput)(nil),      // 27: GetRankMembersOutput
+	(*ScoreAndName)(nil),              // 28: ScoreAndName
 }
 var file_data_proto_depIdxs = []int32{
-	0,  // 0: CacheInteract.MapInsert:input_type -> MapInsertInput
-	1,  // 1: CacheInteract.MapFetch:input_type -> MapFetchInput
-	2,  // 2: CacheInteract.MapDelete:input_type -> MapDeleteInput
-	6,  // 3: CacheInteract.QueueInsertFront:input_type -> QueueInsertInput
-	6,  // 4: CacheInteract.QueueInsertBack:input_type -> QueueInsertInput
-	8,  // 5: CacheInteract.QueueRemoveFront:input_type -> QueueRemoveInput
-	8,  // 6: CacheInteract.QueueRemoveBack:input_type -> QueueRemoveInput
-	10, // 7: CacheInteract.InsertToSet:input_type -> InsertToSetInput
-	12, // 8: CacheInteract.GetSetValues:input_type -> GetSetValuesInput
-	14, // 9: CacheInteract.SetHasMember:input_type -> SetHasMemberInput
-	16, // 10: CacheInteract.SetRemoveMember:input_type -> SetRemoveMemberInput
-	3,  // 11: CacheInteract.MapInsert:output_type -> MapInsertResult
-	4,  // 12: CacheInteract.MapFetch:output_type -> MapFetchResult
-	5,  // 13: CacheInteract.MapDelete:output_type -> MapDeleteResult
-	7,  // 14: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
-	7,  // 15: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
-	9,  // 16: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
-	9,  // 17: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
-	11, // 18: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
-	13, // 19: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
-	15, // 20: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
-	17, // 21: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
-	11, // [11:22] is the sub-list for method output_type
-	0,  // [0:11] is the sub-list for method input_type
-	0,  // [0:0] is the sub-list for extension type_name
-	0,  // [0:0] is the sub-list for extension extendee
-	0,  // [0:0] is the sub-list for field type_name
+	28, // 0: GetRankMembersOutput.membersAndScore:type_name -> ScoreAndName
+	0,  // 1: CacheInteract.MapInsert:input_type -> MapInsertInput
+	1,  // 2: CacheInteract.MapFetch:input_type -> MapFetchInput
+	2,  // 3: CacheInteract.MapDelete:input_type -> MapDeleteInput
+	6,  // 4: CacheInteract.QueueInsertFront:input_type -> QueueInsertInput
+	6,  // 5: CacheInteract.QueueInsertBack:input_type -> QueueInsertInput
+	8,  // 6: CacheInteract.QueueRemoveFront:input_type -> QueueRemoveInput
+	8,  // 7: CacheInteract.QueueRemoveBack:input_type -> QueueRemoveInput
+	10, // 8: CacheInteract.InsertToSet:input_type -> InsertToSetInput
+	12, // 9: CacheInteract.GetSetValues:input_type -> GetSetValuesInput
+	14, // 10: CacheInteract.SetHasMember:input_type -> SetHasMemberInput
+	16, // 11: CacheInteract.SetRemoveMember:input_type -> SetRemoveMemberInput
+	18, // 12: CacheInteract.InsertToSortedSet:input_type -> InsertToSortedSetInput
+	20, // 13: CacheInteract.RemoveFromSortedSet:input_type -> RemoveFromSortedSetInput
+	22, // 14: CacheInteract.GetScoreSortedSet:input_type -> GetScoreSortedSetInput
+	24, // 15: CacheInteract.GetRankSortedSet:input_type -> GetRankSortedSetInput
+	26, // 16: CacheInteract.GetRankMembersAsc:input_type -> GetRankMembersInput
+	26, // 17: CacheInteract.GetRankMembersDesc:input_type -> GetRankMembersInput
+	3,  // 18: CacheInteract.MapInsert:output_type -> MapInsertResult
+	4,  // 19: CacheInteract.MapFetch:output_type -> MapFetchResult
+	5,  // 20: CacheInteract.MapDelete:output_type -> MapDeleteResult
+	7,  // 21: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
+	7,  // 22: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
+	9,  // 23: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
+	9,  // 24: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
+	11, // 25: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
+	13, // 26: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
+	15, // 27: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
+	17, // 28: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
+	19, // 29: CacheInteract.InsertToSortedSet:output_type -> InsertToSortedSetOutput
+	21, // 30: CacheInteract.RemoveFromSortedSet:output_type -> RemoveFromSortedSetOutput
+	23, // 31: CacheInteract.GetScoreSortedSet:output_type -> GetScoreSortedSetOutput
+	25, // 32: CacheInteract.GetRankSortedSet:output_type -> GetRankSortedSetOutput
+	27, // 33: CacheInteract.GetRankMembersAsc:output_type -> GetRankMembersOutput
+	27, // 34: CacheInteract.GetRankMembersDesc:output_type -> GetRankMembersOutput
+	18, // [18:35] is the sub-list for method output_type
+	1,  // [1:18] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_data_proto_init() }
@@ -987,7 +1577,7 @@ func file_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_data_proto_rawDesc), len(file_data_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   29,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

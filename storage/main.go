@@ -6,6 +6,8 @@ import (
 	maphandler "cacheServer/mapHandler"
 	"cacheServer/proto"
 	queuehandler "cacheServer/queueHandler"
+	sethandler "cacheServer/setHandler"
+	sortedsethandler "cacheServer/sortedSetHandler"
 	"log"
 	"net"
 	"time"
@@ -21,6 +23,12 @@ func main() {
 		},
 		Queue: queuehandler.Queue{
 			Name: make(map[string][]queuehandler.Value),
+		},
+		Set: sethandler.SetData{
+			Name: make(map[string]sethandler.Set),
+		},
+		SortedSet: sortedsethandler.SortedSetStruct{
+			SortedSet: make(map[string]sortedsethandler.SortedSetStructInternal),
 		},
 	}
 	proto.RegisterCacheInteractServer(s, &server.Server{

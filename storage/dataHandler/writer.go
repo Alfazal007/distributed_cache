@@ -5,12 +5,14 @@ import (
 	maphandler "cacheServer/mapHandler"
 	queuehandler "cacheServer/queueHandler"
 	sethandler "cacheServer/setHandler"
+	sortedsethandler "cacheServer/sortedSetHandler"
 )
 
 type Writer struct {
-	HashMap maphandler.Map
-	Queue   queuehandler.Queue
-	Set     sethandler.SetData
+	HashMap   maphandler.Map
+	Queue     queuehandler.Queue
+	Set       sethandler.SetData
+	SortedSet sortedsethandler.SortedSetStruct
 }
 
 func (writer *Writer) WriteToHashMap(key string, value []byte) bool {
@@ -127,4 +129,40 @@ func (writer *Writer) GetSetMembers(key string) []string {
 		values = append(values, key)
 	}
 	return values
+}
+
+func (writer *Writer) InsertToSortedSet(key, mainKey string, value int64) bool {
+	newSize := config.CURRENTSIZE + len(key) + len(key) + 8 + 8
+	if newSize >= config.TOTALSIZE {
+		return false
+	}
+	addedSize := writer.SortedSet.InsertToSet(key, value, mainKey)
+	config.CURRENTSIZE += addedSize
+	return true
+}
+
+func (writer *Writer) RemoveFromSortedSet(key, mainKey string) bool {
+	removedSize := writer.SortedSet.RemoveFromSet(key, mainKey)
+	config.CURRENTSIZE -= removedSize
+	return true
+}
+
+func (writer *Writer) GetScoreFromSortedSet(key, mainKey string) int64 {
+	score := writer.SortedSet.GetScore(key, mainKey)
+	return score
+}
+
+func (writer *Writer) GetRankFromSortedSet(key, mainKey string) int32 {
+	rank := writer.SortedSet.GetRank(key, mainKey)
+	return rank
+}
+
+func (writer *Writer) GetRankAndMembersAscFromSortedSet(mainKey string) []sortedsethandler.ScoreKey {
+	rankRes := writer.SortedSet.GetRankAndMembersAsc(mainKey)
+	return rankRes
+}
+
+func (writer *Writer) GetRankAndMembersDescFromSortedSet(mainKey string) []sortedsethandler.ScoreKey {
+	rankRes := writer.SortedSet.GetRankAndMembersDesc(mainKey)
+	return rankRes
 }
