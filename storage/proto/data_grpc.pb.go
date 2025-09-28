@@ -26,6 +26,10 @@ const (
 	CacheInteract_QueueInsertBack_FullMethodName  = "/CacheInteract/QueueInsertBack"
 	CacheInteract_QueueRemoveFront_FullMethodName = "/CacheInteract/QueueRemoveFront"
 	CacheInteract_QueueRemoveBack_FullMethodName  = "/CacheInteract/QueueRemoveBack"
+	CacheInteract_InsertToSet_FullMethodName      = "/CacheInteract/InsertToSet"
+	CacheInteract_GetSetValues_FullMethodName     = "/CacheInteract/GetSetValues"
+	CacheInteract_SetHasMember_FullMethodName     = "/CacheInteract/SetHasMember"
+	CacheInteract_SetRemoveMember_FullMethodName  = "/CacheInteract/SetRemoveMember"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -39,6 +43,10 @@ type CacheInteractClient interface {
 	QueueInsertBack(ctx context.Context, in *QueueInsertInput, opts ...grpc.CallOption) (*QueueInsertOutput, error)
 	QueueRemoveFront(ctx context.Context, in *QueueRemoveInput, opts ...grpc.CallOption) (*QueueRemoveOutput, error)
 	QueueRemoveBack(ctx context.Context, in *QueueRemoveInput, opts ...grpc.CallOption) (*QueueRemoveOutput, error)
+	InsertToSet(ctx context.Context, in *InsertToSetInput, opts ...grpc.CallOption) (*InsertToSetOutput, error)
+	GetSetValues(ctx context.Context, in *GetSetValuesInput, opts ...grpc.CallOption) (*GetSetValuesOutput, error)
+	SetHasMember(ctx context.Context, in *SetHasMemberInput, opts ...grpc.CallOption) (*SetHasMemberOutput, error)
+	SetRemoveMember(ctx context.Context, in *SetRemoveMemberInput, opts ...grpc.CallOption) (*SetRemoveMemberOutput, error)
 }
 
 type cacheInteractClient struct {
@@ -119,6 +127,46 @@ func (c *cacheInteractClient) QueueRemoveBack(ctx context.Context, in *QueueRemo
 	return out, nil
 }
 
+func (c *cacheInteractClient) InsertToSet(ctx context.Context, in *InsertToSetInput, opts ...grpc.CallOption) (*InsertToSetOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InsertToSetOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_InsertToSet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) GetSetValues(ctx context.Context, in *GetSetValuesInput, opts ...grpc.CallOption) (*GetSetValuesOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetSetValuesOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_GetSetValues_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) SetHasMember(ctx context.Context, in *SetHasMemberInput, opts ...grpc.CallOption) (*SetHasMemberOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetHasMemberOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_SetHasMember_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) SetRemoveMember(ctx context.Context, in *SetRemoveMemberInput, opts ...grpc.CallOption) (*SetRemoveMemberOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetRemoveMemberOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_SetRemoveMember_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
@@ -130,6 +178,10 @@ type CacheInteractServer interface {
 	QueueInsertBack(context.Context, *QueueInsertInput) (*QueueInsertOutput, error)
 	QueueRemoveFront(context.Context, *QueueRemoveInput) (*QueueRemoveOutput, error)
 	QueueRemoveBack(context.Context, *QueueRemoveInput) (*QueueRemoveOutput, error)
+	InsertToSet(context.Context, *InsertToSetInput) (*InsertToSetOutput, error)
+	GetSetValues(context.Context, *GetSetValuesInput) (*GetSetValuesOutput, error)
+	SetHasMember(context.Context, *SetHasMemberInput) (*SetHasMemberOutput, error)
+	SetRemoveMember(context.Context, *SetRemoveMemberInput) (*SetRemoveMemberOutput, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -160,6 +212,18 @@ func (UnimplementedCacheInteractServer) QueueRemoveFront(context.Context, *Queue
 }
 func (UnimplementedCacheInteractServer) QueueRemoveBack(context.Context, *QueueRemoveInput) (*QueueRemoveOutput, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueueRemoveBack not implemented")
+}
+func (UnimplementedCacheInteractServer) InsertToSet(context.Context, *InsertToSetInput) (*InsertToSetOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InsertToSet not implemented")
+}
+func (UnimplementedCacheInteractServer) GetSetValues(context.Context, *GetSetValuesInput) (*GetSetValuesOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSetValues not implemented")
+}
+func (UnimplementedCacheInteractServer) SetHasMember(context.Context, *SetHasMemberInput) (*SetHasMemberOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetHasMember not implemented")
+}
+func (UnimplementedCacheInteractServer) SetRemoveMember(context.Context, *SetRemoveMemberInput) (*SetRemoveMemberOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRemoveMember not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -308,6 +372,78 @@ func _CacheInteract_QueueRemoveBack_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_InsertToSet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InsertToSetInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).InsertToSet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_InsertToSet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).InsertToSet(ctx, req.(*InsertToSetInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_GetSetValues_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSetValuesInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).GetSetValues(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_GetSetValues_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).GetSetValues(ctx, req.(*GetSetValuesInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_SetHasMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetHasMemberInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).SetHasMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_SetHasMember_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).SetHasMember(ctx, req.(*SetHasMemberInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_SetRemoveMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRemoveMemberInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).SetRemoveMember(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_SetRemoveMember_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).SetRemoveMember(ctx, req.(*SetRemoveMemberInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,6 +478,22 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "QueueRemoveBack",
 			Handler:    _CacheInteract_QueueRemoveBack_Handler,
+		},
+		{
+			MethodName: "InsertToSet",
+			Handler:    _CacheInteract_InsertToSet_Handler,
+		},
+		{
+			MethodName: "GetSetValues",
+			Handler:    _CacheInteract_GetSetValues_Handler,
+		},
+		{
+			MethodName: "SetHasMember",
+			Handler:    _CacheInteract_SetHasMember_Handler,
+		},
+		{
+			MethodName: "SetRemoveMember",
+			Handler:    _CacheInteract_SetRemoveMember_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

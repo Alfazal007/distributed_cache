@@ -4,11 +4,13 @@ import (
 	"cacheServer/config"
 	maphandler "cacheServer/mapHandler"
 	queuehandler "cacheServer/queueHandler"
+	sethandler "cacheServer/setHandler"
 )
 
 type Writer struct {
 	HashMap maphandler.Map
 	Queue   queuehandler.Queue
+	Set     sethandler.SetData
 }
 
 func (writer *Writer) WriteToHashMap(key string, value []byte) bool {
@@ -85,4 +87,44 @@ func (writer *Writer) DeleteBackOfQueue(key string) (bool, []byte) {
 		return false, nil
 	}
 	return true, data
+}
+
+func (writer *Writer) InsertToSet(key string, values []string) bool {
+	lengthToBeAdded := config.CURRENTSIZE
+	for _, value := range values {
+		lengthToBeAdded += len(value)
+	}
+	if lengthToBeAdded >= config.TOTALSIZE {
+		return false
+	}
+	sizeAdded := 0
+	for _, value := range values {
+		newSize := writer.Set.AddToSet(key, value)
+		sizeAdded += newSize
+	}
+	config.CURRENTSIZE += sizeAdded
+	return true
+}
+
+func (writer *Writer) RemoveFromSet(key string, value string) bool {
+	success, size := writer.Set.RemoveFromSet(key, value)
+	if !success {
+		return false
+	}
+	config.CURRENTSIZE -= size
+	return true
+}
+
+func (writer *Writer) ExistsInSet(key string, value string) bool {
+	exists := writer.Set.ExistsInSet(key, value)
+	return exists
+}
+
+func (writer *Writer) GetSetMembers(key string) []string {
+	data := writer.Set.GetMembers(key)
+	values := []string{}
+	for key := range data {
+		values = append(values, key)
+	}
+	return values
 }

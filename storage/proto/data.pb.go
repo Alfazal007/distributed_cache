@@ -477,6 +477,382 @@ func (x *QueueRemoveOutput) GetValue() []byte {
 	return nil
 }
 
+type InsertToSetInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         []string               `protobuf:"bytes,2,rep,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertToSetInput) Reset() {
+	*x = InsertToSetInput{}
+	mi := &file_data_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertToSetInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertToSetInput) ProtoMessage() {}
+
+func (x *InsertToSetInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertToSetInput.ProtoReflect.Descriptor instead.
+func (*InsertToSetInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *InsertToSetInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *InsertToSetInput) GetValue() []string {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+type InsertToSetOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        int32                  `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertToSetOutput) Reset() {
+	*x = InsertToSetOutput{}
+	mi := &file_data_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertToSetOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertToSetOutput) ProtoMessage() {}
+
+func (x *InsertToSetOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertToSetOutput.ProtoReflect.Descriptor instead.
+func (*InsertToSetOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *InsertToSetOutput) GetResult() int32 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
+}
+
+type GetSetValuesInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSetValuesInput) Reset() {
+	*x = GetSetValuesInput{}
+	mi := &file_data_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSetValuesInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSetValuesInput) ProtoMessage() {}
+
+func (x *GetSetValuesInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSetValuesInput.ProtoReflect.Descriptor instead.
+func (*GetSetValuesInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetSetValuesInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type GetSetValuesOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Values        []string               `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSetValuesOutput) Reset() {
+	*x = GetSetValuesOutput{}
+	mi := &file_data_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSetValuesOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSetValuesOutput) ProtoMessage() {}
+
+func (x *GetSetValuesOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSetValuesOutput.ProtoReflect.Descriptor instead.
+func (*GetSetValuesOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetSetValuesOutput) GetValues() []string {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
+type SetHasMemberInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetHasMemberInput) Reset() {
+	*x = SetHasMemberInput{}
+	mi := &file_data_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetHasMemberInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetHasMemberInput) ProtoMessage() {}
+
+func (x *SetHasMemberInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetHasMemberInput.ProtoReflect.Descriptor instead.
+func (*SetHasMemberInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *SetHasMemberInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *SetHasMemberInput) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+type SetHasMemberOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	HasValue      bool                   `protobuf:"varint,1,opt,name=hasValue,proto3" json:"hasValue,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetHasMemberOutput) Reset() {
+	*x = SetHasMemberOutput{}
+	mi := &file_data_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetHasMemberOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetHasMemberOutput) ProtoMessage() {}
+
+func (x *SetHasMemberOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetHasMemberOutput.ProtoReflect.Descriptor instead.
+func (*SetHasMemberOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *SetHasMemberOutput) GetHasValue() bool {
+	if x != nil {
+		return x.HasValue
+	}
+	return false
+}
+
+type SetRemoveMemberInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         string                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetRemoveMemberInput) Reset() {
+	*x = SetRemoveMemberInput{}
+	mi := &file_data_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetRemoveMemberInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetRemoveMemberInput) ProtoMessage() {}
+
+func (x *SetRemoveMemberInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetRemoveMemberInput.ProtoReflect.Descriptor instead.
+func (*SetRemoveMemberInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *SetRemoveMemberInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *SetRemoveMemberInput) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
+type SetRemoveMemberOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Result        int32                  `protobuf:"varint,1,opt,name=result,proto3" json:"result,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SetRemoveMemberOutput) Reset() {
+	*x = SetRemoveMemberOutput{}
+	mi := &file_data_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SetRemoveMemberOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetRemoveMemberOutput) ProtoMessage() {}
+
+func (x *SetRemoveMemberOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetRemoveMemberOutput.ProtoReflect.Descriptor instead.
+func (*SetRemoveMemberOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *SetRemoveMemberOutput) GetResult() int32 {
+	if x != nil {
+		return x.Result
+	}
+	return 0
+}
+
 var File_data_proto protoreflect.FileDescriptor
 
 const file_data_proto_rawDesc = "" +
@@ -504,7 +880,26 @@ const file_data_proto_rawDesc = "" +
 	"\x10QueueRemoveInput\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\")\n" +
 	"\x11QueueRemoveOutput\x12\x14\n" +
-	"\x05value\x18\x01 \x01(\fR\x05value2\x86\x03\n" +
+	"\x05value\x18\x01 \x01(\fR\x05value\":\n" +
+	"\x10InsertToSetInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x03(\tR\x05value\"+\n" +
+	"\x11InsertToSetOutput\x12\x16\n" +
+	"\x06result\x18\x01 \x01(\x05R\x06result\"%\n" +
+	"\x11GetSetValuesInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\",\n" +
+	"\x12GetSetValuesOutput\x12\x16\n" +
+	"\x06values\x18\x01 \x03(\tR\x06values\";\n" +
+	"\x11SetHasMemberInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\"0\n" +
+	"\x12SetHasMemberOutput\x12\x1a\n" +
+	"\bhasValue\x18\x01 \x01(\bR\bhasValue\">\n" +
+	"\x14SetRemoveMemberInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value\"/\n" +
+	"\x15SetRemoveMemberOutput\x12\x16\n" +
+	"\x06result\x18\x01 \x01(\x05R\x06result2\xf0\x04\n" +
 	"\rCacheInteract\x12.\n" +
 	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResult\x12+\n" +
 	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResult\x12.\n" +
@@ -512,7 +907,11 @@ const file_data_proto_rawDesc = "" +
 	"\x10QueueInsertFront\x12\x11.QueueInsertInput\x1a\x12.QueueInsertOutput\x128\n" +
 	"\x0fQueueInsertBack\x12\x11.QueueInsertInput\x1a\x12.QueueInsertOutput\x129\n" +
 	"\x10QueueRemoveFront\x12\x11.QueueRemoveInput\x1a\x12.QueueRemoveOutput\x128\n" +
-	"\x0fQueueRemoveBack\x12\x11.QueueRemoveInput\x1a\x12.QueueRemoveOutputB\bZ\x06proto/b\x06proto3"
+	"\x0fQueueRemoveBack\x12\x11.QueueRemoveInput\x1a\x12.QueueRemoveOutput\x124\n" +
+	"\vInsertToSet\x12\x11.InsertToSetInput\x1a\x12.InsertToSetOutput\x127\n" +
+	"\fGetSetValues\x12\x12.GetSetValuesInput\x1a\x13.GetSetValuesOutput\x127\n" +
+	"\fSetHasMember\x12\x12.SetHasMemberInput\x1a\x13.SetHasMemberOutput\x12@\n" +
+	"\x0fSetRemoveMember\x12\x15.SetRemoveMemberInput\x1a\x16.SetRemoveMemberOutputB\bZ\x06proto/b\x06proto3"
 
 var (
 	file_data_proto_rawDescOnce sync.Once
@@ -526,39 +925,55 @@ func file_data_proto_rawDescGZIP() []byte {
 	return file_data_proto_rawDescData
 }
 
-var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_data_proto_goTypes = []any{
-	(*MapInsertInput)(nil),    // 0: MapInsertInput
-	(*MapFetchInput)(nil),     // 1: MapFetchInput
-	(*MapDeleteInput)(nil),    // 2: MapDeleteInput
-	(*MapInsertResult)(nil),   // 3: MapInsertResult
-	(*MapFetchResult)(nil),    // 4: MapFetchResult
-	(*MapDeleteResult)(nil),   // 5: MapDeleteResult
-	(*QueueInsertInput)(nil),  // 6: QueueInsertInput
-	(*QueueInsertOutput)(nil), // 7: QueueInsertOutput
-	(*QueueRemoveInput)(nil),  // 8: QueueRemoveInput
-	(*QueueRemoveOutput)(nil), // 9: QueueRemoveOutput
+	(*MapInsertInput)(nil),        // 0: MapInsertInput
+	(*MapFetchInput)(nil),         // 1: MapFetchInput
+	(*MapDeleteInput)(nil),        // 2: MapDeleteInput
+	(*MapInsertResult)(nil),       // 3: MapInsertResult
+	(*MapFetchResult)(nil),        // 4: MapFetchResult
+	(*MapDeleteResult)(nil),       // 5: MapDeleteResult
+	(*QueueInsertInput)(nil),      // 6: QueueInsertInput
+	(*QueueInsertOutput)(nil),     // 7: QueueInsertOutput
+	(*QueueRemoveInput)(nil),      // 8: QueueRemoveInput
+	(*QueueRemoveOutput)(nil),     // 9: QueueRemoveOutput
+	(*InsertToSetInput)(nil),      // 10: InsertToSetInput
+	(*InsertToSetOutput)(nil),     // 11: InsertToSetOutput
+	(*GetSetValuesInput)(nil),     // 12: GetSetValuesInput
+	(*GetSetValuesOutput)(nil),    // 13: GetSetValuesOutput
+	(*SetHasMemberInput)(nil),     // 14: SetHasMemberInput
+	(*SetHasMemberOutput)(nil),    // 15: SetHasMemberOutput
+	(*SetRemoveMemberInput)(nil),  // 16: SetRemoveMemberInput
+	(*SetRemoveMemberOutput)(nil), // 17: SetRemoveMemberOutput
 }
 var file_data_proto_depIdxs = []int32{
-	0, // 0: CacheInteract.MapInsert:input_type -> MapInsertInput
-	1, // 1: CacheInteract.MapFetch:input_type -> MapFetchInput
-	2, // 2: CacheInteract.MapDelete:input_type -> MapDeleteInput
-	6, // 3: CacheInteract.QueueInsertFront:input_type -> QueueInsertInput
-	6, // 4: CacheInteract.QueueInsertBack:input_type -> QueueInsertInput
-	8, // 5: CacheInteract.QueueRemoveFront:input_type -> QueueRemoveInput
-	8, // 6: CacheInteract.QueueRemoveBack:input_type -> QueueRemoveInput
-	3, // 7: CacheInteract.MapInsert:output_type -> MapInsertResult
-	4, // 8: CacheInteract.MapFetch:output_type -> MapFetchResult
-	5, // 9: CacheInteract.MapDelete:output_type -> MapDeleteResult
-	7, // 10: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
-	7, // 11: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
-	9, // 12: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
-	9, // 13: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
-	7, // [7:14] is the sub-list for method output_type
-	0, // [0:7] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0,  // 0: CacheInteract.MapInsert:input_type -> MapInsertInput
+	1,  // 1: CacheInteract.MapFetch:input_type -> MapFetchInput
+	2,  // 2: CacheInteract.MapDelete:input_type -> MapDeleteInput
+	6,  // 3: CacheInteract.QueueInsertFront:input_type -> QueueInsertInput
+	6,  // 4: CacheInteract.QueueInsertBack:input_type -> QueueInsertInput
+	8,  // 5: CacheInteract.QueueRemoveFront:input_type -> QueueRemoveInput
+	8,  // 6: CacheInteract.QueueRemoveBack:input_type -> QueueRemoveInput
+	10, // 7: CacheInteract.InsertToSet:input_type -> InsertToSetInput
+	12, // 8: CacheInteract.GetSetValues:input_type -> GetSetValuesInput
+	14, // 9: CacheInteract.SetHasMember:input_type -> SetHasMemberInput
+	16, // 10: CacheInteract.SetRemoveMember:input_type -> SetRemoveMemberInput
+	3,  // 11: CacheInteract.MapInsert:output_type -> MapInsertResult
+	4,  // 12: CacheInteract.MapFetch:output_type -> MapFetchResult
+	5,  // 13: CacheInteract.MapDelete:output_type -> MapDeleteResult
+	7,  // 14: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
+	7,  // 15: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
+	9,  // 16: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
+	9,  // 17: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
+	11, // 18: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
+	13, // 19: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
+	15, // 20: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
+	17, // 21: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
+	11, // [11:22] is the sub-list for method output_type
+	0,  // [0:11] is the sub-list for method input_type
+	0,  // [0:0] is the sub-list for extension type_name
+	0,  // [0:0] is the sub-list for extension extendee
+	0,  // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_data_proto_init() }
@@ -572,7 +987,7 @@ func file_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_data_proto_rawDesc), len(file_data_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
