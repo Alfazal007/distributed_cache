@@ -42,6 +42,8 @@ const (
 	CacheInteract_InsertDataToHLL_FullMethodName      = "/CacheInteract/InsertDataToHLL"
 	CacheInteract_GetCountFromHLL_FullMethodName      = "/CacheInteract/GetCountFromHLL"
 	CacheInteract_MergeHll_FullMethodName             = "/CacheInteract/MergeHll"
+	CacheInteract_InsertToBf_FullMethodName           = "/CacheInteract/InsertToBf"
+	CacheInteract_ExistsInBf_FullMethodName           = "/CacheInteract/ExistsInBf"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -71,6 +73,8 @@ type CacheInteractClient interface {
 	InsertDataToHLL(ctx context.Context, in *InsertDataToHLLInput, opts ...grpc.CallOption) (*InsertDataToHLLOutput, error)
 	GetCountFromHLL(ctx context.Context, in *GetCountFromHLLInput, opts ...grpc.CallOption) (*GetCountFromHLLOutput, error)
 	MergeHll(ctx context.Context, in *MergeHllInput, opts ...grpc.CallOption) (*MergeHllOutput, error)
+	InsertToBf(ctx context.Context, in *InsertToBfInput, opts ...grpc.CallOption) (*InsertToBfOutput, error)
+	ExistsInBf(ctx context.Context, in *ExistsInBfInput, opts ...grpc.CallOption) (*ExistsInBfOutput, error)
 }
 
 type cacheInteractClient struct {
@@ -311,6 +315,26 @@ func (c *cacheInteractClient) MergeHll(ctx context.Context, in *MergeHllInput, o
 	return out, nil
 }
 
+func (c *cacheInteractClient) InsertToBf(ctx context.Context, in *InsertToBfInput, opts ...grpc.CallOption) (*InsertToBfOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InsertToBfOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_InsertToBf_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) ExistsInBf(ctx context.Context, in *ExistsInBfInput, opts ...grpc.CallOption) (*ExistsInBfOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ExistsInBfOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_ExistsInBf_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
@@ -338,6 +362,8 @@ type CacheInteractServer interface {
 	InsertDataToHLL(context.Context, *InsertDataToHLLInput) (*InsertDataToHLLOutput, error)
 	GetCountFromHLL(context.Context, *GetCountFromHLLInput) (*GetCountFromHLLOutput, error)
 	MergeHll(context.Context, *MergeHllInput) (*MergeHllOutput, error)
+	InsertToBf(context.Context, *InsertToBfInput) (*InsertToBfOutput, error)
+	ExistsInBf(context.Context, *ExistsInBfInput) (*ExistsInBfOutput, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -416,6 +442,12 @@ func (UnimplementedCacheInteractServer) GetCountFromHLL(context.Context, *GetCou
 }
 func (UnimplementedCacheInteractServer) MergeHll(context.Context, *MergeHllInput) (*MergeHllOutput, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MergeHll not implemented")
+}
+func (UnimplementedCacheInteractServer) InsertToBf(context.Context, *InsertToBfInput) (*InsertToBfOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InsertToBf not implemented")
+}
+func (UnimplementedCacheInteractServer) ExistsInBf(context.Context, *ExistsInBfInput) (*ExistsInBfOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExistsInBf not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -852,6 +884,42 @@ func _CacheInteract_MergeHll_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_InsertToBf_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InsertToBfInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).InsertToBf(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_InsertToBf_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).InsertToBf(ctx, req.(*InsertToBfInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_ExistsInBf_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExistsInBfInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).ExistsInBf(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_ExistsInBf_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).ExistsInBf(ctx, req.(*ExistsInBfInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -950,6 +1018,14 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "MergeHll",
 			Handler:    _CacheInteract_MergeHll_Handler,
+		},
+		{
+			MethodName: "InsertToBf",
+			Handler:    _CacheInteract_InsertToBf_Handler,
+		},
+		{
+			MethodName: "ExistsInBf",
+			Handler:    _CacheInteract_ExistsInBf_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

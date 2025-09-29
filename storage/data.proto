@@ -31,6 +31,9 @@ service CacheInteract {
   rpc InsertDataToHLL(InsertDataToHLLInput) returns (InsertDataToHLLOutput);
   rpc GetCountFromHLL(GetCountFromHLLInput) returns (GetCountFromHLLOutput);
   rpc MergeHll(MergeHllInput) returns (MergeHllOutput);
+
+  rpc InsertToBf(InsertToBfInput) returns (InsertToBfOutput);
+  rpc ExistsInBf(ExistsInBfInput) returns (ExistsInBfOutput);
 }
 
 message MapInsertInput {
@@ -215,4 +218,22 @@ message MergeHllInput {
 
 message MergeHllOutput {
   int64 count=1;
+}
+
+message InsertToBfInput {
+  string key=1;
+  bytes value=2;
+}
+
+message InsertToBfOutput {
+  bool success=1;
+}
+
+message ExistsInBfInput {
+  string key=1;
+  bytes value=2;
+}
+
+message ExistsInBfOutput {
+  bool exists=1;
 }

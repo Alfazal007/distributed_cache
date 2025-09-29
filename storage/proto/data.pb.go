@@ -1977,6 +1977,198 @@ func (x *MergeHllOutput) GetCount() int64 {
 	return 0
 }
 
+type InsertToBfInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         []byte                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertToBfInput) Reset() {
+	*x = InsertToBfInput{}
+	mi := &file_data_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertToBfInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertToBfInput) ProtoMessage() {}
+
+func (x *InsertToBfInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertToBfInput.ProtoReflect.Descriptor instead.
+func (*InsertToBfInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *InsertToBfInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *InsertToBfInput) GetValue() []byte {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+type InsertToBfOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertToBfOutput) Reset() {
+	*x = InsertToBfOutput{}
+	mi := &file_data_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertToBfOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertToBfOutput) ProtoMessage() {}
+
+func (x *InsertToBfOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertToBfOutput.ProtoReflect.Descriptor instead.
+func (*InsertToBfOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *InsertToBfOutput) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type ExistsInBfInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         []byte                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExistsInBfInput) Reset() {
+	*x = ExistsInBfInput{}
+	mi := &file_data_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExistsInBfInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExistsInBfInput) ProtoMessage() {}
+
+func (x *ExistsInBfInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExistsInBfInput.ProtoReflect.Descriptor instead.
+func (*ExistsInBfInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *ExistsInBfInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *ExistsInBfInput) GetValue() []byte {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+type ExistsInBfOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Exists        bool                   `protobuf:"varint,1,opt,name=exists,proto3" json:"exists,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ExistsInBfOutput) Reset() {
+	*x = ExistsInBfOutput{}
+	mi := &file_data_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ExistsInBfOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ExistsInBfOutput) ProtoMessage() {}
+
+func (x *ExistsInBfOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ExistsInBfOutput.ProtoReflect.Descriptor instead.
+func (*ExistsInBfOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *ExistsInBfOutput) GetExists() bool {
+	if x != nil {
+		return x.Exists
+	}
+	return false
+}
+
 var File_data_proto protoreflect.FileDescriptor
 
 const file_data_proto_rawDesc = "" +
@@ -2083,7 +2275,17 @@ const file_data_proto_rawDesc = "" +
 	"\x04key2\x18\x02 \x01(\tR\x04key2\x12\x12\n" +
 	"\x04dest\x18\x03 \x01(\tR\x04dest\"&\n" +
 	"\x0eMergeHllOutput\x12\x14\n" +
-	"\x05count\x18\x01 \x01(\x03R\x05count2\xb0\v\n" +
+	"\x05count\x18\x01 \x01(\x03R\x05count\"9\n" +
+	"\x0fInsertToBfInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\fR\x05value\",\n" +
+	"\x10InsertToBfOutput\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"9\n" +
+	"\x0fExistsInBfInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\fR\x05value\"*\n" +
+	"\x10ExistsInBfOutput\x12\x16\n" +
+	"\x06exists\x18\x01 \x01(\bR\x06exists2\x96\f\n" +
 	"\rCacheInteract\x12.\n" +
 	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResult\x12+\n" +
 	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResult\x12.\n" +
@@ -2107,7 +2309,11 @@ const file_data_proto_rawDesc = "" +
 	"\x12GetStreamRangeData\x12\x18.GetStreamRangeDataInput\x1a\x19.GetStreamRangeDataOutput\x12@\n" +
 	"\x0fInsertDataToHLL\x12\x15.InsertDataToHLLInput\x1a\x16.InsertDataToHLLOutput\x12@\n" +
 	"\x0fGetCountFromHLL\x12\x15.GetCountFromHLLInput\x1a\x16.GetCountFromHLLOutput\x12+\n" +
-	"\bMergeHll\x12\x0e.MergeHllInput\x1a\x0f.MergeHllOutputB\bZ\x06proto/b\x06proto3"
+	"\bMergeHll\x12\x0e.MergeHllInput\x1a\x0f.MergeHllOutput\x121\n" +
+	"\n" +
+	"InsertToBf\x12\x10.InsertToBfInput\x1a\x11.InsertToBfOutput\x121\n" +
+	"\n" +
+	"ExistsInBf\x12\x10.ExistsInBfInput\x1a\x11.ExistsInBfOutputB\bZ\x06proto/b\x06proto3"
 
 var (
 	file_data_proto_rawDescOnce sync.Once
@@ -2121,7 +2327,7 @@ func file_data_proto_rawDescGZIP() []byte {
 	return file_data_proto_rawDescData
 }
 
-var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
+var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
 var file_data_proto_goTypes = []any{
 	(*MapInsertInput)(nil),             // 0: MapInsertInput
 	(*MapFetchInput)(nil),              // 1: MapFetchInput
@@ -2164,6 +2370,10 @@ var file_data_proto_goTypes = []any{
 	(*GetCountFromHLLOutput)(nil),      // 38: GetCountFromHLLOutput
 	(*MergeHllInput)(nil),              // 39: MergeHllInput
 	(*MergeHllOutput)(nil),             // 40: MergeHllOutput
+	(*InsertToBfInput)(nil),            // 41: InsertToBfInput
+	(*InsertToBfOutput)(nil),           // 42: InsertToBfOutput
+	(*ExistsInBfInput)(nil),            // 43: ExistsInBfInput
+	(*ExistsInBfOutput)(nil),           // 44: ExistsInBfOutput
 }
 var file_data_proto_depIdxs = []int32{
 	28, // 0: GetRankMembersOutput.membersAndScore:type_name -> ScoreAndName
@@ -2190,31 +2400,35 @@ var file_data_proto_depIdxs = []int32{
 	35, // 21: CacheInteract.InsertDataToHLL:input_type -> InsertDataToHLLInput
 	37, // 22: CacheInteract.GetCountFromHLL:input_type -> GetCountFromHLLInput
 	39, // 23: CacheInteract.MergeHll:input_type -> MergeHllInput
-	3,  // 24: CacheInteract.MapInsert:output_type -> MapInsertResult
-	4,  // 25: CacheInteract.MapFetch:output_type -> MapFetchResult
-	5,  // 26: CacheInteract.MapDelete:output_type -> MapDeleteResult
-	7,  // 27: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
-	7,  // 28: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
-	9,  // 29: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
-	9,  // 30: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
-	11, // 31: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
-	13, // 32: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
-	15, // 33: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
-	17, // 34: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
-	19, // 35: CacheInteract.InsertToSortedSet:output_type -> InsertToSortedSetOutput
-	21, // 36: CacheInteract.RemoveFromSortedSet:output_type -> RemoveFromSortedSetOutput
-	23, // 37: CacheInteract.GetScoreSortedSet:output_type -> GetScoreSortedSetOutput
-	25, // 38: CacheInteract.GetRankSortedSet:output_type -> GetRankSortedSetOutput
-	27, // 39: CacheInteract.GetRankMembersAsc:output_type -> GetRankMembersOutput
-	27, // 40: CacheInteract.GetRankMembersDesc:output_type -> GetRankMembersOutput
-	30, // 41: CacheInteract.InsertDataToStream:output_type -> InsertDataToStreamOutput
-	32, // 42: CacheInteract.RemoveDataFromStream:output_type -> RemoveDataFromStreamOutput
-	34, // 43: CacheInteract.GetStreamRangeData:output_type -> GetStreamRangeDataOutput
-	36, // 44: CacheInteract.InsertDataToHLL:output_type -> InsertDataToHLLOutput
-	38, // 45: CacheInteract.GetCountFromHLL:output_type -> GetCountFromHLLOutput
-	40, // 46: CacheInteract.MergeHll:output_type -> MergeHllOutput
-	24, // [24:47] is the sub-list for method output_type
-	1,  // [1:24] is the sub-list for method input_type
+	41, // 24: CacheInteract.InsertToBf:input_type -> InsertToBfInput
+	43, // 25: CacheInteract.ExistsInBf:input_type -> ExistsInBfInput
+	3,  // 26: CacheInteract.MapInsert:output_type -> MapInsertResult
+	4,  // 27: CacheInteract.MapFetch:output_type -> MapFetchResult
+	5,  // 28: CacheInteract.MapDelete:output_type -> MapDeleteResult
+	7,  // 29: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
+	7,  // 30: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
+	9,  // 31: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
+	9,  // 32: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
+	11, // 33: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
+	13, // 34: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
+	15, // 35: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
+	17, // 36: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
+	19, // 37: CacheInteract.InsertToSortedSet:output_type -> InsertToSortedSetOutput
+	21, // 38: CacheInteract.RemoveFromSortedSet:output_type -> RemoveFromSortedSetOutput
+	23, // 39: CacheInteract.GetScoreSortedSet:output_type -> GetScoreSortedSetOutput
+	25, // 40: CacheInteract.GetRankSortedSet:output_type -> GetRankSortedSetOutput
+	27, // 41: CacheInteract.GetRankMembersAsc:output_type -> GetRankMembersOutput
+	27, // 42: CacheInteract.GetRankMembersDesc:output_type -> GetRankMembersOutput
+	30, // 43: CacheInteract.InsertDataToStream:output_type -> InsertDataToStreamOutput
+	32, // 44: CacheInteract.RemoveDataFromStream:output_type -> RemoveDataFromStreamOutput
+	34, // 45: CacheInteract.GetStreamRangeData:output_type -> GetStreamRangeDataOutput
+	36, // 46: CacheInteract.InsertDataToHLL:output_type -> InsertDataToHLLOutput
+	38, // 47: CacheInteract.GetCountFromHLL:output_type -> GetCountFromHLLOutput
+	40, // 48: CacheInteract.MergeHll:output_type -> MergeHllOutput
+	42, // 49: CacheInteract.InsertToBf:output_type -> InsertToBfOutput
+	44, // 50: CacheInteract.ExistsInBf:output_type -> ExistsInBfOutput
+	26, // [26:51] is the sub-list for method output_type
+	1,  // [1:26] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -2231,7 +2445,7 @@ func file_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_data_proto_rawDesc), len(file_data_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   41,
+			NumMessages:   45,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

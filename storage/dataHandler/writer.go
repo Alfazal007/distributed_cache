@@ -1,6 +1,7 @@
 package datahandler
 
 import (
+	bloomfilterhandler "cacheServer/bloomFilterHandler"
 	"cacheServer/config"
 	hyperlogloghandler "cacheServer/hyperloglogHandler"
 	maphandler "cacheServer/mapHandler"
@@ -17,6 +18,7 @@ type Writer struct {
 	SortedSet   sortedsethandler.SortedSetStruct
 	Stream      streamhandler.StreamHandler
 	HyperLogLog hyperlogloghandler.HyperLogLogStruct
+	BloomFilter bloomfilterhandler.BloomFilterHander
 }
 
 func (writer *Writer) WriteToHashMap(key string, value []byte) bool {
@@ -214,4 +216,14 @@ func (writer *Writer) MergeHll(key1, key2, dest string) int {
 	count, sizeAdded := writer.HyperLogLog.CombineHll(key1, key2, dest)
 	config.CURRENTSIZE += sizeAdded
 	return count
+}
+
+func (writer *Writer) AddToBf(key string, value []byte) {
+	sizeAdded := writer.BloomFilter.InsertToBF(key, value)
+	config.CURRENTSIZE += sizeAdded
+}
+
+func (writer *Writer) ExistsInBf(key string, value []byte) bool {
+	exists := writer.BloomFilter.Exists(key, value)
+	return exists
 }
