@@ -2,6 +2,7 @@ package datahandler
 
 import (
 	"cacheServer/config"
+	hyperlogloghandler "cacheServer/hyperloglogHandler"
 	maphandler "cacheServer/mapHandler"
 	queuehandler "cacheServer/queueHandler"
 	sethandler "cacheServer/setHandler"
@@ -10,11 +11,12 @@ import (
 )
 
 type Writer struct {
-	HashMap   maphandler.Map
-	Queue     queuehandler.Queue
-	Set       sethandler.SetData
-	SortedSet sortedsethandler.SortedSetStruct
-	Stream    streamhandler.StreamHandler
+	HashMap     maphandler.Map
+	Queue       queuehandler.Queue
+	Set         sethandler.SetData
+	SortedSet   sortedsethandler.SortedSetStruct
+	Stream      streamhandler.StreamHandler
+	HyperLogLog hyperlogloghandler.HyperLogLogStruct
 }
 
 func (writer *Writer) WriteToHashMap(key string, value []byte) bool {
@@ -190,4 +192,26 @@ func (writer *Writer) RemoveDataFromStream(key string, id int64) bool {
 func (writer *Writer) GetStreamDataRange(key string, start int64, end int64) [][]byte {
 	data := writer.Stream.ReturnSteamData(start, end, key)
 	return data
+}
+
+func (writer *Writer) InsertIntoHll(key string, value []byte) bool {
+	if !writer.HyperLogLog.HasKey(key) {
+		if config.CURRENTSIZE+65536 > config.TOTALSIZE {
+			return false
+		}
+	}
+	size := writer.HyperLogLog.InsertData(key, value)
+	config.CURRENTSIZE += int(size)
+	return true
+}
+
+func (writer *Writer) ReturnCountHll(key string) int {
+	count := writer.HyperLogLog.ReturnCount(key)
+	return count
+}
+
+func (writer *Writer) MergeHll(key1, key2, dest string) int {
+	count, sizeAdded := writer.HyperLogLog.CombineHll(key1, key2, dest)
+	config.CURRENTSIZE += sizeAdded
+	return count
 }

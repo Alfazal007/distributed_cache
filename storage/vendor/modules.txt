@@ -1,3 +1,12 @@
+# github.com/axiomhq/hyperloglog v0.2.5
+## explicit; go 1.23
+github.com/axiomhq/hyperloglog
+# github.com/dgryski/go-metro v0.0.0-20180109044635-280f6062b5bc
+## explicit
+github.com/dgryski/go-metro
+# github.com/kamstrup/intmap v0.5.1
+## explicit; go 1.23
+github.com/kamstrup/intmap
 # github.com/ryszard/goskiplist v0.0.0-20150312221310-2dfbae5fcf46
 ## explicit
 github.com/ryszard/goskiplist/skiplist

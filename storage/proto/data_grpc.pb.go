@@ -39,6 +39,9 @@ const (
 	CacheInteract_InsertDataToStream_FullMethodName   = "/CacheInteract/InsertDataToStream"
 	CacheInteract_RemoveDataFromStream_FullMethodName = "/CacheInteract/RemoveDataFromStream"
 	CacheInteract_GetStreamRangeData_FullMethodName   = "/CacheInteract/GetStreamRangeData"
+	CacheInteract_InsertDataToHLL_FullMethodName      = "/CacheInteract/InsertDataToHLL"
+	CacheInteract_GetCountFromHLL_FullMethodName      = "/CacheInteract/GetCountFromHLL"
+	CacheInteract_MergeHll_FullMethodName             = "/CacheInteract/MergeHll"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -65,6 +68,9 @@ type CacheInteractClient interface {
 	InsertDataToStream(ctx context.Context, in *InsertDataToStreamInput, opts ...grpc.CallOption) (*InsertDataToStreamOutput, error)
 	RemoveDataFromStream(ctx context.Context, in *RemoveDataFromStreamInput, opts ...grpc.CallOption) (*RemoveDataFromStreamOutput, error)
 	GetStreamRangeData(ctx context.Context, in *GetStreamRangeDataInput, opts ...grpc.CallOption) (*GetStreamRangeDataOutput, error)
+	InsertDataToHLL(ctx context.Context, in *InsertDataToHLLInput, opts ...grpc.CallOption) (*InsertDataToHLLOutput, error)
+	GetCountFromHLL(ctx context.Context, in *GetCountFromHLLInput, opts ...grpc.CallOption) (*GetCountFromHLLOutput, error)
+	MergeHll(ctx context.Context, in *MergeHllInput, opts ...grpc.CallOption) (*MergeHllOutput, error)
 }
 
 type cacheInteractClient struct {
@@ -275,6 +281,36 @@ func (c *cacheInteractClient) GetStreamRangeData(ctx context.Context, in *GetStr
 	return out, nil
 }
 
+func (c *cacheInteractClient) InsertDataToHLL(ctx context.Context, in *InsertDataToHLLInput, opts ...grpc.CallOption) (*InsertDataToHLLOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InsertDataToHLLOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_InsertDataToHLL_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) GetCountFromHLL(ctx context.Context, in *GetCountFromHLLInput, opts ...grpc.CallOption) (*GetCountFromHLLOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCountFromHLLOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_GetCountFromHLL_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) MergeHll(ctx context.Context, in *MergeHllInput, opts ...grpc.CallOption) (*MergeHllOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(MergeHllOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_MergeHll_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
@@ -299,6 +335,9 @@ type CacheInteractServer interface {
 	InsertDataToStream(context.Context, *InsertDataToStreamInput) (*InsertDataToStreamOutput, error)
 	RemoveDataFromStream(context.Context, *RemoveDataFromStreamInput) (*RemoveDataFromStreamOutput, error)
 	GetStreamRangeData(context.Context, *GetStreamRangeDataInput) (*GetStreamRangeDataOutput, error)
+	InsertDataToHLL(context.Context, *InsertDataToHLLInput) (*InsertDataToHLLOutput, error)
+	GetCountFromHLL(context.Context, *GetCountFromHLLInput) (*GetCountFromHLLOutput, error)
+	MergeHll(context.Context, *MergeHllInput) (*MergeHllOutput, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -368,6 +407,15 @@ func (UnimplementedCacheInteractServer) RemoveDataFromStream(context.Context, *R
 }
 func (UnimplementedCacheInteractServer) GetStreamRangeData(context.Context, *GetStreamRangeDataInput) (*GetStreamRangeDataOutput, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStreamRangeData not implemented")
+}
+func (UnimplementedCacheInteractServer) InsertDataToHLL(context.Context, *InsertDataToHLLInput) (*InsertDataToHLLOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InsertDataToHLL not implemented")
+}
+func (UnimplementedCacheInteractServer) GetCountFromHLL(context.Context, *GetCountFromHLLInput) (*GetCountFromHLLOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCountFromHLL not implemented")
+}
+func (UnimplementedCacheInteractServer) MergeHll(context.Context, *MergeHllInput) (*MergeHllOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MergeHll not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -750,6 +798,60 @@ func _CacheInteract_GetStreamRangeData_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_InsertDataToHLL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InsertDataToHLLInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).InsertDataToHLL(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_InsertDataToHLL_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).InsertDataToHLL(ctx, req.(*InsertDataToHLLInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_GetCountFromHLL_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCountFromHLLInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).GetCountFromHLL(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_GetCountFromHLL_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).GetCountFromHLL(ctx, req.(*GetCountFromHLLInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_MergeHll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MergeHllInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).MergeHll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_MergeHll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).MergeHll(ctx, req.(*MergeHllInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -836,6 +938,18 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStreamRangeData",
 			Handler:    _CacheInteract_GetStreamRangeData_Handler,
+		},
+		{
+			MethodName: "InsertDataToHLL",
+			Handler:    _CacheInteract_InsertDataToHLL_Handler,
+		},
+		{
+			MethodName: "GetCountFromHLL",
+			Handler:    _CacheInteract_GetCountFromHLL_Handler,
+		},
+		{
+			MethodName: "MergeHll",
+			Handler:    _CacheInteract_MergeHll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -1689,6 +1689,294 @@ func (x *GetStreamRangeDataOutput) GetValue() [][]byte {
 	return nil
 }
 
+type InsertDataToHLLInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         []byte                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertDataToHLLInput) Reset() {
+	*x = InsertDataToHLLInput{}
+	mi := &file_data_proto_msgTypes[35]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertDataToHLLInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertDataToHLLInput) ProtoMessage() {}
+
+func (x *InsertDataToHLLInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[35]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertDataToHLLInput.ProtoReflect.Descriptor instead.
+func (*InsertDataToHLLInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{35}
+}
+
+func (x *InsertDataToHLLInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *InsertDataToHLLInput) GetValue() []byte {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+type InsertDataToHLLOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertDataToHLLOutput) Reset() {
+	*x = InsertDataToHLLOutput{}
+	mi := &file_data_proto_msgTypes[36]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertDataToHLLOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertDataToHLLOutput) ProtoMessage() {}
+
+func (x *InsertDataToHLLOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[36]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertDataToHLLOutput.ProtoReflect.Descriptor instead.
+func (*InsertDataToHLLOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{36}
+}
+
+func (x *InsertDataToHLLOutput) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type GetCountFromHLLInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCountFromHLLInput) Reset() {
+	*x = GetCountFromHLLInput{}
+	mi := &file_data_proto_msgTypes[37]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCountFromHLLInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCountFromHLLInput) ProtoMessage() {}
+
+func (x *GetCountFromHLLInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[37]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCountFromHLLInput.ProtoReflect.Descriptor instead.
+func (*GetCountFromHLLInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{37}
+}
+
+func (x *GetCountFromHLLInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+type GetCountFromHLLOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Count         int64                  `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetCountFromHLLOutput) Reset() {
+	*x = GetCountFromHLLOutput{}
+	mi := &file_data_proto_msgTypes[38]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetCountFromHLLOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetCountFromHLLOutput) ProtoMessage() {}
+
+func (x *GetCountFromHLLOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[38]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetCountFromHLLOutput.ProtoReflect.Descriptor instead.
+func (*GetCountFromHLLOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{38}
+}
+
+func (x *GetCountFromHLLOutput) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+type MergeHllInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key1          string                 `protobuf:"bytes,1,opt,name=key1,proto3" json:"key1,omitempty"`
+	Key2          string                 `protobuf:"bytes,2,opt,name=key2,proto3" json:"key2,omitempty"`
+	Dest          string                 `protobuf:"bytes,3,opt,name=dest,proto3" json:"dest,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MergeHllInput) Reset() {
+	*x = MergeHllInput{}
+	mi := &file_data_proto_msgTypes[39]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MergeHllInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MergeHllInput) ProtoMessage() {}
+
+func (x *MergeHllInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[39]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MergeHllInput.ProtoReflect.Descriptor instead.
+func (*MergeHllInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{39}
+}
+
+func (x *MergeHllInput) GetKey1() string {
+	if x != nil {
+		return x.Key1
+	}
+	return ""
+}
+
+func (x *MergeHllInput) GetKey2() string {
+	if x != nil {
+		return x.Key2
+	}
+	return ""
+}
+
+func (x *MergeHllInput) GetDest() string {
+	if x != nil {
+		return x.Dest
+	}
+	return ""
+}
+
+type MergeHllOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Count         int64                  `protobuf:"varint,1,opt,name=count,proto3" json:"count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MergeHllOutput) Reset() {
+	*x = MergeHllOutput{}
+	mi := &file_data_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MergeHllOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MergeHllOutput) ProtoMessage() {}
+
+func (x *MergeHllOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MergeHllOutput.ProtoReflect.Descriptor instead.
+func (*MergeHllOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *MergeHllOutput) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
 var File_data_proto protoreflect.FileDescriptor
 
 const file_data_proto_rawDesc = "" +
@@ -1780,7 +2068,22 @@ const file_data_proto_rawDesc = "" +
 	"\x05start\x18\x02 \x01(\x03R\x05start\x12\x10\n" +
 	"\x03end\x18\x03 \x01(\x03R\x03end\"0\n" +
 	"\x18GetStreamRangeDataOutput\x12\x14\n" +
-	"\x05value\x18\x01 \x03(\fR\x05value2\xff\t\n" +
+	"\x05value\x18\x01 \x03(\fR\x05value\">\n" +
+	"\x14InsertDataToHLLInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\fR\x05value\"1\n" +
+	"\x15InsertDataToHLLOutput\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"(\n" +
+	"\x14GetCountFromHLLInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\"-\n" +
+	"\x15GetCountFromHLLOutput\x12\x14\n" +
+	"\x05count\x18\x01 \x01(\x03R\x05count\"K\n" +
+	"\rMergeHllInput\x12\x12\n" +
+	"\x04key1\x18\x01 \x01(\tR\x04key1\x12\x12\n" +
+	"\x04key2\x18\x02 \x01(\tR\x04key2\x12\x12\n" +
+	"\x04dest\x18\x03 \x01(\tR\x04dest\"&\n" +
+	"\x0eMergeHllOutput\x12\x14\n" +
+	"\x05count\x18\x01 \x01(\x03R\x05count2\xb0\v\n" +
 	"\rCacheInteract\x12.\n" +
 	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResult\x12+\n" +
 	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResult\x12.\n" +
@@ -1801,7 +2104,10 @@ const file_data_proto_rawDesc = "" +
 	"\x12GetRankMembersDesc\x12\x14.GetRankMembersInput\x1a\x15.GetRankMembersOutput\x12I\n" +
 	"\x12InsertDataToStream\x12\x18.InsertDataToStreamInput\x1a\x19.InsertDataToStreamOutput\x12O\n" +
 	"\x14RemoveDataFromStream\x12\x1a.RemoveDataFromStreamInput\x1a\x1b.RemoveDataFromStreamOutput\x12I\n" +
-	"\x12GetStreamRangeData\x12\x18.GetStreamRangeDataInput\x1a\x19.GetStreamRangeDataOutputB\bZ\x06proto/b\x06proto3"
+	"\x12GetStreamRangeData\x12\x18.GetStreamRangeDataInput\x1a\x19.GetStreamRangeDataOutput\x12@\n" +
+	"\x0fInsertDataToHLL\x12\x15.InsertDataToHLLInput\x1a\x16.InsertDataToHLLOutput\x12@\n" +
+	"\x0fGetCountFromHLL\x12\x15.GetCountFromHLLInput\x1a\x16.GetCountFromHLLOutput\x12+\n" +
+	"\bMergeHll\x12\x0e.MergeHllInput\x1a\x0f.MergeHllOutputB\bZ\x06proto/b\x06proto3"
 
 var (
 	file_data_proto_rawDescOnce sync.Once
@@ -1815,7 +2121,7 @@ func file_data_proto_rawDescGZIP() []byte {
 	return file_data_proto_rawDescData
 }
 
-var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
+var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
 var file_data_proto_goTypes = []any{
 	(*MapInsertInput)(nil),             // 0: MapInsertInput
 	(*MapFetchInput)(nil),              // 1: MapFetchInput
@@ -1852,6 +2158,12 @@ var file_data_proto_goTypes = []any{
 	(*RemoveDataFromStreamOutput)(nil), // 32: RemoveDataFromStreamOutput
 	(*GetStreamRangeDataInput)(nil),    // 33: GetStreamRangeDataInput
 	(*GetStreamRangeDataOutput)(nil),   // 34: GetStreamRangeDataOutput
+	(*InsertDataToHLLInput)(nil),       // 35: InsertDataToHLLInput
+	(*InsertDataToHLLOutput)(nil),      // 36: InsertDataToHLLOutput
+	(*GetCountFromHLLInput)(nil),       // 37: GetCountFromHLLInput
+	(*GetCountFromHLLOutput)(nil),      // 38: GetCountFromHLLOutput
+	(*MergeHllInput)(nil),              // 39: MergeHllInput
+	(*MergeHllOutput)(nil),             // 40: MergeHllOutput
 }
 var file_data_proto_depIdxs = []int32{
 	28, // 0: GetRankMembersOutput.membersAndScore:type_name -> ScoreAndName
@@ -1875,28 +2187,34 @@ var file_data_proto_depIdxs = []int32{
 	29, // 18: CacheInteract.InsertDataToStream:input_type -> InsertDataToStreamInput
 	31, // 19: CacheInteract.RemoveDataFromStream:input_type -> RemoveDataFromStreamInput
 	33, // 20: CacheInteract.GetStreamRangeData:input_type -> GetStreamRangeDataInput
-	3,  // 21: CacheInteract.MapInsert:output_type -> MapInsertResult
-	4,  // 22: CacheInteract.MapFetch:output_type -> MapFetchResult
-	5,  // 23: CacheInteract.MapDelete:output_type -> MapDeleteResult
-	7,  // 24: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
-	7,  // 25: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
-	9,  // 26: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
-	9,  // 27: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
-	11, // 28: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
-	13, // 29: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
-	15, // 30: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
-	17, // 31: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
-	19, // 32: CacheInteract.InsertToSortedSet:output_type -> InsertToSortedSetOutput
-	21, // 33: CacheInteract.RemoveFromSortedSet:output_type -> RemoveFromSortedSetOutput
-	23, // 34: CacheInteract.GetScoreSortedSet:output_type -> GetScoreSortedSetOutput
-	25, // 35: CacheInteract.GetRankSortedSet:output_type -> GetRankSortedSetOutput
-	27, // 36: CacheInteract.GetRankMembersAsc:output_type -> GetRankMembersOutput
-	27, // 37: CacheInteract.GetRankMembersDesc:output_type -> GetRankMembersOutput
-	30, // 38: CacheInteract.InsertDataToStream:output_type -> InsertDataToStreamOutput
-	32, // 39: CacheInteract.RemoveDataFromStream:output_type -> RemoveDataFromStreamOutput
-	34, // 40: CacheInteract.GetStreamRangeData:output_type -> GetStreamRangeDataOutput
-	21, // [21:41] is the sub-list for method output_type
-	1,  // [1:21] is the sub-list for method input_type
+	35, // 21: CacheInteract.InsertDataToHLL:input_type -> InsertDataToHLLInput
+	37, // 22: CacheInteract.GetCountFromHLL:input_type -> GetCountFromHLLInput
+	39, // 23: CacheInteract.MergeHll:input_type -> MergeHllInput
+	3,  // 24: CacheInteract.MapInsert:output_type -> MapInsertResult
+	4,  // 25: CacheInteract.MapFetch:output_type -> MapFetchResult
+	5,  // 26: CacheInteract.MapDelete:output_type -> MapDeleteResult
+	7,  // 27: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
+	7,  // 28: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
+	9,  // 29: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
+	9,  // 30: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
+	11, // 31: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
+	13, // 32: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
+	15, // 33: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
+	17, // 34: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
+	19, // 35: CacheInteract.InsertToSortedSet:output_type -> InsertToSortedSetOutput
+	21, // 36: CacheInteract.RemoveFromSortedSet:output_type -> RemoveFromSortedSetOutput
+	23, // 37: CacheInteract.GetScoreSortedSet:output_type -> GetScoreSortedSetOutput
+	25, // 38: CacheInteract.GetRankSortedSet:output_type -> GetRankSortedSetOutput
+	27, // 39: CacheInteract.GetRankMembersAsc:output_type -> GetRankMembersOutput
+	27, // 40: CacheInteract.GetRankMembersDesc:output_type -> GetRankMembersOutput
+	30, // 41: CacheInteract.InsertDataToStream:output_type -> InsertDataToStreamOutput
+	32, // 42: CacheInteract.RemoveDataFromStream:output_type -> RemoveDataFromStreamOutput
+	34, // 43: CacheInteract.GetStreamRangeData:output_type -> GetStreamRangeDataOutput
+	36, // 44: CacheInteract.InsertDataToHLL:output_type -> InsertDataToHLLOutput
+	38, // 45: CacheInteract.GetCountFromHLL:output_type -> GetCountFromHLLOutput
+	40, // 46: CacheInteract.MergeHll:output_type -> MergeHllOutput
+	24, // [24:47] is the sub-list for method output_type
+	1,  // [1:24] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -1913,7 +2231,7 @@ func file_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_data_proto_rawDesc), len(file_data_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   35,
+			NumMessages:   41,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -3,6 +3,7 @@ package main
 import (
 	datahandler "cacheServer/dataHandler"
 	"cacheServer/grpc"
+	hyperlogloghandler "cacheServer/hyperloglogHandler"
 	maphandler "cacheServer/mapHandler"
 	"cacheServer/proto"
 	queuehandler "cacheServer/queueHandler"
@@ -13,6 +14,7 @@ import (
 	"net"
 	"time"
 
+	"github.com/axiomhq/hyperloglog"
 	"google.golang.org/grpc"
 )
 
@@ -33,6 +35,9 @@ func main() {
 		},
 		Stream: streamhandler.StreamHandler{
 			Data: make(map[string][]streamhandler.StreamData),
+		},
+		HyperLogLog: hyperlogloghandler.HyperLogLogStruct{
+			Hyperloglog: make(map[string]*hyperloglog.Sketch),
 		},
 	}
 	proto.RegisterCacheInteractServer(s, &server.Server{
