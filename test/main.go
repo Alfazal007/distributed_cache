@@ -2,49 +2,47 @@ package main
 
 import (
 	"fmt"
-	"github.com/ryszard/goskiplist/skiplist"
+	"sync"
+	"time"
 )
 
-// ScoreKey is a composite key: first by score, then by name
-type ScoreKey struct {
-	Score int
-	Name  string
-}
-
-// Comparator: ascending by score, then by name
-func scoreKeyComparator(a, b any) bool {
-	keyA := a.(ScoreKey)
-	keyB := b.(ScoreKey)
-	if keyA.Score == keyB.Score {
-		return keyA.Name < keyB.Name
-	}
-	return keyA.Score < keyB.Score
-}
-
 func main() {
-	sl := skiplist.NewCustomMap(scoreKeyComparator)
+	mu := sync.Mutex{}
+	cond := sync.NewCond(&mu)
 
-	// Insert leaderboard entries
-	sl.Set(ScoreKey{100, "Alice"}, nil)
-	sl.Set(ScoreKey{200, "Bob"}, nil)
-	sl.Set(ScoreKey{150, "Charlie"}, nil)
-	sl.Set(ScoreKey{100, "David"}, nil)
-	sl.Set(ScoreKey{200, "Eve"}, nil)
+	var data int
+	version := 0
 
-	// Ascending order
-	fmt.Println("Leaderboard (ascending):")
-	for iter := sl.Iterator(); iter.Next(); {
-		key := iter.Key().(ScoreKey)
-		fmt.Printf("%s => %d\n", key.Name, key.Score)
+	// Producer
+	go func() {
+		for i := 1; i <= 5; i++ {
+			time.Sleep(time.Second)
+			mu.Lock()
+			data = i
+			version++ // new data version
+			fmt.Println("Produced:", i)
+			cond.Broadcast()
+			mu.Unlock()
+		}
+	}()
+
+	// Consumer function
+	consumer := func(id int) {
+		lastSeen := 0
+		for {
+			mu.Lock()
+			for lastSeen == version { // wait for new version
+				cond.Wait()
+			}
+			fmt.Printf("Consumer %d got: %d\n", id, data)
+			lastSeen = version
+			mu.Unlock()
+			time.Sleep(500 * time.Millisecond)
+		}
 	}
 
-	// Descending order: collect into slice, then print in reverse
-	fmt.Println("\nLeaderboard (descending):")
-	var keys []ScoreKey
-	for iter := sl.Iterator(); iter.Next(); {
-		keys = append(keys, iter.Key().(ScoreKey))
-	}
-	for i := len(keys) - 1; i >= 0; i-- {
-		fmt.Printf("%s => %d\n", keys[i].Name, keys[i].Score)
-	}
+	go consumer(1)
+	go consumer(2)
+
+	time.Sleep(10 * time.Second)
 }

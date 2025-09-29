@@ -19,23 +19,26 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CacheInteract_MapInsert_FullMethodName           = "/CacheInteract/MapInsert"
-	CacheInteract_MapFetch_FullMethodName            = "/CacheInteract/MapFetch"
-	CacheInteract_MapDelete_FullMethodName           = "/CacheInteract/MapDelete"
-	CacheInteract_QueueInsertFront_FullMethodName    = "/CacheInteract/QueueInsertFront"
-	CacheInteract_QueueInsertBack_FullMethodName     = "/CacheInteract/QueueInsertBack"
-	CacheInteract_QueueRemoveFront_FullMethodName    = "/CacheInteract/QueueRemoveFront"
-	CacheInteract_QueueRemoveBack_FullMethodName     = "/CacheInteract/QueueRemoveBack"
-	CacheInteract_InsertToSet_FullMethodName         = "/CacheInteract/InsertToSet"
-	CacheInteract_GetSetValues_FullMethodName        = "/CacheInteract/GetSetValues"
-	CacheInteract_SetHasMember_FullMethodName        = "/CacheInteract/SetHasMember"
-	CacheInteract_SetRemoveMember_FullMethodName     = "/CacheInteract/SetRemoveMember"
-	CacheInteract_InsertToSortedSet_FullMethodName   = "/CacheInteract/InsertToSortedSet"
-	CacheInteract_RemoveFromSortedSet_FullMethodName = "/CacheInteract/RemoveFromSortedSet"
-	CacheInteract_GetScoreSortedSet_FullMethodName   = "/CacheInteract/GetScoreSortedSet"
-	CacheInteract_GetRankSortedSet_FullMethodName    = "/CacheInteract/GetRankSortedSet"
-	CacheInteract_GetRankMembersAsc_FullMethodName   = "/CacheInteract/GetRankMembersAsc"
-	CacheInteract_GetRankMembersDesc_FullMethodName  = "/CacheInteract/GetRankMembersDesc"
+	CacheInteract_MapInsert_FullMethodName            = "/CacheInteract/MapInsert"
+	CacheInteract_MapFetch_FullMethodName             = "/CacheInteract/MapFetch"
+	CacheInteract_MapDelete_FullMethodName            = "/CacheInteract/MapDelete"
+	CacheInteract_QueueInsertFront_FullMethodName     = "/CacheInteract/QueueInsertFront"
+	CacheInteract_QueueInsertBack_FullMethodName      = "/CacheInteract/QueueInsertBack"
+	CacheInteract_QueueRemoveFront_FullMethodName     = "/CacheInteract/QueueRemoveFront"
+	CacheInteract_QueueRemoveBack_FullMethodName      = "/CacheInteract/QueueRemoveBack"
+	CacheInteract_InsertToSet_FullMethodName          = "/CacheInteract/InsertToSet"
+	CacheInteract_GetSetValues_FullMethodName         = "/CacheInteract/GetSetValues"
+	CacheInteract_SetHasMember_FullMethodName         = "/CacheInteract/SetHasMember"
+	CacheInteract_SetRemoveMember_FullMethodName      = "/CacheInteract/SetRemoveMember"
+	CacheInteract_InsertToSortedSet_FullMethodName    = "/CacheInteract/InsertToSortedSet"
+	CacheInteract_RemoveFromSortedSet_FullMethodName  = "/CacheInteract/RemoveFromSortedSet"
+	CacheInteract_GetScoreSortedSet_FullMethodName    = "/CacheInteract/GetScoreSortedSet"
+	CacheInteract_GetRankSortedSet_FullMethodName     = "/CacheInteract/GetRankSortedSet"
+	CacheInteract_GetRankMembersAsc_FullMethodName    = "/CacheInteract/GetRankMembersAsc"
+	CacheInteract_GetRankMembersDesc_FullMethodName   = "/CacheInteract/GetRankMembersDesc"
+	CacheInteract_InsertDataToStream_FullMethodName   = "/CacheInteract/InsertDataToStream"
+	CacheInteract_RemoveDataFromStream_FullMethodName = "/CacheInteract/RemoveDataFromStream"
+	CacheInteract_GetStreamRangeData_FullMethodName   = "/CacheInteract/GetStreamRangeData"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -59,6 +62,9 @@ type CacheInteractClient interface {
 	GetRankSortedSet(ctx context.Context, in *GetRankSortedSetInput, opts ...grpc.CallOption) (*GetRankSortedSetOutput, error)
 	GetRankMembersAsc(ctx context.Context, in *GetRankMembersInput, opts ...grpc.CallOption) (*GetRankMembersOutput, error)
 	GetRankMembersDesc(ctx context.Context, in *GetRankMembersInput, opts ...grpc.CallOption) (*GetRankMembersOutput, error)
+	InsertDataToStream(ctx context.Context, in *InsertDataToStreamInput, opts ...grpc.CallOption) (*InsertDataToStreamOutput, error)
+	RemoveDataFromStream(ctx context.Context, in *RemoveDataFromStreamInput, opts ...grpc.CallOption) (*RemoveDataFromStreamOutput, error)
+	GetStreamRangeData(ctx context.Context, in *GetStreamRangeDataInput, opts ...grpc.CallOption) (*GetStreamRangeDataOutput, error)
 }
 
 type cacheInteractClient struct {
@@ -239,6 +245,36 @@ func (c *cacheInteractClient) GetRankMembersDesc(ctx context.Context, in *GetRan
 	return out, nil
 }
 
+func (c *cacheInteractClient) InsertDataToStream(ctx context.Context, in *InsertDataToStreamInput, opts ...grpc.CallOption) (*InsertDataToStreamOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InsertDataToStreamOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_InsertDataToStream_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) RemoveDataFromStream(ctx context.Context, in *RemoveDataFromStreamInput, opts ...grpc.CallOption) (*RemoveDataFromStreamOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RemoveDataFromStreamOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_RemoveDataFromStream_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cacheInteractClient) GetStreamRangeData(ctx context.Context, in *GetStreamRangeDataInput, opts ...grpc.CallOption) (*GetStreamRangeDataOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetStreamRangeDataOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_GetStreamRangeData_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
@@ -260,6 +296,9 @@ type CacheInteractServer interface {
 	GetRankSortedSet(context.Context, *GetRankSortedSetInput) (*GetRankSortedSetOutput, error)
 	GetRankMembersAsc(context.Context, *GetRankMembersInput) (*GetRankMembersOutput, error)
 	GetRankMembersDesc(context.Context, *GetRankMembersInput) (*GetRankMembersOutput, error)
+	InsertDataToStream(context.Context, *InsertDataToStreamInput) (*InsertDataToStreamOutput, error)
+	RemoveDataFromStream(context.Context, *RemoveDataFromStreamInput) (*RemoveDataFromStreamOutput, error)
+	GetStreamRangeData(context.Context, *GetStreamRangeDataInput) (*GetStreamRangeDataOutput, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -320,6 +359,15 @@ func (UnimplementedCacheInteractServer) GetRankMembersAsc(context.Context, *GetR
 }
 func (UnimplementedCacheInteractServer) GetRankMembersDesc(context.Context, *GetRankMembersInput) (*GetRankMembersOutput, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRankMembersDesc not implemented")
+}
+func (UnimplementedCacheInteractServer) InsertDataToStream(context.Context, *InsertDataToStreamInput) (*InsertDataToStreamOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InsertDataToStream not implemented")
+}
+func (UnimplementedCacheInteractServer) RemoveDataFromStream(context.Context, *RemoveDataFromStreamInput) (*RemoveDataFromStreamOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveDataFromStream not implemented")
+}
+func (UnimplementedCacheInteractServer) GetStreamRangeData(context.Context, *GetStreamRangeDataInput) (*GetStreamRangeDataOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStreamRangeData not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -648,6 +696,60 @@ func _CacheInteract_GetRankMembersDesc_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_InsertDataToStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InsertDataToStreamInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).InsertDataToStream(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_InsertDataToStream_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).InsertDataToStream(ctx, req.(*InsertDataToStreamInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_RemoveDataFromStream_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveDataFromStreamInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).RemoveDataFromStream(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_RemoveDataFromStream_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).RemoveDataFromStream(ctx, req.(*RemoveDataFromStreamInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CacheInteract_GetStreamRangeData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStreamRangeDataInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).GetStreamRangeData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_GetStreamRangeData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).GetStreamRangeData(ctx, req.(*GetStreamRangeDataInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -722,6 +824,18 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRankMembersDesc",
 			Handler:    _CacheInteract_GetRankMembersDesc_Handler,
+		},
+		{
+			MethodName: "InsertDataToStream",
+			Handler:    _CacheInteract_InsertDataToStream_Handler,
+		},
+		{
+			MethodName: "RemoveDataFromStream",
+			Handler:    _CacheInteract_RemoveDataFromStream_Handler,
+		},
+		{
+			MethodName: "GetStreamRangeData",
+			Handler:    _CacheInteract_GetStreamRangeData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

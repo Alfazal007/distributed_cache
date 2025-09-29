@@ -1385,6 +1385,310 @@ func (x *ScoreAndName) GetName() string {
 	return ""
 }
 
+type InsertDataToStreamInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value         []byte                 `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertDataToStreamInput) Reset() {
+	*x = InsertDataToStreamInput{}
+	mi := &file_data_proto_msgTypes[29]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertDataToStreamInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertDataToStreamInput) ProtoMessage() {}
+
+func (x *InsertDataToStreamInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[29]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertDataToStreamInput.ProtoReflect.Descriptor instead.
+func (*InsertDataToStreamInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{29}
+}
+
+func (x *InsertDataToStreamInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *InsertDataToStreamInput) GetValue() []byte {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+type InsertDataToStreamOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Id            int64                  `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InsertDataToStreamOutput) Reset() {
+	*x = InsertDataToStreamOutput{}
+	mi := &file_data_proto_msgTypes[30]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InsertDataToStreamOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InsertDataToStreamOutput) ProtoMessage() {}
+
+func (x *InsertDataToStreamOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[30]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InsertDataToStreamOutput.ProtoReflect.Descriptor instead.
+func (*InsertDataToStreamOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *InsertDataToStreamOutput) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+func (x *InsertDataToStreamOutput) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type RemoveDataFromStreamInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Id            int64                  `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveDataFromStreamInput) Reset() {
+	*x = RemoveDataFromStreamInput{}
+	mi := &file_data_proto_msgTypes[31]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveDataFromStreamInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveDataFromStreamInput) ProtoMessage() {}
+
+func (x *RemoveDataFromStreamInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[31]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveDataFromStreamInput.ProtoReflect.Descriptor instead.
+func (*RemoveDataFromStreamInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{31}
+}
+
+func (x *RemoveDataFromStreamInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *RemoveDataFromStreamInput) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type RemoveDataFromStreamOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RemoveDataFromStreamOutput) Reset() {
+	*x = RemoveDataFromStreamOutput{}
+	mi := &file_data_proto_msgTypes[32]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RemoveDataFromStreamOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RemoveDataFromStreamOutput) ProtoMessage() {}
+
+func (x *RemoveDataFromStreamOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[32]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RemoveDataFromStreamOutput.ProtoReflect.Descriptor instead.
+func (*RemoveDataFromStreamOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{32}
+}
+
+func (x *RemoveDataFromStreamOutput) GetSuccess() bool {
+	if x != nil {
+		return x.Success
+	}
+	return false
+}
+
+type GetStreamRangeDataInput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Key           string                 `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Start         int64                  `protobuf:"varint,2,opt,name=start,proto3" json:"start,omitempty"`
+	End           int64                  `protobuf:"varint,3,opt,name=end,proto3" json:"end,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetStreamRangeDataInput) Reset() {
+	*x = GetStreamRangeDataInput{}
+	mi := &file_data_proto_msgTypes[33]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetStreamRangeDataInput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetStreamRangeDataInput) ProtoMessage() {}
+
+func (x *GetStreamRangeDataInput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[33]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetStreamRangeDataInput.ProtoReflect.Descriptor instead.
+func (*GetStreamRangeDataInput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *GetStreamRangeDataInput) GetKey() string {
+	if x != nil {
+		return x.Key
+	}
+	return ""
+}
+
+func (x *GetStreamRangeDataInput) GetStart() int64 {
+	if x != nil {
+		return x.Start
+	}
+	return 0
+}
+
+func (x *GetStreamRangeDataInput) GetEnd() int64 {
+	if x != nil {
+		return x.End
+	}
+	return 0
+}
+
+type GetStreamRangeDataOutput struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Value         [][]byte               `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetStreamRangeDataOutput) Reset() {
+	*x = GetStreamRangeDataOutput{}
+	mi := &file_data_proto_msgTypes[34]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetStreamRangeDataOutput) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetStreamRangeDataOutput) ProtoMessage() {}
+
+func (x *GetStreamRangeDataOutput) ProtoReflect() protoreflect.Message {
+	mi := &file_data_proto_msgTypes[34]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetStreamRangeDataOutput.ProtoReflect.Descriptor instead.
+func (*GetStreamRangeDataOutput) Descriptor() ([]byte, []int) {
+	return file_data_proto_rawDescGZIP(), []int{34}
+}
+
+func (x *GetStreamRangeDataOutput) GetValue() [][]byte {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
 var File_data_proto protoreflect.FileDescriptor
 
 const file_data_proto_rawDesc = "" +
@@ -1459,7 +1763,24 @@ const file_data_proto_rawDesc = "" +
 	"\x0fmembersAndScore\x18\x01 \x03(\v2\r.ScoreAndNameR\x0fmembersAndScore\"8\n" +
 	"\fScoreAndName\x12\x14\n" +
 	"\x05score\x18\x01 \x01(\x03R\x05score\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name2\x98\b\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"A\n" +
+	"\x17InsertDataToStreamInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\fR\x05value\"D\n" +
+	"\x18InsertDataToStreamOutput\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x0e\n" +
+	"\x02id\x18\x02 \x01(\x03R\x02id\"=\n" +
+	"\x19RemoveDataFromStreamInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x0e\n" +
+	"\x02id\x18\x02 \x01(\x03R\x02id\"6\n" +
+	"\x1aRemoveDataFromStreamOutput\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\"S\n" +
+	"\x17GetStreamRangeDataInput\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05start\x18\x02 \x01(\x03R\x05start\x12\x10\n" +
+	"\x03end\x18\x03 \x01(\x03R\x03end\"0\n" +
+	"\x18GetStreamRangeDataOutput\x12\x14\n" +
+	"\x05value\x18\x01 \x03(\fR\x05value2\xff\t\n" +
 	"\rCacheInteract\x12.\n" +
 	"\tMapInsert\x12\x0f.MapInsertInput\x1a\x10.MapInsertResult\x12+\n" +
 	"\bMapFetch\x12\x0e.MapFetchInput\x1a\x0f.MapFetchResult\x12.\n" +
@@ -1477,7 +1798,10 @@ const file_data_proto_rawDesc = "" +
 	"\x11GetScoreSortedSet\x12\x17.GetScoreSortedSetInput\x1a\x18.GetScoreSortedSetOutput\x12C\n" +
 	"\x10GetRankSortedSet\x12\x16.GetRankSortedSetInput\x1a\x17.GetRankSortedSetOutput\x12@\n" +
 	"\x11GetRankMembersAsc\x12\x14.GetRankMembersInput\x1a\x15.GetRankMembersOutput\x12A\n" +
-	"\x12GetRankMembersDesc\x12\x14.GetRankMembersInput\x1a\x15.GetRankMembersOutputB\bZ\x06proto/b\x06proto3"
+	"\x12GetRankMembersDesc\x12\x14.GetRankMembersInput\x1a\x15.GetRankMembersOutput\x12I\n" +
+	"\x12InsertDataToStream\x12\x18.InsertDataToStreamInput\x1a\x19.InsertDataToStreamOutput\x12O\n" +
+	"\x14RemoveDataFromStream\x12\x1a.RemoveDataFromStreamInput\x1a\x1b.RemoveDataFromStreamOutput\x12I\n" +
+	"\x12GetStreamRangeData\x12\x18.GetStreamRangeDataInput\x1a\x19.GetStreamRangeDataOutputB\bZ\x06proto/b\x06proto3"
 
 var (
 	file_data_proto_rawDescOnce sync.Once
@@ -1491,37 +1815,43 @@ func file_data_proto_rawDescGZIP() []byte {
 	return file_data_proto_rawDescData
 }
 
-var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 29)
+var file_data_proto_msgTypes = make([]protoimpl.MessageInfo, 35)
 var file_data_proto_goTypes = []any{
-	(*MapInsertInput)(nil),            // 0: MapInsertInput
-	(*MapFetchInput)(nil),             // 1: MapFetchInput
-	(*MapDeleteInput)(nil),            // 2: MapDeleteInput
-	(*MapInsertResult)(nil),           // 3: MapInsertResult
-	(*MapFetchResult)(nil),            // 4: MapFetchResult
-	(*MapDeleteResult)(nil),           // 5: MapDeleteResult
-	(*QueueInsertInput)(nil),          // 6: QueueInsertInput
-	(*QueueInsertOutput)(nil),         // 7: QueueInsertOutput
-	(*QueueRemoveInput)(nil),          // 8: QueueRemoveInput
-	(*QueueRemoveOutput)(nil),         // 9: QueueRemoveOutput
-	(*InsertToSetInput)(nil),          // 10: InsertToSetInput
-	(*InsertToSetOutput)(nil),         // 11: InsertToSetOutput
-	(*GetSetValuesInput)(nil),         // 12: GetSetValuesInput
-	(*GetSetValuesOutput)(nil),        // 13: GetSetValuesOutput
-	(*SetHasMemberInput)(nil),         // 14: SetHasMemberInput
-	(*SetHasMemberOutput)(nil),        // 15: SetHasMemberOutput
-	(*SetRemoveMemberInput)(nil),      // 16: SetRemoveMemberInput
-	(*SetRemoveMemberOutput)(nil),     // 17: SetRemoveMemberOutput
-	(*InsertToSortedSetInput)(nil),    // 18: InsertToSortedSetInput
-	(*InsertToSortedSetOutput)(nil),   // 19: InsertToSortedSetOutput
-	(*RemoveFromSortedSetInput)(nil),  // 20: RemoveFromSortedSetInput
-	(*RemoveFromSortedSetOutput)(nil), // 21: RemoveFromSortedSetOutput
-	(*GetScoreSortedSetInput)(nil),    // 22: GetScoreSortedSetInput
-	(*GetScoreSortedSetOutput)(nil),   // 23: GetScoreSortedSetOutput
-	(*GetRankSortedSetInput)(nil),     // 24: GetRankSortedSetInput
-	(*GetRankSortedSetOutput)(nil),    // 25: GetRankSortedSetOutput
-	(*GetRankMembersInput)(nil),       // 26: GetRankMembersInput
-	(*GetRankMembersOutput)(nil),      // 27: GetRankMembersOutput
-	(*ScoreAndName)(nil),              // 28: ScoreAndName
+	(*MapInsertInput)(nil),             // 0: MapInsertInput
+	(*MapFetchInput)(nil),              // 1: MapFetchInput
+	(*MapDeleteInput)(nil),             // 2: MapDeleteInput
+	(*MapInsertResult)(nil),            // 3: MapInsertResult
+	(*MapFetchResult)(nil),             // 4: MapFetchResult
+	(*MapDeleteResult)(nil),            // 5: MapDeleteResult
+	(*QueueInsertInput)(nil),           // 6: QueueInsertInput
+	(*QueueInsertOutput)(nil),          // 7: QueueInsertOutput
+	(*QueueRemoveInput)(nil),           // 8: QueueRemoveInput
+	(*QueueRemoveOutput)(nil),          // 9: QueueRemoveOutput
+	(*InsertToSetInput)(nil),           // 10: InsertToSetInput
+	(*InsertToSetOutput)(nil),          // 11: InsertToSetOutput
+	(*GetSetValuesInput)(nil),          // 12: GetSetValuesInput
+	(*GetSetValuesOutput)(nil),         // 13: GetSetValuesOutput
+	(*SetHasMemberInput)(nil),          // 14: SetHasMemberInput
+	(*SetHasMemberOutput)(nil),         // 15: SetHasMemberOutput
+	(*SetRemoveMemberInput)(nil),       // 16: SetRemoveMemberInput
+	(*SetRemoveMemberOutput)(nil),      // 17: SetRemoveMemberOutput
+	(*InsertToSortedSetInput)(nil),     // 18: InsertToSortedSetInput
+	(*InsertToSortedSetOutput)(nil),    // 19: InsertToSortedSetOutput
+	(*RemoveFromSortedSetInput)(nil),   // 20: RemoveFromSortedSetInput
+	(*RemoveFromSortedSetOutput)(nil),  // 21: RemoveFromSortedSetOutput
+	(*GetScoreSortedSetInput)(nil),     // 22: GetScoreSortedSetInput
+	(*GetScoreSortedSetOutput)(nil),    // 23: GetScoreSortedSetOutput
+	(*GetRankSortedSetInput)(nil),      // 24: GetRankSortedSetInput
+	(*GetRankSortedSetOutput)(nil),     // 25: GetRankSortedSetOutput
+	(*GetRankMembersInput)(nil),        // 26: GetRankMembersInput
+	(*GetRankMembersOutput)(nil),       // 27: GetRankMembersOutput
+	(*ScoreAndName)(nil),               // 28: ScoreAndName
+	(*InsertDataToStreamInput)(nil),    // 29: InsertDataToStreamInput
+	(*InsertDataToStreamOutput)(nil),   // 30: InsertDataToStreamOutput
+	(*RemoveDataFromStreamInput)(nil),  // 31: RemoveDataFromStreamInput
+	(*RemoveDataFromStreamOutput)(nil), // 32: RemoveDataFromStreamOutput
+	(*GetStreamRangeDataInput)(nil),    // 33: GetStreamRangeDataInput
+	(*GetStreamRangeDataOutput)(nil),   // 34: GetStreamRangeDataOutput
 }
 var file_data_proto_depIdxs = []int32{
 	28, // 0: GetRankMembersOutput.membersAndScore:type_name -> ScoreAndName
@@ -1542,25 +1872,31 @@ var file_data_proto_depIdxs = []int32{
 	24, // 15: CacheInteract.GetRankSortedSet:input_type -> GetRankSortedSetInput
 	26, // 16: CacheInteract.GetRankMembersAsc:input_type -> GetRankMembersInput
 	26, // 17: CacheInteract.GetRankMembersDesc:input_type -> GetRankMembersInput
-	3,  // 18: CacheInteract.MapInsert:output_type -> MapInsertResult
-	4,  // 19: CacheInteract.MapFetch:output_type -> MapFetchResult
-	5,  // 20: CacheInteract.MapDelete:output_type -> MapDeleteResult
-	7,  // 21: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
-	7,  // 22: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
-	9,  // 23: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
-	9,  // 24: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
-	11, // 25: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
-	13, // 26: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
-	15, // 27: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
-	17, // 28: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
-	19, // 29: CacheInteract.InsertToSortedSet:output_type -> InsertToSortedSetOutput
-	21, // 30: CacheInteract.RemoveFromSortedSet:output_type -> RemoveFromSortedSetOutput
-	23, // 31: CacheInteract.GetScoreSortedSet:output_type -> GetScoreSortedSetOutput
-	25, // 32: CacheInteract.GetRankSortedSet:output_type -> GetRankSortedSetOutput
-	27, // 33: CacheInteract.GetRankMembersAsc:output_type -> GetRankMembersOutput
-	27, // 34: CacheInteract.GetRankMembersDesc:output_type -> GetRankMembersOutput
-	18, // [18:35] is the sub-list for method output_type
-	1,  // [1:18] is the sub-list for method input_type
+	29, // 18: CacheInteract.InsertDataToStream:input_type -> InsertDataToStreamInput
+	31, // 19: CacheInteract.RemoveDataFromStream:input_type -> RemoveDataFromStreamInput
+	33, // 20: CacheInteract.GetStreamRangeData:input_type -> GetStreamRangeDataInput
+	3,  // 21: CacheInteract.MapInsert:output_type -> MapInsertResult
+	4,  // 22: CacheInteract.MapFetch:output_type -> MapFetchResult
+	5,  // 23: CacheInteract.MapDelete:output_type -> MapDeleteResult
+	7,  // 24: CacheInteract.QueueInsertFront:output_type -> QueueInsertOutput
+	7,  // 25: CacheInteract.QueueInsertBack:output_type -> QueueInsertOutput
+	9,  // 26: CacheInteract.QueueRemoveFront:output_type -> QueueRemoveOutput
+	9,  // 27: CacheInteract.QueueRemoveBack:output_type -> QueueRemoveOutput
+	11, // 28: CacheInteract.InsertToSet:output_type -> InsertToSetOutput
+	13, // 29: CacheInteract.GetSetValues:output_type -> GetSetValuesOutput
+	15, // 30: CacheInteract.SetHasMember:output_type -> SetHasMemberOutput
+	17, // 31: CacheInteract.SetRemoveMember:output_type -> SetRemoveMemberOutput
+	19, // 32: CacheInteract.InsertToSortedSet:output_type -> InsertToSortedSetOutput
+	21, // 33: CacheInteract.RemoveFromSortedSet:output_type -> RemoveFromSortedSetOutput
+	23, // 34: CacheInteract.GetScoreSortedSet:output_type -> GetScoreSortedSetOutput
+	25, // 35: CacheInteract.GetRankSortedSet:output_type -> GetRankSortedSetOutput
+	27, // 36: CacheInteract.GetRankMembersAsc:output_type -> GetRankMembersOutput
+	27, // 37: CacheInteract.GetRankMembersDesc:output_type -> GetRankMembersOutput
+	30, // 38: CacheInteract.InsertDataToStream:output_type -> InsertDataToStreamOutput
+	32, // 39: CacheInteract.RemoveDataFromStream:output_type -> RemoveDataFromStreamOutput
+	34, // 40: CacheInteract.GetStreamRangeData:output_type -> GetStreamRangeDataOutput
+	21, // [21:41] is the sub-list for method output_type
+	1,  // [1:21] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -1577,7 +1913,7 @@ func file_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_data_proto_rawDesc), len(file_data_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   29,
+			NumMessages:   35,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

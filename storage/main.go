@@ -8,6 +8,7 @@ import (
 	queuehandler "cacheServer/queueHandler"
 	sethandler "cacheServer/setHandler"
 	sortedsethandler "cacheServer/sortedSetHandler"
+	streamhandler "cacheServer/streamHandler"
 	"log"
 	"net"
 	"time"
@@ -29,6 +30,9 @@ func main() {
 		},
 		SortedSet: sortedsethandler.SortedSetStruct{
 			SortedSet: make(map[string]sortedsethandler.SortedSetStructInternal),
+		},
+		Stream: streamhandler.StreamHandler{
+			Data: make(map[string][]streamhandler.StreamData),
 		},
 	}
 	proto.RegisterCacheInteractServer(s, &server.Server{

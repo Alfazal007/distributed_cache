@@ -6,6 +6,7 @@ import (
 	queuehandler "cacheServer/queueHandler"
 	sethandler "cacheServer/setHandler"
 	sortedsethandler "cacheServer/sortedSetHandler"
+	streamhandler "cacheServer/streamHandler"
 )
 
 type Writer struct {
@@ -13,6 +14,7 @@ type Writer struct {
 	Queue     queuehandler.Queue
 	Set       sethandler.SetData
 	SortedSet sortedsethandler.SortedSetStruct
+	Stream    streamhandler.StreamHandler
 }
 
 func (writer *Writer) WriteToHashMap(key string, value []byte) bool {
@@ -165,4 +167,27 @@ func (writer *Writer) GetRankAndMembersAscFromSortedSet(mainKey string) []sorted
 func (writer *Writer) GetRankAndMembersDescFromSortedSet(mainKey string) []sortedsethandler.ScoreKey {
 	rankRes := writer.SortedSet.GetRankAndMembersDesc(mainKey)
 	return rankRes
+}
+
+func (writer *Writer) AddDataToStream(key string, data []byte) (bool, int64) {
+	if config.CURRENTSIZE+len(data)+8 > config.TOTALSIZE {
+		return false, -1
+	}
+	size, id := writer.Stream.AddToStream(key, data)
+	config.CURRENTSIZE += size
+	return true, id
+}
+
+func (writer *Writer) RemoveDataFromStream(key string, id int64) bool {
+	size := writer.Stream.RemoveFromStream(key, id)
+	config.CURRENTSIZE -= size
+	if size == 0 {
+		return false
+	}
+	return true
+}
+
+func (writer *Writer) GetStreamDataRange(key string, start int64, end int64) [][]byte {
+	data := writer.Stream.ReturnSteamData(start, end, key)
+	return data
 }

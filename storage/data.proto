@@ -23,6 +23,10 @@ service CacheInteract {
   rpc GetRankSortedSet(GetRankSortedSetInput) returns (GetRankSortedSetOutput);
   rpc GetRankMembersAsc(GetRankMembersInput) returns (GetRankMembersOutput);
   rpc GetRankMembersDesc(GetRankMembersInput) returns (GetRankMembersOutput);
+
+  rpc InsertDataToStream(InsertDataToStreamInput) returns (InsertDataToStreamOutput);
+  rpc RemoveDataFromStream(RemoveDataFromStreamInput) returns (RemoveDataFromStreamOutput);
+  rpc GetStreamRangeData(GetStreamRangeDataInput) returns (GetStreamRangeDataOutput);
 }
 
 message MapInsertInput {
@@ -151,4 +155,33 @@ message GetRankMembersOutput {
 message ScoreAndName {
   int64 score=1;
   string name=2;
+}
+
+message InsertDataToStreamInput {
+  string key=1;
+  bytes value=2;
+}
+
+message InsertDataToStreamOutput {
+  bool success=1;
+  int64 id=2;
+}
+
+message RemoveDataFromStreamInput {
+  string key=1;
+  int64 id=2;
+}
+
+message RemoveDataFromStreamOutput {
+  bool success=1;
+}
+
+message GetStreamRangeDataInput {
+  string key=1;
+  int64 start=2;
+  int64 end=3;
+}
+
+message GetStreamRangeDataOutput {
+  repeated bytes value=1;
 }
