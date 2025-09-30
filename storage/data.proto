@@ -34,6 +34,8 @@ service CacheInteract {
 
   rpc InsertToBf(InsertToBfInput) returns (InsertToBfOutput);
   rpc ExistsInBf(ExistsInBfInput) returns (ExistsInBfOutput);
+
+  rpc PublishMessage(PublishMessageInput) returns (PublishMessageOutput);
 }
 
 message MapInsertInput {
@@ -236,4 +238,13 @@ message ExistsInBfInput {
 
 message ExistsInBfOutput {
   bool exists=1;
+}
+
+message PublishMessageInput {
+  string key=1;
+  bytes value=2;
+}
+
+message PublishMessageOutput {
+  bool success=1;
 }

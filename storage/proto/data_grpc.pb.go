@@ -44,6 +44,7 @@ const (
 	CacheInteract_MergeHll_FullMethodName             = "/CacheInteract/MergeHll"
 	CacheInteract_InsertToBf_FullMethodName           = "/CacheInteract/InsertToBf"
 	CacheInteract_ExistsInBf_FullMethodName           = "/CacheInteract/ExistsInBf"
+	CacheInteract_PublishMessage_FullMethodName       = "/CacheInteract/PublishMessage"
 )
 
 // CacheInteractClient is the client API for CacheInteract service.
@@ -75,6 +76,7 @@ type CacheInteractClient interface {
 	MergeHll(ctx context.Context, in *MergeHllInput, opts ...grpc.CallOption) (*MergeHllOutput, error)
 	InsertToBf(ctx context.Context, in *InsertToBfInput, opts ...grpc.CallOption) (*InsertToBfOutput, error)
 	ExistsInBf(ctx context.Context, in *ExistsInBfInput, opts ...grpc.CallOption) (*ExistsInBfOutput, error)
+	PublishMessage(ctx context.Context, in *PublishMessageInput, opts ...grpc.CallOption) (*PublishMessageOutput, error)
 }
 
 type cacheInteractClient struct {
@@ -335,6 +337,16 @@ func (c *cacheInteractClient) ExistsInBf(ctx context.Context, in *ExistsInBfInpu
 	return out, nil
 }
 
+func (c *cacheInteractClient) PublishMessage(ctx context.Context, in *PublishMessageInput, opts ...grpc.CallOption) (*PublishMessageOutput, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PublishMessageOutput)
+	err := c.cc.Invoke(ctx, CacheInteract_PublishMessage_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CacheInteractServer is the server API for CacheInteract service.
 // All implementations must embed UnimplementedCacheInteractServer
 // for forward compatibility.
@@ -364,6 +376,7 @@ type CacheInteractServer interface {
 	MergeHll(context.Context, *MergeHllInput) (*MergeHllOutput, error)
 	InsertToBf(context.Context, *InsertToBfInput) (*InsertToBfOutput, error)
 	ExistsInBf(context.Context, *ExistsInBfInput) (*ExistsInBfOutput, error)
+	PublishMessage(context.Context, *PublishMessageInput) (*PublishMessageOutput, error)
 	mustEmbedUnimplementedCacheInteractServer()
 }
 
@@ -448,6 +461,9 @@ func (UnimplementedCacheInteractServer) InsertToBf(context.Context, *InsertToBfI
 }
 func (UnimplementedCacheInteractServer) ExistsInBf(context.Context, *ExistsInBfInput) (*ExistsInBfOutput, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExistsInBf not implemented")
+}
+func (UnimplementedCacheInteractServer) PublishMessage(context.Context, *PublishMessageInput) (*PublishMessageOutput, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PublishMessage not implemented")
 }
 func (UnimplementedCacheInteractServer) mustEmbedUnimplementedCacheInteractServer() {}
 func (UnimplementedCacheInteractServer) testEmbeddedByValue()                       {}
@@ -920,6 +936,24 @@ func _CacheInteract_ExistsInBf_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CacheInteract_PublishMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublishMessageInput)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CacheInteractServer).PublishMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CacheInteract_PublishMessage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CacheInteractServer).PublishMessage(ctx, req.(*PublishMessageInput))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CacheInteract_ServiceDesc is the grpc.ServiceDesc for CacheInteract service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1026,6 +1060,10 @@ var CacheInteract_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ExistsInBf",
 			Handler:    _CacheInteract_ExistsInBf_Handler,
+		},
+		{
+			MethodName: "PublishMessage",
+			Handler:    _CacheInteract_PublishMessage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

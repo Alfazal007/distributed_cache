@@ -9,6 +9,7 @@ import (
 	hyperlogloghandler "cacheServer/hyperloglogHandler"
 	maphandler "cacheServer/mapHandler"
 	"cacheServer/proto"
+	"cacheServer/pubsub"
 	queuehandler "cacheServer/queueHandler"
 	sethandler "cacheServer/setHandler"
 	sortedsethandler "cacheServer/sortedSetHandler"
@@ -55,6 +56,11 @@ func main() {
 		},
 		BloomFilter: bloomfilterhandler.BloomFilterHander{
 			BloomFilter: make(map[string]*bloom.BloomFilter),
+		},
+		PubSub: pubsub.PubSubStruct{
+			SubscribedToKeys:  make([]string, 0),
+			PublishToChannel:  make(chan channelstructs.PublishChannelStruct),
+			SubscibeToChannel: make(chan channelstructs.SubscribeChannelStruct),
 		},
 	}
 	proto.RegisterCacheInteractServer(s, &server.Server{
@@ -140,6 +146,10 @@ func handleConnection(conn net.Conn, masterConnected *MasterConnected, writer *d
 				ShouldSubscribe: message.ShouldSubscribe,
 			}
 		case SUBSCRIBER:
+			writer.PubSub.SubscibeToChannel <- channelstructs.SubscribeChannelStruct{
+				Key:             message.Key,
+				ShouldSubscribe: message.ShouldSubscribe,
+			}
 		case PING:
 			conn.Write([]byte("PONG"))
 		}

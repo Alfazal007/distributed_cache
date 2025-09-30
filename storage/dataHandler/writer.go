@@ -5,6 +5,7 @@ import (
 	"cacheServer/config"
 	hyperlogloghandler "cacheServer/hyperloglogHandler"
 	maphandler "cacheServer/mapHandler"
+	"cacheServer/pubsub"
 	queuehandler "cacheServer/queueHandler"
 	sethandler "cacheServer/setHandler"
 	sortedsethandler "cacheServer/sortedSetHandler"
@@ -19,6 +20,7 @@ type Writer struct {
 	Stream      streamhandler.StreamHandler
 	HyperLogLog hyperlogloghandler.HyperLogLogStruct
 	BloomFilter bloomfilterhandler.BloomFilterHander
+	PubSub      pubsub.PubSubStruct
 }
 
 func (writer *Writer) WriteToHashMap(key string, value []byte) bool {
@@ -226,4 +228,8 @@ func (writer *Writer) AddToBf(key string, value []byte) {
 func (writer *Writer) ExistsInBf(key string, value []byte) bool {
 	exists := writer.BloomFilter.Exists(key, value)
 	return exists
+}
+
+func (writer *Writer) PublishMessage(key string, value []byte) {
+	writer.PubSub.InsertToPubSub(key, value)
 }

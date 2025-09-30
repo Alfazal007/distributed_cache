@@ -51,6 +51,26 @@ func channelHandler(conn net.Conn, writer *datahandler.Writer, done <-chan bool)
 		case msg := <-writer.Stream.PublishToChannel:
 			jsonData, _ := json.Marshal(msg)
 			conn.Write(jsonData)
+		case msg := <-writer.PubSub.SubscibeToChannel:
+			if msg.ShouldSubscribe {
+				if !slices.Contains(writer.PubSub.SubscribedToKeys, msg.Key) {
+					writer.PubSub.SubscribedToKeys = append(writer.PubSub.SubscribedToKeys, msg.Key)
+				}
+			} else {
+				idx := -1
+				for index, key := range writer.PubSub.SubscribedToKeys {
+					if key == msg.Key {
+						idx = index
+						break
+					}
+				}
+				if idx != -1 {
+					writer.PubSub.SubscribedToKeys = append(writer.PubSub.SubscribedToKeys[:idx], writer.PubSub.SubscribedToKeys[idx+1:]...)
+				}
+			}
+		case msg := <-writer.PubSub.PublishToChannel:
+			jsonData, _ := json.Marshal(msg)
+			conn.Write(jsonData)
 		case <-done:
 			writer.Queue.SubscribedToKeys = make([]string, 0)
 			return
