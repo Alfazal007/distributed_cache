@@ -286,6 +286,145 @@ func handleConnectionForGrpc(conn net.Conn, grpcClient pb.CacheInteractClient) {
 				}
 			}
 
+		case types.InsertDataToStream:
+			var insertDataToStreamInput pb.InsertDataToStreamInput
+			if err := json.Unmarshal(message.Input, &insertDataToStreamInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.InsertDataToStream(ctx, &insertDataToStreamInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+		case types.RemoveDataFromStream:
+			var removeDataFromStreamInput pb.RemoveDataFromStreamInput
+			if err := json.Unmarshal(message.Input, &removeDataFromStreamInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.RemoveDataFromStream(ctx, &removeDataFromStreamInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+		case types.GetStreamRangeData:
+			var getStreamRangeDataInput pb.GetStreamRangeDataInput
+			if err := json.Unmarshal(message.Input, &getStreamRangeDataInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.GetStreamRangeData(ctx, &getStreamRangeDataInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+
+		case types.InsertDataToHLL:
+			var insertDataToHLLInput pb.InsertDataToHLLInput
+			if err := json.Unmarshal(message.Input, &insertDataToHLLInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.InsertDataToHLL(ctx, &insertDataToHLLInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+		case types.GetCountFromHLL:
+			var getCountFromHLLInput pb.GetCountFromHLLInput
+			if err := json.Unmarshal(message.Input, &getCountFromHLLInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.GetCountFromHLL(ctx, &getCountFromHLLInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+		case types.MergeHll:
+			var mergeHllInput pb.MergeHllInput
+			if err := json.Unmarshal(message.Input, &mergeHllInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.MergeHll(ctx, &mergeHllInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+
+		case types.InsertToBf:
+			var insertToBfInput pb.InsertToBfInput
+			if err := json.Unmarshal(message.Input, &insertToBfInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.InsertToBf(ctx, &insertToBfInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+		case types.ExistsInBf:
+			var existsInBfInput pb.ExistsInBfInput
+			if err := json.Unmarshal(message.Input, &existsInBfInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.ExistsInBf(ctx, &existsInBfInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+
+		case types.PublishMessage:
+			var publishMessageInput pb.PublishMessageInput
+			if err := json.Unmarshal(message.Input, &publishMessageInput); err != nil {
+				errMessage := types.GenerateErrorMessage(err)
+				conn.Write(errMessage)
+			} else {
+				resp, err := grpcClient.PublishMessage(ctx, &publishMessageInput)
+				if err != nil {
+					errMessage := types.GenerateErrorMessage(err)
+					conn.Write(errMessage)
+				} else {
+					jsonMessage, _ := json.Marshal(resp)
+					conn.Write(jsonMessage)
+				}
+			}
+
 		}
 	}
 }

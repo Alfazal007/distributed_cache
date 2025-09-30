@@ -27,6 +27,19 @@ const (
 	GetRankSortedSet
 	GetRankMembersAsc
 	GetRankMembersDesc
+
+	InsertDataToStream
+	RemoveDataFromStream
+	GetStreamRangeData
+
+	InsertDataToHLL
+	GetCountFromHLL
+	MergeHll
+
+	InsertToBf
+	ExistsInBf
+
+	PublishMessage
 )
 
 type GrpcMessage struct {
