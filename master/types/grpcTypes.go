@@ -10,6 +10,23 @@ const (
 	MapInsert GrpcMessageTypes = iota
 	MapFetch
 	MapDelete
+
+	QueueInsertFront
+	QueueInsertBack
+	QueueRemoveFront
+	QueueRemoveBack
+
+	InsertToSet
+	GetSetValues
+	SetHasMember
+	SetRemoveMember
+
+	InsertToSortedSet
+	RemoveFromSortedSet
+	GetScoreSortedSet
+	GetRankSortedSet
+	GetRankMembersAsc
+	GetRankMembersDesc
 )
 
 type GrpcMessage struct {
