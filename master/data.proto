@@ -1,0 +1,250 @@
+syntax="proto3";
+
+option go_package="proto/";
+
+service CacheInteract {
+  rpc MapInsert(MapInsertInput) returns (MapInsertResult);
+  rpc MapFetch(MapFetchInput) returns (MapFetchResult);
+  rpc MapDelete(MapDeleteInput) returns (MapDeleteResult);
+
+  rpc QueueInsertFront(QueueInsertInput) returns (QueueInsertOutput);
+  rpc QueueInsertBack(QueueInsertInput) returns (QueueInsertOutput);
+  rpc QueueRemoveFront(QueueRemoveInput) returns (QueueRemoveOutput);
+  rpc QueueRemoveBack(QueueRemoveInput) returns (QueueRemoveOutput);
+
+  rpc InsertToSet(InsertToSetInput) returns (InsertToSetOutput);
+  rpc GetSetValues(GetSetValuesInput) returns (GetSetValuesOutput);
+  rpc SetHasMember(SetHasMemberInput) returns (SetHasMemberOutput);
+  rpc SetRemoveMember(SetRemoveMemberInput) returns (SetRemoveMemberOutput);
+
+  rpc InsertToSortedSet(InsertToSortedSetInput) returns (InsertToSortedSetOutput);
+  rpc RemoveFromSortedSet(RemoveFromSortedSetInput) returns (RemoveFromSortedSetOutput);
+  rpc GetScoreSortedSet(GetScoreSortedSetInput) returns (GetScoreSortedSetOutput);
+  rpc GetRankSortedSet(GetRankSortedSetInput) returns (GetRankSortedSetOutput);
+  rpc GetRankMembersAsc(GetRankMembersInput) returns (GetRankMembersOutput);
+  rpc GetRankMembersDesc(GetRankMembersInput) returns (GetRankMembersOutput);
+
+  rpc InsertDataToStream(InsertDataToStreamInput) returns (InsertDataToStreamOutput);
+  rpc RemoveDataFromStream(RemoveDataFromStreamInput) returns (RemoveDataFromStreamOutput);
+  rpc GetStreamRangeData(GetStreamRangeDataInput) returns (GetStreamRangeDataOutput);
+
+  rpc InsertDataToHLL(InsertDataToHLLInput) returns (InsertDataToHLLOutput);
+  rpc GetCountFromHLL(GetCountFromHLLInput) returns (GetCountFromHLLOutput);
+  rpc MergeHll(MergeHllInput) returns (MergeHllOutput);
+
+  rpc InsertToBf(InsertToBfInput) returns (InsertToBfOutput);
+  rpc ExistsInBf(ExistsInBfInput) returns (ExistsInBfOutput);
+
+  rpc PublishMessage(PublishMessageInput) returns (PublishMessageOutput);
+}
+
+message MapInsertInput {
+  string key=1;
+  string value=2;
+}
+
+message MapFetchInput {
+  string key=1;
+}
+
+
+message MapDeleteInput {
+  string key=1;
+}
+
+message MapInsertResult {
+  int32 result=1;
+}
+
+message MapFetchResult {
+  string value=1;
+}
+
+message MapDeleteResult {
+  int32 result=1;
+}
+
+message QueueInsertInput {
+  string key=1;
+  bytes value=2;
+}
+
+message QueueInsertOutput {
+  int32 result=1;
+}
+
+message QueueRemoveInput {
+  string key=1;
+}
+
+message QueueRemoveOutput {
+  bytes value=1;
+}
+
+message InsertToSetInput {
+  string key=1;
+  repeated string value=2;
+}
+
+message InsertToSetOutput {
+  int32 result=1;
+}
+
+message GetSetValuesInput {
+  string key=1;
+}
+
+message GetSetValuesOutput {
+  repeated string values=1;
+}
+
+message SetHasMemberInput {
+  string key=1;
+  string value=2;
+}
+
+message SetHasMemberOutput {
+  bool hasValue=1;
+}
+
+message SetRemoveMemberInput {
+  string key=1;
+  string value=2;
+}
+
+message SetRemoveMemberOutput {
+  int32 result=1;
+}
+
+message InsertToSortedSetInput {
+  string key=1;
+  int64 value=2;
+  string mainKey=3;
+}
+
+message InsertToSortedSetOutput {
+  int32 result=1;
+}
+
+message RemoveFromSortedSetInput {
+  string key=1;
+  string mainKey=2;
+}
+
+message RemoveFromSortedSetOutput {
+  int32 result=1;
+}
+
+message GetScoreSortedSetInput {
+  string key=1;
+  string mainKey=2;
+}
+
+message GetScoreSortedSetOutput {
+  int64 score=1;
+}
+
+message GetRankSortedSetInput {
+  string key=1;
+  string mainKey=2;
+}
+
+message GetRankSortedSetOutput {
+  int32 rank=1;
+}
+
+message GetRankMembersInput {
+  string mainKey=1;
+}
+
+message GetRankMembersOutput {
+  repeated ScoreAndName membersAndScore=1;
+}
+
+message ScoreAndName {
+  int64 score=1;
+  string name=2;
+}
+
+message InsertDataToStreamInput {
+  string key=1;
+  bytes value=2;
+}
+
+message InsertDataToStreamOutput {
+  bool success=1;
+  int64 id=2;
+}
+
+message RemoveDataFromStreamInput {
+  string key=1;
+  int64 id=2;
+}
+
+message RemoveDataFromStreamOutput {
+  bool success=1;
+}
+
+message GetStreamRangeDataInput {
+  string key=1;
+  int64 start=2;
+  int64 end=3;
+}
+
+message GetStreamRangeDataOutput {
+  repeated bytes value=1;
+}
+
+message InsertDataToHLLInput {
+  string key=1;
+  bytes value=2;
+}
+
+message InsertDataToHLLOutput {
+  bool success=1;
+}
+
+message GetCountFromHLLInput {
+  string key=1;
+}
+
+message GetCountFromHLLOutput {
+  int64 count=1;
+}
+
+message MergeHllInput {
+  string key1=1;
+  string key2=2;
+  string dest=3;
+}
+
+message MergeHllOutput {
+  int64 count=1;
+}
+
+message InsertToBfInput {
+  string key=1;
+  bytes value=2;
+}
+
+message InsertToBfOutput {
+  bool success=1;
+}
+
+message ExistsInBfInput {
+  string key=1;
+  bytes value=2;
+}
+
+message ExistsInBfOutput {
+  bool exists=1;
+}
+
+message PublishMessageInput {
+  string key=1;
+  bytes value=2;
+}
+
+message PublishMessageOutput {
+  bool success=1;
+}

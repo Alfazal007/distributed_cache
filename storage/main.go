@@ -151,7 +151,7 @@ func handleConnection(conn net.Conn, masterConnected *MasterConnected, writer *d
 				ShouldSubscribe: message.ShouldSubscribe,
 			}
 		case PING:
-			conn.Write([]byte("PONG"))
+			conn.Write([]byte("PONG\n"))
 		}
 	}
 	if err := scanner.Err(); err != nil {
