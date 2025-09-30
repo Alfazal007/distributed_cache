@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	bloomfilterhandler "cacheServer/bloomFilterHandler"
+	channelstructs "cacheServer/channelStructs"
 	datahandler "cacheServer/dataHandler"
 	"cacheServer/grpc"
 	hyperlogloghandler "cacheServer/hyperloglogHandler"
@@ -32,7 +33,10 @@ func main() {
 			Name: make(map[string]maphandler.Value),
 		},
 		Queue: queuehandler.Queue{
-			Name: make(map[string][]queuehandler.Value),
+			Name:              make(map[string][]queuehandler.Value),
+			SubscibeToChannel: make(chan channelstructs.SubscribeChannelStruct),
+			PublishToChannel:  make(chan channelstructs.PublishChannelStruct),
+			SubscribedToKeys:  make([]string, 0),
 		},
 		Set: sethandler.SetData{
 			Name: make(map[string]sethandler.Set),
@@ -41,7 +45,10 @@ func main() {
 			SortedSet: make(map[string]sortedsethandler.SortedSetStructInternal),
 		},
 		Stream: streamhandler.StreamHandler{
-			Data: make(map[string][]streamhandler.StreamData),
+			Data:              make(map[string][]streamhandler.StreamData),
+			SubscribedToKeys:  make([]string, 0),
+			SubscibeToChannel: make(chan channelstructs.SubscribeChannelStruct),
+			PublishToChannel:  make(chan channelstructs.PublishChannelStruct),
 		},
 		HyperLogLog: hyperlogloghandler.HyperLogLogStruct{
 			Hyperloglog: make(map[string]*hyperloglog.Sketch),
@@ -58,7 +65,7 @@ func main() {
 		log.Fatal("There was an error with the server setup ", err)
 	}
 	go StartDeletion(&writer)
-	go SecondServer()
+	go SecondServer(&writer)
 	s.Serve(listener)
 }
 
@@ -69,7 +76,7 @@ func StartDeletion(writer *datahandler.Writer) {
 	}
 }
 
-func SecondServer() {
+func SecondServer(writer *datahandler.Writer) {
 	listener, err := net.Listen("tcp", ":8001")
 	if err != nil {
 		fmt.Println("Error starting server:", err)
@@ -98,17 +105,20 @@ func SecondServer() {
 			fmt.Println("Error accepting connection:", err)
 			continue
 		}
-		go handleConnection(conn, &masterConnected)
+		go handleConnection(conn, &masterConnected, writer)
 	}
 }
 
-func handleConnection(conn net.Conn, masterConnected *MasterConnected) {
+func handleConnection(conn net.Conn, masterConnected *MasterConnected, writer *datahandler.Writer) {
+	done := make(chan bool)
 	defer func() {
 		conn.Close()
 		masterConnected.RwLock.Lock()
 		masterConnected.MasterConnected = false
 		masterConnected.RwLock.Unlock()
+		done <- true
 	}()
+	go channelHandler(conn, writer, done)
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -120,8 +130,18 @@ func handleConnection(conn net.Conn, masterConnected *MasterConnected) {
 		}
 		switch message.MessageType {
 		case QUEUE:
+			writer.Queue.SubscibeToChannel <- channelstructs.SubscribeChannelStruct{
+				Key:             message.Key,
+				ShouldSubscribe: message.ShouldSubscribe,
+			}
 		case STREAM:
+			writer.Stream.SubscibeToChannel <- channelstructs.SubscribeChannelStruct{
+				Key:             message.Key,
+				ShouldSubscribe: message.ShouldSubscribe,
+			}
 		case SUBSCRIBER:
+		case PING:
+			conn.Write([]byte("PONG"))
 		}
 	}
 	if err := scanner.Err(); err != nil {

@@ -1,6 +1,10 @@
 package streamhandler
 
-import "time"
+import (
+	channelstructs "cacheServer/channelStructs"
+	"slices"
+	"time"
+)
 
 type StreamData struct {
 	Value []byte
@@ -8,7 +12,12 @@ type StreamData struct {
 }
 
 type StreamHandler struct {
-	Data map[string][]StreamData
+	Data             map[string][]StreamData
+	SubscribedToKeys []string
+	// this is the channel through which master creates the subscriptions by specifying the key to subscribe to
+	SubscibeToChannel chan channelstructs.SubscribeChannelStruct
+	// this is the channel to which the messages are transmitted to master after receiving incoming messages
+	PublishToChannel chan channelstructs.PublishChannelStruct
 }
 
 func generateId() int64 {
@@ -26,6 +35,12 @@ func (streamHandler *StreamHandler) AddToStream(key string, data []byte) (int, i
 		Value: data,
 		Id:    id,
 	})
+	if slices.Contains(streamHandler.SubscribedToKeys, key) {
+		streamHandler.PublishToChannel <- channelstructs.PublishChannelStruct{
+			Key:   key,
+			Value: data,
+		}
+	}
 	return len(data) + 8, id
 }
 

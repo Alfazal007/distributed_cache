@@ -1,11 +1,21 @@
 package queuehandler
 
+import (
+	channelstructs "cacheServer/channelStructs"
+	"slices"
+)
+
 type Value struct {
 	value []byte
 }
 
 type Queue struct {
-	Name map[string][]Value
+	Name             map[string][]Value
+	SubscribedToKeys []string
+	// this is the channel through which master creates the subscriptions by specifying the key to subscribe to
+	SubscibeToChannel chan channelstructs.SubscribeChannelStruct
+	// this is the channel to which the messages are transmitted to master after receiving incoming messages
+	PublishToChannel chan channelstructs.PublishChannelStruct
 }
 
 // This adds data to at the 0th index of the queue, and returns the size inserted
@@ -21,6 +31,12 @@ func (queue *Queue) InsertFront(key string, value []byte) int {
 		}}, prevData...)
 		queue.Name[key] = prevData
 	}
+	if slices.Contains(queue.SubscribedToKeys, key) {
+		queue.PublishToChannel <- channelstructs.PublishChannelStruct{
+			Key:   key,
+			Value: value,
+		}
+	}
 	return len(value)
 }
 
@@ -34,6 +50,12 @@ func (queue *Queue) InsertBack(key string, value []byte) int {
 	} else {
 		prevData = append(prevData, Value{value: value})
 		queue.Name[key] = prevData
+	}
+	if slices.Contains(queue.SubscribedToKeys, key) {
+		queue.PublishToChannel <- channelstructs.PublishChannelStruct{
+			Key:   key,
+			Value: value,
+		}
 	}
 	return len(value)
 }

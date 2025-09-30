@@ -11,11 +11,13 @@ type MessageTypes int
 
 const (
 	QUEUE MessageTypes = iota
-	SUBSCRIBER
 	STREAM
+	SUBSCRIBER
+	PING
 )
 
 type Message struct {
-	MessageType MessageTypes `json:"messageType"`
-	Key         string       `json:"key"`
+	MessageType     MessageTypes `json:"messageType"`
+	Key             string       `json:"key"`
+	ShouldSubscribe bool         `json:"subscribe"`
 }
