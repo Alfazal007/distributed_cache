@@ -29,7 +29,7 @@ func channelHandler(conn net.Conn, writer *datahandler.Writer, done <-chan bool)
 			}
 		case msg := <-writer.Queue.PublishToChannel:
 			jsonData, _ := json.Marshal(msg)
-			conn.Write(jsonData)
+			conn.Write(append(jsonData, '\n'))
 
 		case msg := <-writer.Stream.SubscibeToChannel:
 			if msg.ShouldSubscribe {
@@ -50,7 +50,8 @@ func channelHandler(conn net.Conn, writer *datahandler.Writer, done <-chan bool)
 			}
 		case msg := <-writer.Stream.PublishToChannel:
 			jsonData, _ := json.Marshal(msg)
-			conn.Write(jsonData)
+			conn.Write(append(jsonData, '\n'))
+
 		case msg := <-writer.PubSub.SubscibeToChannel:
 			if msg.ShouldSubscribe {
 				if !slices.Contains(writer.PubSub.SubscribedToKeys, msg.Key) {
@@ -70,7 +71,8 @@ func channelHandler(conn net.Conn, writer *datahandler.Writer, done <-chan bool)
 			}
 		case msg := <-writer.PubSub.PublishToChannel:
 			jsonData, _ := json.Marshal(msg)
-			conn.Write(jsonData)
+			conn.Write(append(jsonData, '\n'))
+
 		case <-done:
 			writer.Queue.SubscribedToKeys = make([]string, 0)
 			return

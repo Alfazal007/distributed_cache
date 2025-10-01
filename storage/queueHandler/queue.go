@@ -2,6 +2,7 @@ package queuehandler
 
 import (
 	channelstructs "cacheServer/channelStructs"
+	commontypes "cacheServer/commonTypes"
 	"slices"
 )
 
@@ -33,8 +34,9 @@ func (queue *Queue) InsertFront(key string, value []byte) int {
 	}
 	if slices.Contains(queue.SubscribedToKeys, key) {
 		queue.PublishToChannel <- channelstructs.PublishChannelStruct{
-			Key:   key,
-			Value: value,
+			Key:         key,
+			Value:       value,
+			MessageType: commontypes.QUEUE,
 		}
 	}
 	return len(value)
@@ -53,8 +55,9 @@ func (queue *Queue) InsertBack(key string, value []byte) int {
 	}
 	if slices.Contains(queue.SubscribedToKeys, key) {
 		queue.PublishToChannel <- channelstructs.PublishChannelStruct{
-			Key:   key,
-			Value: value,
+			Key:         key,
+			Value:       value,
+			MessageType: commontypes.QUEUE,
 		}
 	}
 	return len(value)

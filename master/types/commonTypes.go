@@ -21,3 +21,13 @@ type Message struct {
 	Key             string       `json:"key"`
 	ShouldSubscribe bool         `json:"subscribe"`
 }
+
+type SubscriptionType struct {
+	MessageType MessageTypes
+}
+
+type IncomingDataFromStorageToTcp struct {
+	Value       []byte       `json:"value"`
+	Key         string       `json:"key"`
+	MessageType MessageTypes `json:"messageType"`
+}

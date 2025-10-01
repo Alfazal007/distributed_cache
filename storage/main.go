@@ -4,6 +4,7 @@ import (
 	"bufio"
 	bloomfilterhandler "cacheServer/bloomFilterHandler"
 	channelstructs "cacheServer/channelStructs"
+	"cacheServer/commonTypes"
 	datahandler "cacheServer/dataHandler"
 	"cacheServer/grpc"
 	hyperlogloghandler "cacheServer/hyperloglogHandler"
@@ -90,7 +91,7 @@ func SecondServer(writer *datahandler.Writer) {
 	}
 	defer listener.Close()
 	fmt.Println("Server listening on port 8001...")
-	masterConnected := MasterConnected{
+	masterConnected := commontypes.MasterConnected{
 		MasterConnected: false,
 		RwLock:          sync.RWMutex{},
 	}
@@ -115,7 +116,7 @@ func SecondServer(writer *datahandler.Writer) {
 	}
 }
 
-func handleConnection(conn net.Conn, masterConnected *MasterConnected, writer *datahandler.Writer) {
+func handleConnection(conn net.Conn, masterConnected *commontypes.MasterConnected, writer *datahandler.Writer) {
 	done := make(chan bool)
 	defer func() {
 		conn.Close()
@@ -128,29 +129,29 @@ func handleConnection(conn net.Conn, masterConnected *MasterConnected, writer *d
 	scanner := bufio.NewScanner(conn)
 	for scanner.Scan() {
 		line := scanner.Text()
-		var message Message
+		var message commontypes.Message
 		err := json.Unmarshal([]byte(line), &message)
 		if err != nil || message.Key == "" {
 			fmt.Println("Invalid message(READING MESSAGE AGAIN): ", err)
 			continue
 		}
 		switch message.MessageType {
-		case QUEUE:
+		case commontypes.QUEUE:
 			writer.Queue.SubscibeToChannel <- channelstructs.SubscribeChannelStruct{
 				Key:             message.Key,
 				ShouldSubscribe: message.ShouldSubscribe,
 			}
-		case STREAM:
+		case commontypes.STREAM:
 			writer.Stream.SubscibeToChannel <- channelstructs.SubscribeChannelStruct{
 				Key:             message.Key,
 				ShouldSubscribe: message.ShouldSubscribe,
 			}
-		case SUBSCRIBER:
+		case commontypes.SUBSCRIBER:
 			writer.PubSub.SubscibeToChannel <- channelstructs.SubscribeChannelStruct{
 				Key:             message.Key,
 				ShouldSubscribe: message.ShouldSubscribe,
 			}
-		case PING:
+		case commontypes.PING:
 			conn.Write([]byte("PONG\n"))
 		}
 	}

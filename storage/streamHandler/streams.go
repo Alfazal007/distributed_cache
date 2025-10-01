@@ -2,6 +2,7 @@ package streamhandler
 
 import (
 	channelstructs "cacheServer/channelStructs"
+	commontypes "cacheServer/commonTypes"
 	"slices"
 	"time"
 )
@@ -37,8 +38,9 @@ func (streamHandler *StreamHandler) AddToStream(key string, data []byte) (int, i
 	})
 	if slices.Contains(streamHandler.SubscribedToKeys, key) {
 		streamHandler.PublishToChannel <- channelstructs.PublishChannelStruct{
-			Key:   key,
-			Value: data,
+			Key:         key,
+			Value:       data,
+			MessageType: commontypes.STREAM,
 		}
 	}
 	return len(data) + 8, id

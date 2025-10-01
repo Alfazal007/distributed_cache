@@ -2,16 +2,31 @@ package connections
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
+	"masterServer/helpers"
+	"masterServer/types"
 	"net"
 )
 
-func HandleConnClientTcp(conn net.Conn, clientId string) {
+func HandleConnClientTcp(conn net.Conn, clientId string, connectedClients *types.ConnectedClients, tcpConnToStorage []net.Conn) {
 	defer conn.Close()
+	defer connectedClients.RemoveClient(clientId)
 	scanner := bufio.NewScanner(conn)
-	// TODO:: accepts TCP incoming messages from client and forward it to storage unit
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Println(line)
+		var clientMessage types.Message
+		if err := json.Unmarshal([]byte(line), &clientMessage); err != nil {
+			fmt.Printf("invalid message %v\n", err)
+			continue
+		}
+		if clientMessage.MessageType != types.PING {
+			index := helpers.HashStringToRange(clientMessage.Key, uint32(len(tcpConnToStorage)))
+			connToWrite := tcpConnToStorage[index]
+			jsonMessage, _ := json.Marshal(clientMessage)
+			jsonMessage = append(jsonMessage, byte('\n'))
+			connToWrite.Write(jsonMessage)
+			connectedClients.AddSubscription(clientId, clientMessage.Key, clientMessage.MessageType)
+		}
 	}
 }

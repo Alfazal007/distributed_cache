@@ -18,8 +18,8 @@ import (
 func main() {
 	grpcClients := make([]pb.CacheInteractClient, 0)
 	tcpClientsToStorage := make([]net.Conn, 0)
-	clientChannels := types.ClientChannelsData{
-		InnerStruct: make([]types.InnerStruct, 0),
+	clientChannels := types.ConnectedClients{
+		InternalData: make([]types.InternalClientData, 0),
 	}
 
 	for _, host := range config.StorageNodes {
@@ -81,8 +81,8 @@ func main() {
 				fmt.Printf("Accept error: %v\n", err)
 				continue
 			}
-			clientId := clientChannels.CreateNewClient()
-			go connections.HandleConnClientTcp(conn, clientId)
+			clientId := clientChannels.InsertClient(conn)
+			go connections.HandleConnClientTcp(conn, clientId, &clientChannels, tcpClientsToStorage)
 		}
 	}()
 	wg.Wait()

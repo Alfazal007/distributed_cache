@@ -2,6 +2,7 @@ package pubsub
 
 import (
 	channelstructs "cacheServer/channelStructs"
+	commontypes "cacheServer/commonTypes"
 	"slices"
 )
 
@@ -17,8 +18,9 @@ type PubSubStruct struct {
 func (pubsub *PubSubStruct) InsertToPubSub(key string, value []byte) {
 	if slices.Contains(pubsub.SubscribedToKeys, key) {
 		pubsub.PublishToChannel <- channelstructs.PublishChannelStruct{
-			Key:   key,
-			Value: value,
+			Key:         key,
+			Value:       value,
+			MessageType: commontypes.SUBSCRIBER,
 		}
 	}
 }
