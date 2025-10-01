@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
-	"masterServer/helpers"
+	"masterServer/config"
+	"masterServer/connections"
 	"net"
+	"sync"
 
 	pb "masterServer/proto"
 
@@ -13,45 +15,70 @@ import (
 )
 
 func main() {
-	conn, err := grpc.NewClient("localhost:8000", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	defer conn.Close()
-	go ConnectTcpSocket()
-	listener, err := net.Listen("tcp", ":8002")
-	if err != nil {
-		fmt.Printf("Failed to start listener: %v\n", err)
-		return
-	}
-	defer listener.Close()
+	grpcClients := make([]pb.CacheInteractClient, 0)
+	tcpClientsToStorage := make([]net.Conn, 0)
 
-	fmt.Println("Master listening on :8002")
-	client := pb.NewCacheInteractClient(conn)
-	for {
-		conn, err := listener.Accept()
+	for _, host := range config.StorageNodes {
+		grpcLink := fmt.Sprintf("%v:8000", host)
+		tcpLink := fmt.Sprintf("%v:8001", host)
+		tcpConn, err := net.Dial("tcp", tcpLink)
 		if err != nil {
-			fmt.Printf("Accept error: %v\n", err)
-			continue
+			fmt.Printf("Failed to connect: %v\n", err)
+			return
 		}
-		go handleConn(conn, client)
+		defer tcpConn.Close()
+		tcpClientsToStorage = append(tcpClientsToStorage, tcpConn)
+		go connections.ConnectTcpSocketStorageServer(tcpLink, tcpClientsToStorage, tcpConn)
+		conn, err := grpc.NewClient(grpcLink, grpc.WithTransportCredentials(insecure.NewCredentials()))
+		if err != nil {
+			log.Fatalf("did not connect: %v", err)
+		}
+		defer conn.Close()
+		client := pb.NewCacheInteractClient(conn)
+		grpcClients = append(grpcClients, client)
 	}
-}
 
-func handleConn(conn net.Conn, grpcClient pb.CacheInteractClient) {
-	defer conn.Close()
-	handleConnectionForGrpc(conn, grpcClient)
-}
+	wg := sync.WaitGroup{}
+	wg.Add(2)
 
-func ConnectTcpSocket() {
-	conn, err := net.Dial("tcp", "localhost:8001")
-	if err != nil {
-		fmt.Printf("Failed to connect: %v\n", err)
-		return
-	}
-	defer conn.Close()
-	go helpers.PingPongExchange(conn)
-	go HandleConnectionInputAndChannelExchange(conn)
-	for {
-	}
+	// This is for grpc listener
+	go func() {
+		listener, err := net.Listen("tcp", ":8002")
+		if err != nil {
+			fmt.Printf("Failed to start listener: %v\n", err)
+			return
+		}
+		defer listener.Close()
+		defer wg.Done()
+		fmt.Println("Master listening for grpc on :8002")
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				fmt.Printf("Accept error: %v\n", err)
+				continue
+			}
+			go connections.HandleConnGrpc(conn, grpcClients)
+		}
+	}()
+
+	// This is for tcp listener
+	go func() {
+		listener, err := net.Listen("tcp", ":8003")
+		if err != nil {
+			fmt.Printf("Failed to start listener: %v\n", err)
+			return
+		}
+		defer listener.Close()
+		defer wg.Done()
+		fmt.Println("Master listening on for tcp connections :8003")
+		for {
+			conn, err := listener.Accept()
+			if err != nil {
+				fmt.Printf("Accept error: %v\n", err)
+				continue
+			}
+			go connections.HandleConnClientTcp(conn)
+		}
+	}()
+	wg.Wait()
 }

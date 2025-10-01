@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Send ping from master to storage unit
 func PingPongExchange(conn net.Conn) {
 	for {
 		time.Sleep(5 * time.Second)

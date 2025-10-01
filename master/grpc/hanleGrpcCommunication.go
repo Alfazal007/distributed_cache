@@ -1,10 +1,11 @@
-package main
+package grpc
 
 import (
 	"bufio"
 	"context"
 	"encoding/json"
 	"fmt"
+	"masterServer/helpers"
 	"masterServer/types"
 	"net"
 	"time"
@@ -12,7 +13,7 @@ import (
 	pb "masterServer/proto"
 )
 
-func handleConnectionForGrpc(conn net.Conn, grpcClient pb.CacheInteractClient) {
+func HandleConnectionForGrpc(conn net.Conn, grpcClients []pb.CacheInteractClient) {
 	scanner := bufio.NewScanner(conn)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
@@ -25,6 +26,8 @@ func handleConnectionForGrpc(conn net.Conn, grpcClient pb.CacheInteractClient) {
 			fmt.Println("Invalid input data ", err)
 			continue
 		}
+		index := helpers.HashStringToRange(message.Key, uint32(len(grpcClients)))
+		grpcClient := grpcClients[index]
 		switch message.MessageType {
 
 		case types.MapInsert:
