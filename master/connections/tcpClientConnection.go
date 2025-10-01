@@ -6,7 +6,7 @@ import (
 	"net"
 )
 
-func HandleConnClientTcp(conn net.Conn) {
+func HandleConnClientTcp(conn net.Conn, clientId string) {
 	defer conn.Close()
 	scanner := bufio.NewScanner(conn)
 	// TODO:: accepts TCP incoming messages from client and forward it to storage unit

@@ -5,6 +5,7 @@ import (
 	"log"
 	"masterServer/config"
 	"masterServer/connections"
+	"masterServer/types"
 	"net"
 	"sync"
 
@@ -17,6 +18,9 @@ import (
 func main() {
 	grpcClients := make([]pb.CacheInteractClient, 0)
 	tcpClientsToStorage := make([]net.Conn, 0)
+	clientChannels := types.ClientChannelsData{
+		InnerStruct: make([]types.InnerStruct, 0),
+	}
 
 	for _, host := range config.StorageNodes {
 		grpcLink := fmt.Sprintf("%v:8000", host)
@@ -28,7 +32,7 @@ func main() {
 		}
 		defer tcpConn.Close()
 		tcpClientsToStorage = append(tcpClientsToStorage, tcpConn)
-		go connections.ConnectTcpSocketStorageServer(tcpLink, tcpClientsToStorage, tcpConn)
+		go connections.ConnectTcpSocketStorageServer(tcpLink, tcpConn, clientChannels)
 		conn, err := grpc.NewClient(grpcLink, grpc.WithTransportCredentials(insecure.NewCredentials()))
 		if err != nil {
 			log.Fatalf("did not connect: %v", err)
@@ -77,7 +81,8 @@ func main() {
 				fmt.Printf("Accept error: %v\n", err)
 				continue
 			}
-			go connections.HandleConnClientTcp(conn)
+			clientId := clientChannels.CreateNewClient()
+			go connections.HandleConnClientTcp(conn, clientId)
 		}
 	}()
 	wg.Wait()
