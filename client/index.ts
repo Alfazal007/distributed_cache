@@ -23,6 +23,23 @@ function connectToGrpc() {
             key: "dynny key",
         }
         client.write(JSON.stringify(mapGet) + "\n")
+
+        setTimeout(() => {
+            function sendData(i: number) {
+                let mapInsert = {
+                    messageType: 3,
+                    input: {
+                        key: "dynny key",
+                        value: Buffer.from(`dummy value zehahahaha ${i}`).toString('base64')
+                    },
+                    key: "dynny key",
+                }
+                client.write(JSON.stringify(mapInsert) + "\n")
+            }
+            for (let i = 0; i < 10; i++) {
+                sendData(i)
+            }
+        }, 10000)
     })
 
     client.on("data", (data) => {
@@ -39,6 +56,34 @@ function connectToGrpc() {
 }
 
 function connectToTcp() {
+    const PORT = 8003
+    const client = new net.Socket()
+    client.connect(PORT, HOST, () => {
+        console.log(`Connected to server at ${HOST}:${PORT}`)
+        let mapInsert = {
+            messageType: 0,
+            key: "dynny key",
+            subscribe: true,
+        }
+        setTimeout(() => {
+            console.log("sending subscribe message")
+            client.write(JSON.stringify(mapInsert) + "\n")
+        }, 2000)
+    })
+
+    client.on("data", (data) => {
+        console.log("Received from tcp server:", data.toString())
+    })
+
+    client.on("close", () => {
+        console.log("Connection closed")
+    })
+
+    client.on("error", (err) => {
+        console.error("Connection error:", err.message)
+    })
 }
 
 connectToGrpc()
+connectToTcp()
+

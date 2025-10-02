@@ -18,7 +18,7 @@ import (
 func main() {
 	grpcClients := make([]pb.CacheInteractClient, 0)
 	tcpClientsToStorage := make([]net.Conn, 0)
-	clientChannels := types.ConnectedClients{
+	clientChannels := &types.ConnectedClients{
 		InternalData: make([]types.InternalClientData, 0),
 	}
 
@@ -82,7 +82,7 @@ func main() {
 				continue
 			}
 			clientId := clientChannels.InsertClient(conn)
-			go connections.HandleConnClientTcp(conn, clientId, &clientChannels, tcpClientsToStorage)
+			go connections.HandleConnClientTcp(conn, clientId, clientChannels, tcpClientsToStorage)
 		}
 	}()
 	wg.Wait()

@@ -8,15 +8,13 @@ import (
 	"masterServer/helpers"
 	"masterServer/types"
 	"net"
-	"time"
 
 	pb "masterServer/proto"
 )
 
 func HandleConnectionForGrpc(conn net.Conn, grpcClients []pb.CacheInteractClient) {
 	scanner := bufio.NewScanner(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
-	defer cancel()
+	ctx := context.Background()
 
 	for scanner.Scan() {
 		line := scanner.Text()

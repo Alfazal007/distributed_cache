@@ -13,14 +13,14 @@ import (
 )
 
 type Writer struct {
-	HashMap     maphandler.Map
-	Queue       queuehandler.Queue
-	Set         sethandler.SetData
-	SortedSet   sortedsethandler.SortedSetStruct
-	Stream      streamhandler.StreamHandler
-	HyperLogLog hyperlogloghandler.HyperLogLogStruct
-	BloomFilter bloomfilterhandler.BloomFilterHander
-	PubSub      pubsub.PubSubStruct
+	HashMap     *maphandler.Map
+	Queue       *queuehandler.Queue
+	Set         *sethandler.SetData
+	SortedSet   *sortedsethandler.SortedSetStruct
+	Stream      *streamhandler.StreamHandler
+	HyperLogLog *hyperlogloghandler.HyperLogLogStruct
+	BloomFilter *bloomfilterhandler.BloomFilterHander
+	PubSub      *pubsub.PubSubStruct
 }
 
 func (writer *Writer) WriteToHashMap(key string, value []byte) bool {

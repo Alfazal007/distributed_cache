@@ -31,34 +31,34 @@ import (
 func main() {
 	s := grpc.NewServer()
 	writer := datahandler.Writer{
-		HashMap: maphandler.Map{
+		HashMap: &maphandler.Map{
 			Name: make(map[string]maphandler.Value),
 		},
-		Queue: queuehandler.Queue{
+		Queue: &queuehandler.Queue{
 			Name:              make(map[string][]queuehandler.Value),
 			SubscibeToChannel: make(chan channelstructs.SubscribeChannelStruct),
 			PublishToChannel:  make(chan channelstructs.PublishChannelStruct),
 			SubscribedToKeys:  make([]string, 0),
 		},
-		Set: sethandler.SetData{
+		Set: &sethandler.SetData{
 			Name: make(map[string]sethandler.Set),
 		},
-		SortedSet: sortedsethandler.SortedSetStruct{
+		SortedSet: &sortedsethandler.SortedSetStruct{
 			SortedSet: make(map[string]sortedsethandler.SortedSetStructInternal),
 		},
-		Stream: streamhandler.StreamHandler{
+		Stream: &streamhandler.StreamHandler{
 			Data:              make(map[string][]streamhandler.StreamData),
 			SubscribedToKeys:  make([]string, 0),
 			SubscibeToChannel: make(chan channelstructs.SubscribeChannelStruct),
 			PublishToChannel:  make(chan channelstructs.PublishChannelStruct),
 		},
-		HyperLogLog: hyperlogloghandler.HyperLogLogStruct{
+		HyperLogLog: &hyperlogloghandler.HyperLogLogStruct{
 			Hyperloglog: make(map[string]*hyperloglog.Sketch),
 		},
-		BloomFilter: bloomfilterhandler.BloomFilterHander{
+		BloomFilter: &bloomfilterhandler.BloomFilterHander{
 			BloomFilter: make(map[string]*bloom.BloomFilter),
 		},
-		PubSub: pubsub.PubSubStruct{
+		PubSub: &pubsub.PubSubStruct{
 			SubscribedToKeys:  make([]string, 0),
 			PublishToChannel:  make(chan channelstructs.PublishChannelStruct),
 			SubscibeToChannel: make(chan channelstructs.SubscribeChannelStruct),
