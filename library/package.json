@@ -1,0 +1,16 @@
+{
+  "name": "library",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "types": "./dist/index.d.ts", 
+  "scripts": {
+    "build": "bun build ./index.ts --outdir=dist --target=node --format=esm"
+  }
+}

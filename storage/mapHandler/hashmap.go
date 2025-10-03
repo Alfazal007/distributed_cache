@@ -2,6 +2,7 @@ package maphandler
 
 import (
 	"cacheServer/config"
+	"fmt"
 	"time"
 )
 
@@ -19,6 +20,7 @@ type Map struct {
 // the current size plus added value size is less than total allowed size
 // returns 2 values, first is prevLength and the next is new length
 func (hashmap *Map) Insert(key string, value []byte) (int, int) {
+	fmt.Println("Insert called")
 	var prevLength, newLength int
 	prevData, ok := hashmap.Name[key]
 	newLength = len(key) + len(value) + 8 + 8
