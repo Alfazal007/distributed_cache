@@ -7,6 +7,7 @@ import { GrpcStream } from "./grpcObjects/stream"
 import { GrpcHll } from "./grpcObjects/hyperloglog"
 import { GrpcBloomFilters } from "./grpcObjects/bloomFilters"
 import { GrpcPublisher } from "./grpcObjects/publisher"
+import * as readline from "readline";
 
 /**
  * Cache class that talks to master and provides necessary functions to talk to the master node
@@ -71,6 +72,10 @@ export class Cache {
         client.connect(PORT, this.host, () => {
             console.log(`Connected to grpc server at ${this.host}:${PORT}`)
         })
+        const rl = readline.createInterface({
+            input: client,
+            crlfDelay: Infinity,
+        });
         client.on("close", () => {
             console.log("Connection closed")
             process.exit(1)
@@ -79,10 +84,9 @@ export class Cache {
             console.error("Connection error:", err.message)
             process.exit(1)
         })
-
-        client.on("data", (data) => {
-            Cache.currentGrpcData.push(data.toString())
-        })
+        rl.on("line", (line: string) => {
+            Cache.currentGrpcData.push(line);
+        });
         return client
     }
 

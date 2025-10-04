@@ -19,7 +19,7 @@ describe("Cache", () => {
         let index = 0
         cache.stream.insertDataToStream(key1, value1)
         cache.stream.insertDataToStream(key1, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.success == true)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)

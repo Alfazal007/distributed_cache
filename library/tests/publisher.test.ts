@@ -16,13 +16,10 @@ describe("Cache", () => {
     it("should publish message", async () => {
         let index = 0
         cache.publisher.insertToPublisher(key1, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.publisher.insertToPublisher(key1, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.publisher.insertToPublisher(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.publisher.insertToPublisher(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         for (let i = 0; i < 4; i++) {
             let res = JSON.parse(Cache.currentGrpcData[index++] as string)
             expect(res.success == true)

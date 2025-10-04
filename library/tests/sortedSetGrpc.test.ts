@@ -33,7 +33,7 @@ describe("Cache", () => {
         cache.sortedSet.insertToSortedSet(mainKey2, key1Mk2, value1Mk2)
         cache.sortedSet.insertToSortedSet(mainKey2, key2Mk2, value2Mk2)
         cache.sortedSet.insertToSortedSet(mainKey2, key3Mk2, value3Mk2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         for (let i = 0; i < 6; i++) {
             let res = JSON.parse(Cache.currentGrpcData[index++] as string)
             expect(res.result == 1)
@@ -50,7 +50,7 @@ describe("Cache", () => {
         cache.sortedSet.getScoreOfSortedSet(mainKey2, key1Mk2)
         cache.sortedSet.getScoreOfSortedSet(mainKey2, key2Mk2)
         cache.sortedSet.getScoreOfSortedSet(mainKey2, key3Mk2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 1000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let expectedRes = [10, 30, 20, -1, 50, 40, 40]
         for (let i = 0; i < 7; i++) {
             let res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -68,7 +68,7 @@ describe("Cache", () => {
         cache.sortedSet.getRankSortedSet(mainKey2, key1Mk2)
         cache.sortedSet.getRankSortedSet(mainKey2, key2Mk2)
         cache.sortedSet.getRankSortedSet(mainKey2, key3Mk2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 1000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let expectedRes = [1, 3, 2, -1, 3, 2, 1]
         for (let i = 0; i < 7; i++) {
             let res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -86,7 +86,7 @@ describe("Cache", () => {
         cache.sortedSet.getRankSortedSet(mainKey2, key1Mk2)
         cache.sortedSet.getRankSortedSet(mainKey2, key2Mk2)
         cache.sortedSet.getRankSortedSet(mainKey2, key3Mk2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 1000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let expectedRes = [1, 3, 2, -1, 3, 2, 1]
         for (let i = 0; i < 7; i++) {
             let res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -99,7 +99,7 @@ describe("Cache", () => {
         let index = 0
         cache.sortedSet.getRankAscOrder(mainKey1)
         cache.sortedSet.getRankAscOrder(mainKey2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 1000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         let expectedFirstMk1 = [
             { score: value1Mk1, name: key1Mk1 },
@@ -115,12 +115,12 @@ describe("Cache", () => {
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.membersAndScore).toStrictEqual(expectedFirstMk2)
         cache.sortedSet.insertToSortedSet(mainKey1, key1Mk1, 100)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 1000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         cache.clearData()
         expectedFirstMk1.shift()
         expectedFirstMk1.push({ score: 100, name: key1Mk1 })
         cache.sortedSet.getRankAscOrder(mainKey1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         res = JSON.parse(Cache.currentGrpcData[0] as string)
         expect(res.membersAndScore).toStrictEqual(expectedFirstMk1)
         cache.clearData()
@@ -130,7 +130,7 @@ describe("Cache", () => {
         let index = 0
         cache.sortedSet.getRankDescOrder(mainKey1)
         cache.sortedSet.getRankDescOrder(mainKey2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 1000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         let expectedFirstMk1 = [
             { score: 100, name: key1Mk1 },
@@ -146,12 +146,12 @@ describe("Cache", () => {
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.membersAndScore).toStrictEqual(expectedFirstMk2)
         cache.sortedSet.insertToSortedSet(mainKey1, key1Mk1, 10)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 1000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         cache.clearData()
         expectedFirstMk1.shift()
         expectedFirstMk1.push({ score: 10, name: key1Mk1 })
         cache.sortedSet.getRankDescOrder(mainKey1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         res = JSON.parse(Cache.currentGrpcData[0] as string)
         expect(res.membersAndScore).toStrictEqual(expectedFirstMk1)
         cache.clearData()
@@ -162,7 +162,7 @@ describe("Cache", () => {
         cache.sortedSet.getRankAscOrder(mainKey1)
         cache.sortedSet.removeFromSortedSet(mainKey1, key1Mk1)
         cache.sortedSet.getRankAscOrder(mainKey1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         let expectedFirstMk1 = [
             { score: value1Mk1, name: key1Mk1 },

@@ -18,7 +18,7 @@ describe("Cache", () => {
         let index = 0
         cache.set.insertToSet(key1, [value1Key1, value2Key1])
         cache.set.insertToSet(key2, [value3Key2])
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.result == 1)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -33,7 +33,7 @@ describe("Cache", () => {
         cache.set.setHasMember(key1, value3Key2)
         cache.set.setHasMember(key2, value3Key2)
         cache.set.setHasMember(key2, value1Key1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 4000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let expected = [true, true, false, true, false]
         for (let i = 0; i < expected.length; i++) {
             let expectedResponse = expected[i] as boolean
@@ -53,7 +53,7 @@ describe("Cache", () => {
         cache.set.getSetValues(key1)
         cache.set.getSetValues(key2)
         cache.set.getSetValues("key3")
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 500))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.values).toStrictEqual([value1Key1, value2Key1])
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -70,7 +70,7 @@ describe("Cache", () => {
         cache.set.setRemoveMember(key2, value3Key2)
         cache.set.getSetValues(key1)
         cache.set.getSetValues(key2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 500))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.result).toStrictEqual(1)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)

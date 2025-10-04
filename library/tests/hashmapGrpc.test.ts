@@ -17,7 +17,7 @@ describe("Cache", () => {
         let index = 0
         cache.hashmap.insertToHashMap(key1, value1)
         cache.hashmap.insertToHashMap(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.result == 1)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -30,7 +30,7 @@ describe("Cache", () => {
         cache.hashmap.fetchFromHashMap(key1)
         cache.hashmap.fetchFromHashMap(key2)
         cache.hashmap.fetchFromHashMap("key3")
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.value == value1)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -43,13 +43,13 @@ describe("Cache", () => {
     it("should test if a key got deleted or not", async () => {
         let index = 0
         cache.hashmap.fetchFromHashMap(key1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 500))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index] as string)
         expect(res.value == value1)
         cache.clearData()
         cache.hashmap.deleteFromHashMap(key1)
         cache.hashmap.deleteFromHashMap("randomkey")
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.result).toBe(1)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)

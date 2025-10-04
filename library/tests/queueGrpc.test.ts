@@ -19,7 +19,7 @@ describe("Cache", () => {
         let index = 0
         cache.queue.insertFrontOfQueue(key1, front1Value)
         cache.queue.insertFrontOfQueue(key2, front2Value)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.result == 1)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -31,7 +31,7 @@ describe("Cache", () => {
         let index = 0
         cache.queue.insertBackOfQueue(key1, back1Value)
         cache.queue.insertBackOfQueue(key2, back2Value)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(res.result == 1)
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -43,7 +43,7 @@ describe("Cache", () => {
         let index = 0
         cache.queue.removeFrontOfQueue(key1)
         cache.queue.removeFrontOfQueue(key1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(front1Value == atob(res.value))
         res = JSON.parse(Cache.currentGrpcData[index++] as string)
@@ -55,7 +55,7 @@ describe("Cache", () => {
         let index = 0
         cache.queue.removeBackOfQueue(key2)
         cache.queue.removeBackOfQueue(key2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         let res = JSON.parse(Cache.currentGrpcData[index++] as string)
         expect(back2Value == atob(res.value))
         res = JSON.parse(Cache.currentGrpcData[index++] as string)

@@ -16,13 +16,10 @@ describe("Cache", () => {
     it("should insert value into bloomfilters", async () => {
         let index = 0
         cache.bloomFilters.insertToBloomFilters(key1, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.bloomFilters.insertToBloomFilters(key1, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.bloomFilters.insertToBloomFilters(key2, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.bloomFilters.insertToBloomFilters(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 100))
         for (let i = 0; i < 4; i++) {
             let res = JSON.parse(Cache.currentGrpcData[index++] as string)
             expect(res.success == true)
@@ -33,15 +30,11 @@ describe("Cache", () => {
     it("should check if a value exists in bloomfilters", async () => {
         let index = 0
         cache.bloomFilters.existsInBf(key1, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.bloomFilters.existsInBf(key1, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.bloomFilters.existsInBf(key2, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.bloomFilters.existsInBf(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
         cache.bloomFilters.existsInBf(key2, "kaidou")
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 200))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 100))
         for (let i = 0; i < 4; i++) {
             let res = JSON.parse(Cache.currentGrpcData[index++] as string)
             expect(res.exists == true)
