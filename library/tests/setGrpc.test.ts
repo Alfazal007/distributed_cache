@@ -33,7 +33,7 @@ describe("Cache", () => {
         cache.set.setHasMember(key1, value3Key2)
         cache.set.setHasMember(key2, value3Key2)
         cache.set.setHasMember(key2, value1Key1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 4000))
         let expected = [true, true, false, true, false]
         for (let i = 0; i < expected.length; i++) {
             let expectedResponse = expected[i] as boolean

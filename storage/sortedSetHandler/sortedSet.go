@@ -36,14 +36,14 @@ func (sortedSet *SortedSetStruct) InsertToSet(key string, value int64, mainKey s
 			NameToScore: make(map[string]int64),
 		}
 	}
-	data, ok := sortedSet.SortedSet[mainKey].NameToScore[key]
+	oldScore, ok := sortedSet.SortedSet[mainKey].NameToScore[key]
 	needToAdd := true
 	if ok {
 		needToAdd = false
-		sortedSet.SortedSet[mainKey].SkipList.Delete(ScoreKey{data, key})
+		sortedSet.SortedSet[mainKey].SkipList.Delete(ScoreKey{oldScore, key})
 	}
 	sortedSet.SortedSet[mainKey].NameToScore[key] = value
-	sortedSet.SortedSet[mainKey].SkipList.Set(ScoreKey{data, key}, nil)
+	sortedSet.SortedSet[mainKey].SkipList.Set(ScoreKey{value, key}, nil)
 	if needToAdd {
 		return len(key) + len(key) + 8 + 8
 	}
@@ -88,7 +88,7 @@ func (sortedSet *SortedSetStruct) GetRank(target, mainKey string) int32 {
 	if !ok {
 		return -1
 	}
-	rank := 0
+	rank := 1
 	for iter := sortedSet.SortedSet[mainKey].SkipList.Iterator(); iter.Next(); {
 		key := iter.Key().(ScoreKey)
 		if key.Name == target {
