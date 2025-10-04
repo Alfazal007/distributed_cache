@@ -4,6 +4,7 @@ import { GrpcQueue } from "./grpcObjects/queue"
 import { GrpcSet } from "./grpcObjects/set"
 import { GrpcSortedSet } from "./grpcObjects/sortedSet"
 import { GrpcStream } from "./grpcObjects/stream"
+import { GrpcHll } from "./grpcObjects/hyperloglog"
 
 /**
  * Cache class that talks to master and provides necessary functions to talk to the master node
@@ -18,6 +19,7 @@ export class Cache {
     public static set: GrpcSet
     public static sortedSet: GrpcSortedSet
     public static stream: GrpcStream
+    public static hll: GrpcHll
 
     // TODO:: remove this variable altogether, it is just for testing
     public static currentGrpcData: string[] = []
@@ -32,6 +34,7 @@ export class Cache {
             Cache.set = GrpcSet.getInstance(Cache.grpcConnection)
             Cache.sortedSet = GrpcSortedSet.getInstance(Cache.grpcConnection)
             Cache.stream = GrpcStream.getInstance(Cache.grpcConnection)
+            Cache.hll = GrpcHll.getInstance(Cache.grpcConnection)
         }
     }
 
@@ -70,6 +73,7 @@ export class Cache {
             console.error("Connection error:", err.message)
             process.exit(1)
         })
+
         client.on("data", (data) => {
             Cache.currentGrpcData.push(data.toString())
         })
