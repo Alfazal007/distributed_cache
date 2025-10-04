@@ -85,7 +85,7 @@ export class Cache {
             process.exit(1)
         })
         rl.on("line", (line: string) => {
-            Cache.currentGrpcData.push(line);
+            Cache.currentGrpcData.push(line)
         });
         return client
     }
