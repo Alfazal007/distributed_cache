@@ -1,5 +1,6 @@
 import * as net from "net"
 import { GrpcHashMap } from "./grpcObjects/hashmap"
+import { GrpcQueue } from "./grpcObjects/queue"
 
 /**
  * Cache class that talks to master and provides necessary functions to talk to the master node
@@ -10,6 +11,7 @@ export class Cache {
     static grpcConnection: net.Socket
     static tcpConnection: net.Socket
     public static hashmap: GrpcHashMap
+    public static queue: GrpcQueue
 
     // TODO:: remove this variable altogether, it is just for testing
     public static currentGrpcData: string[] = []
@@ -20,6 +22,7 @@ export class Cache {
             Cache.grpcConnection = Cache.instance.connectToGrpc()
             Cache.tcpConnection = Cache.instance.connectToTcp()
             Cache.hashmap = GrpcHashMap.getInstance(Cache.grpcConnection)
+            Cache.queue = GrpcQueue.getInstance(Cache.grpcConnection)
         }
     }
 
