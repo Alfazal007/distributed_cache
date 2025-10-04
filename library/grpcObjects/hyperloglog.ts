@@ -1,9 +1,6 @@
 import * as net from "net"
 import { GrpcMessageTypes, type GrpcMessageType } from "../types"
 
-/*
-    
-*/
 export class GrpcHll {
     private static instance: GrpcHll
     private static grpcConn: net.Socket

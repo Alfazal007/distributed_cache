@@ -5,6 +5,7 @@ import { GrpcSet } from "./grpcObjects/set"
 import { GrpcSortedSet } from "./grpcObjects/sortedSet"
 import { GrpcStream } from "./grpcObjects/stream"
 import { GrpcHll } from "./grpcObjects/hyperloglog"
+import { GrpcBloomFilters } from "./grpcObjects/bloomFilters"
 
 /**
  * Cache class that talks to master and provides necessary functions to talk to the master node
@@ -20,6 +21,7 @@ export class Cache {
     public static sortedSet: GrpcSortedSet
     public static stream: GrpcStream
     public static hll: GrpcHll
+    public static bloomFilters: GrpcBloomFilters
 
     // TODO:: remove this variable altogether, it is just for testing
     public static currentGrpcData: string[] = []
@@ -35,6 +37,7 @@ export class Cache {
             Cache.sortedSet = GrpcSortedSet.getInstance(Cache.grpcConnection)
             Cache.stream = GrpcStream.getInstance(Cache.grpcConnection)
             Cache.hll = GrpcHll.getInstance(Cache.grpcConnection)
+            Cache.bloomFilters = GrpcBloomFilters.getInstance(Cache.grpcConnection)
         }
     }
 
