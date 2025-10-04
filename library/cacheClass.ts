@@ -3,6 +3,7 @@ import { GrpcHashMap } from "./grpcObjects/hashmap"
 import { GrpcQueue } from "./grpcObjects/queue"
 import { GrpcSet } from "./grpcObjects/set"
 import { GrpcSortedSet } from "./grpcObjects/sortedSet"
+import { GrpcStream } from "./grpcObjects/stream"
 
 /**
  * Cache class that talks to master and provides necessary functions to talk to the master node
@@ -16,6 +17,7 @@ export class Cache {
     public static queue: GrpcQueue
     public static set: GrpcSet
     public static sortedSet: GrpcSortedSet
+    public static stream: GrpcStream
 
     // TODO:: remove this variable altogether, it is just for testing
     public static currentGrpcData: string[] = []
@@ -29,6 +31,7 @@ export class Cache {
             Cache.queue = GrpcQueue.getInstance(Cache.grpcConnection)
             Cache.set = GrpcSet.getInstance(Cache.grpcConnection)
             Cache.sortedSet = GrpcSortedSet.getInstance(Cache.grpcConnection)
+            Cache.stream = GrpcStream.getInstance(Cache.grpcConnection)
         }
     }
 
