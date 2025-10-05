@@ -11,7 +11,7 @@ describe("Cache", () => {
         cache = connect("127.0.0.1")
     })
 
-    it("should insert value into hashmap", async () => {
+    it("should fetch latest queue data", async () => {
         cache.tcpQueue.subscribeToQueue(key)
         await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
         let promiseGetQueueData = cache.tcpQueue.getQueueMessageIncoming(key, cache.tcpReadline)
