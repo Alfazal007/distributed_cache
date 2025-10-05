@@ -1,6 +1,5 @@
 import { describe, it, beforeAll, expect } from "bun:test"
 import { connect } from "../index.ts"
-import { Cache } from "../cacheClass.ts"
 
 describe("Cache", () => {
     let cache: ReturnType<typeof connect>
@@ -16,44 +15,30 @@ describe("Cache", () => {
     })
 
     it("should insert value into stream", async () => {
-        let index = 0
-        cache.stream.insertDataToStream(key1, value1)
-        cache.stream.insertDataToStream(key1, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.success == true)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.success == true)
-        cache.clearData()
+        let response = await cache.stream.insertDataToStream(key1, value1, cache.grpcReadline)
+        expect(response.success == true)
+        response = cache.stream.insertDataToStream(key1, value2, cache.grpcReadline)
+        expect(response.success == true)
     })
 
     it("should get range data from the stream", async () => {
         let ranges: number[] = []
-        let index = 0
-        cache.stream.insertDataToStream(key2, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.insertDataToStream(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.insertDataToStream(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.insertDataToStream(key2, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.insertDataToStream(key2, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
+        let responses = []
+        responses.push(await cache.stream.insertDataToStream(key2, value1, cache.grpcReadline))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
+        responses.push(await cache.stream.insertDataToStream(key2, value2, cache.grpcReadline))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
+        responses.push(await cache.stream.insertDataToStream(key2, value2, cache.grpcReadline))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
+        responses.push(await cache.stream.insertDataToStream(key2, value1, cache.grpcReadline))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
+        responses.push(await cache.stream.insertDataToStream(key2, value1, cache.grpcReadline))
         for (let i = 0; i < 5; i++) {
-            let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-            ranges.push(res.id)
+            ranges.push(responses[i].id)
         }
-        cache.clearData()
-        cache.stream.getStreamRangeData(key2, ranges[0] as number, ranges[2] as number)
-        cache.stream.getStreamRangeData(key2, ranges[1] as number, ranges[4] as number)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
         let curRes = []
-        index = 0
-        for (let i = 0; i < 2; i++) {
-            let res = Cache.currentGrpcData[index++] as string
-            curRes.push(JSON.parse(res))
-        }
+        curRes.push(await cache.stream.getStreamRangeData(key2, ranges[0] as number, ranges[2] as number, cache.grpcReadline))
+        curRes.push(await cache.stream.getStreamRangeData(key2, ranges[1] as number, ranges[4] as number, cache.grpcReadline))
         let expected1 = [value1, value2, value2]
         let expected2 = [value2, value2, value1, value1]
         let i = 0
@@ -64,37 +49,26 @@ describe("Cache", () => {
         for (let j = 0; j < expected2.length; j++) {
             expect(expected2[j]).toStrictEqual(atob(curRes[i].value[j]))
         }
-        cache.clearData()
-    }, { timeout: 20000 })
+    })
 
     it("should remove value from stream", async () => {
-        let index = 0
-        cache.stream.insertDataToStream(key3, value1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.insertDataToStream(key3, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.insertDataToStream(key3, value3)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        let curRes = []
-        for (let i = 0; i < 3; i++) {
-            let res = Cache.currentGrpcData[index++] as string
-            curRes.push(JSON.parse(res))
-        }
+        let responses = []
+        responses.push(await cache.stream.insertDataToStream(key3, value1, cache.grpcReadline))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
+        responses.push(await cache.stream.insertDataToStream(key3, value2, cache.grpcReadline))
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000))
+        responses.push(await cache.stream.insertDataToStream(key3, value3, cache.grpcReadline))
         let ranges: number[] = []
-        for (let i = 0; i < curRes.length; i++) {
-            let res = curRes[i].id
+        for (let i = 0; i < responses.length; i++) {
+            let res = responses[i].id
             ranges.push(res)
         }
-        cache.clearData()
-        index = 0
-        cache.stream.getStreamRangeData(key3, ranges[0] as number, ranges[2] as number)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.removeDataFromStream(key3, ranges[1] as number)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        cache.stream.getStreamRangeData(key3, ranges[0] as number, ranges[2] as number)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 2000))
-        let beforeDeleteData = JSON.parse(Cache.currentGrpcData[0] as string).value
-        let afterDeleteData = JSON.parse(Cache.currentGrpcData[2] as string).value
+        responses.length = 0
+        responses.push(await cache.stream.getStreamRangeData(key3, ranges[0] as number, ranges[2] as number, cache.grpcReadline))
+        responses.push(await cache.stream.removeDataFromStream(key3, ranges[1] as number, cache.grpcReadline))
+        responses.push(await cache.stream.getStreamRangeData(key3, ranges[0] as number, ranges[2] as number, cache.grpcReadline))
+        let beforeDeleteData = responses[0].value
+        let afterDeleteData = responses[2].value
         let expectedBefore = [value1, value2, value3]
         let expectedAfter = [value1, value3]
         for (let i = 0; i < expectedBefore.length; i++) {
@@ -103,7 +77,6 @@ describe("Cache", () => {
         for (let i = 0; i < expectedAfter.length; i++) {
             expect(atob(afterDeleteData[i])).toStrictEqual(expectedAfter[i] as string)
         }
-        cache.clearData()
-    }, { timeout: 20000 })
+    })
 })
 

@@ -1,6 +1,5 @@
 import { describe, it, beforeAll, expect } from "bun:test"
 import { connect } from "../index.ts"
-import { Cache } from "../cacheClass.ts"
 
 describe("Cache", () => {
     let cache: ReturnType<typeof connect>
@@ -14,16 +13,13 @@ describe("Cache", () => {
     })
 
     it("should publish message", async () => {
-        let index = 0
-        cache.publisher.insertToPublisher(key1, value1)
-        cache.publisher.insertToPublisher(key1, value2)
-        cache.publisher.insertToPublisher(key2, value2)
-        cache.publisher.insertToPublisher(key2, value2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
+        let responses = []
+        responses.push(await cache.publisher.insertToPublisher(key1, value1, cache.grpcReadline))
+        responses.push(await cache.publisher.insertToPublisher(key1, value2, cache.grpcReadline))
+        responses.push(await cache.publisher.insertToPublisher(key2, value2, cache.grpcReadline))
+        responses.push(await cache.publisher.insertToPublisher(key2, value2, cache.grpcReadline))
         for (let i = 0; i < 4; i++) {
-            let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-            expect(res.success == true)
+            expect(responses[i].success == true)
         }
-        cache.clearData()
     })
 })

@@ -43,6 +43,7 @@ const (
 )
 
 type GrpcMessage struct {
+	RequestId   string           `json:"requestId"`
 	Key         string           `json:"key"`
 	MessageType GrpcMessageTypes `json:"messageType"`
 	Input       json.RawMessage  `json:"input"`

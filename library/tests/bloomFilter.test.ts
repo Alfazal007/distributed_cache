@@ -1,6 +1,5 @@
 import { describe, it, beforeAll, expect } from "bun:test"
 import { connect } from "../index.ts"
-import { Cache } from "../cacheClass.ts"
 
 describe("Cache", () => {
     let cache: ReturnType<typeof connect>
@@ -14,33 +13,26 @@ describe("Cache", () => {
     })
 
     it("should insert value into bloomfilters", async () => {
-        let index = 0
-        cache.bloomFilters.insertToBloomFilters(key1, value1)
-        cache.bloomFilters.insertToBloomFilters(key1, value2)
-        cache.bloomFilters.insertToBloomFilters(key2, value1)
-        cache.bloomFilters.insertToBloomFilters(key2, value2)
-        await new Promise((resolve) => setTimeout(() => resolve(true), 100))
+        let responses = []
+        responses.push(await cache.bloomFilters.insertToBloomFilters(key1, value1, cache.grpcReadline))
+        responses.push(await cache.bloomFilters.insertToBloomFilters(key1, value2, cache.grpcReadline))
+        responses.push(await cache.bloomFilters.insertToBloomFilters(key2, value1, cache.grpcReadline))
+        responses.push(await cache.bloomFilters.insertToBloomFilters(key2, value2, cache.grpcReadline))
         for (let i = 0; i < 4; i++) {
-            let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-            expect(res.success == true)
+            expect(responses[i].success == true)
         }
-        cache.clearData()
     })
 
     it("should check if a value exists in bloomfilters", async () => {
-        let index = 0
-        cache.bloomFilters.existsInBf(key1, value1)
-        cache.bloomFilters.existsInBf(key1, value2)
-        cache.bloomFilters.existsInBf(key2, value1)
-        cache.bloomFilters.existsInBf(key2, value2)
-        cache.bloomFilters.existsInBf(key2, "kaidou")
-        await new Promise((resolve) => setTimeout(() => resolve(true), 100))
+        let responses = []
+        responses.push(await cache.bloomFilters.existsInBf(key1, value1, cache.grpcReadline))
+        responses.push(await cache.bloomFilters.existsInBf(key1, value2, cache.grpcReadline))
+        responses.push(await cache.bloomFilters.existsInBf(key2, value1, cache.grpcReadline))
+        responses.push(await cache.bloomFilters.existsInBf(key2, value2, cache.grpcReadline))
+        responses.push(await cache.bloomFilters.existsInBf(key2, "kaidou", cache.grpcReadline))
         for (let i = 0; i < 4; i++) {
-            let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-            expect(res.exists == true)
+            expect(responses[i].exists == true)
         }
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.exists == false)
-        cache.clearData()
+        expect(responses[4].exists == false)
     })
 })

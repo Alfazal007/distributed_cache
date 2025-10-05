@@ -1,6 +1,5 @@
 import { describe, it, beforeAll, expect } from "bun:test"
 import { connect } from "../index.ts"
-import { Cache } from "../cacheClass.ts"
 
 describe("Cache", () => {
     let cache: ReturnType<typeof connect>
@@ -15,44 +14,31 @@ describe("Cache", () => {
     })
 
     it("should insert value into the hll", async () => {
-        let index = 0
-        cache.hll.insertDataToHLL(key1, value1)
-        cache.hll.insertDataToHLL(key1, value2)
-        cache.hll.insertDataToHLL(key1, value3)
-        cache.hll.insertDataToHLL(key2, value1)
-        cache.hll.insertDataToHLL(key2, value2)
+        let responses = []
+        responses.push(await cache.hll.insertDataToHLL(key1, value1, cache.grpcReadline))
+        responses.push(await cache.hll.insertDataToHLL(key1, value2, cache.grpcReadline))
+        responses.push(await cache.hll.insertDataToHLL(key1, value3, cache.grpcReadline))
+        responses.push(await cache.hll.insertDataToHLL(key2, value1, cache.grpcReadline))
+        responses.push(await cache.hll.insertDataToHLL(key2, value2, cache.grpcReadline))
         await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
         for (let i = 0; i < 5; i++) {
-            let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-            expect(res.success == true)
+            expect(responses[i].success == true)
         }
-        cache.clearData()
     })
 
-
     it("should get the count for a hll", async () => {
-        let index = 0
-        cache.hll.getCountOfHll(key1)
-        cache.hll.getCountOfHll(key2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.count == 3)
-        expect(res.count == 2)
-        cache.clearData()
+        let response = await cache.hll.getCountOfHll(key1, cache.grpcReadline)
+        expect(response.count == 3)
+        response = await cache.hll.getCountOfHll(key2, cache.grpcReadline)
+        expect(response.count == 2)
     })
 
     it("should merge two hll into a new hll and return count", async () => {
-        let index = 0
-        cache.hll.getCountOfHll(key1)
-        cache.hll.getCountOfHll(key2)
-        cache.hll.mergeHll(key1, key2, "dest")
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.count == 3)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.count == 2)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.count == 5)
-        cache.clearData()
+        let response = await cache.hll.getCountOfHll(key1, cache.grpcReadline)
+        expect(response.count == 3)
+        response = await cache.hll.getCountOfHll(key2, cache.grpcReadline)
+        expect(response.count == 2)
+        response = await cache.hll.mergeHll(key1, key2, "dest", cache.grpcReadline)
+        expect(response.count == 5)
     })
 })

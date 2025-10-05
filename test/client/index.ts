@@ -91,6 +91,7 @@ export class GrpcHelper {
 
     // ... add other methods following the same pattern
 }
+
 async function insertToHashMap(
     rl: readline.Interface,
     client: net.Socket,

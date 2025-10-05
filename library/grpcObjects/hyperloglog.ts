@@ -1,4 +1,5 @@
 import * as net from "net"
+import * as readline from "readline"
 import { GrpcMessageTypes, type GrpcMessageType } from "../types"
 
 export class GrpcHll {
@@ -13,40 +14,91 @@ export class GrpcHll {
         return GrpcHll.instance
     }
 
-    insertDataToHLL(key: string, value: string) {
-        let bytesData = Buffer.from(value).toString("base64")
-        let insertDataToHLLInput: GrpcMessageType = {
-            messageType: GrpcMessageTypes.InsertDataToHLL,
-            input: {
+    insertDataToHLL(key: string, value: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let bytesData = Buffer.from(value).toString("base64")
+            let insertDataToHLLInput: GrpcMessageType = {
+                messageType: GrpcMessageTypes.InsertDataToHLL,
+                input: {
+                    key,
+                    value: bytesData
+                },
                 key,
-                value: bytesData
-            },
-            key
-        }
-        GrpcHll.grpcConn.write(JSON.stringify(insertDataToHLLInput) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcHll.grpcConn.write(JSON.stringify(insertDataToHLLInput) + "\n")
+        })
     }
 
-    getCountOfHll(key: string) {
-        let getCountOfHllInput: GrpcMessageType = {
-            messageType: GrpcMessageTypes.GetCountFromHLL,
-            input: {
+    getCountOfHll(key: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let getCountOfHllInput: GrpcMessageType = {
+                messageType: GrpcMessageTypes.GetCountFromHLL,
+                input: {
+                    key,
+                },
                 key,
-            },
-            key
-        }
-        GrpcHll.grpcConn.write(JSON.stringify(getCountOfHllInput) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcHll.grpcConn.write(JSON.stringify(getCountOfHllInput) + "\n")
+        })
     }
 
-    mergeHll(key1: string, key2: string, destination: string) {
-        let mergeHllInput: GrpcMessageType = {
-            messageType: GrpcMessageTypes.InsertDataToHLL,
-            input: {
-                key1,
-                key2,
-                dest: destination
-            },
-            key: key1
-        }
-        GrpcHll.grpcConn.write(JSON.stringify(mergeHllInput) + "\n")
+    mergeHll(key1: string, key2: string, destination: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let mergeHllInput: GrpcMessageType = {
+                messageType: GrpcMessageTypes.InsertDataToHLL,
+                input: {
+                    key1,
+                    key2,
+                    dest: destination
+                },
+                key: key1,
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcHll.grpcConn.write(JSON.stringify(mergeHllInput) + "\n")
+        })
     }
 }

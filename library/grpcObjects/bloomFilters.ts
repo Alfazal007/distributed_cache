@@ -1,5 +1,6 @@
 import * as net from "net"
 import { GrpcMessageTypes, type GrpcMessageType } from "../types"
+import * as readline from "readline"
 
 export class GrpcBloomFilters {
     private static instance: GrpcBloomFilters
@@ -13,29 +14,63 @@ export class GrpcBloomFilters {
         return GrpcBloomFilters.instance
     }
 
-    insertToBloomFilters(key: string, value: string) {
-        let bytesValue = Buffer.from(value).toString("base64")
-        let bfInsertInput: GrpcMessageType = {
-            messageType: GrpcMessageTypes.InsertToBf,
-            input: {
+    insertToBloomFilters(key: string, value: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let bytesValue = Buffer.from(value).toString("base64")
+            let bfInsertInput: GrpcMessageType = {
+                messageType: GrpcMessageTypes.InsertToBf,
+                input: {
+                    key,
+                    value: bytesValue
+                },
                 key,
-                value: bytesValue
-            },
-            key
-        }
-        GrpcBloomFilters.grpcConn.write(JSON.stringify(bfInsertInput) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcBloomFilters.grpcConn.write(JSON.stringify(bfInsertInput) + "\n")
+        })
     }
 
-    existsInBf(key: string, value: string) {
-        let bytesValue = Buffer.from(value).toString("base64")
-        let existsInBfInput: GrpcMessageType = {
-            messageType: GrpcMessageTypes.ExistsInBf,
-            input: {
+    existsInBf(key: string, value: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let bytesValue = Buffer.from(value).toString("base64")
+            let existsInBfInput: GrpcMessageType = {
+                messageType: GrpcMessageTypes.ExistsInBf,
+                input: {
+                    key,
+                    value: bytesValue
+                },
                 key,
-                value: bytesValue
-            },
-            key
-        }
-        GrpcBloomFilters.grpcConn.write(JSON.stringify(existsInBfInput) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcBloomFilters.grpcConn.write(JSON.stringify(existsInBfInput) + "\n")
+        })
     }
 }

@@ -16,6 +16,7 @@ export class Cache {
     host: string
     private static instance: Cache
     static grpcConnection: net.Socket
+    static grpcReadline: readline.Interface
     static tcpConnection: net.Socket
     public static hashmap: GrpcHashMap
     public static queue: GrpcQueue
@@ -26,13 +27,12 @@ export class Cache {
     public static bloomFilters: GrpcBloomFilters
     public static publisher: GrpcPublisher
 
-    // TODO:: remove this variable altogether, it is just for testing
-    public static currentGrpcData: string[] = []
-
     static connect(host: string) {
         if (!Cache.instance) {
             Cache.instance = new Cache(host)
-            Cache.grpcConnection = Cache.instance.connectToGrpc()
+            const [grpcConnection, grpcReadline] = Cache.instance.connectToGrpc()
+            Cache.grpcConnection = grpcConnection
+            Cache.grpcReadline = grpcReadline
             Cache.tcpConnection = Cache.instance.connectToTcp()
             Cache.hashmap = GrpcHashMap.getInstance(Cache.grpcConnection)
             Cache.queue = GrpcQueue.getInstance(Cache.grpcConnection)
@@ -66,7 +66,7 @@ export class Cache {
         return client
     }
 
-    private connectToGrpc(): net.Socket {
+    private connectToGrpc(): [net.Socket, readline.Interface] {
         const PORT = 8002
         const client = new net.Socket()
         client.connect(PORT, this.host, () => {
@@ -84,13 +84,6 @@ export class Cache {
             console.error("Connection error:", err.message)
             process.exit(1)
         })
-        rl.on("line", (line: string) => {
-            Cache.currentGrpcData.push(line)
-        });
-        return client
-    }
-
-    static clearData() {
-        Cache.currentGrpcData.length = 0
+        return [client, rl]
     }
 }

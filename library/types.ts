@@ -1,7 +1,8 @@
 export type GrpcMessageType = {
     key: string,
     messageType: GrpcMessageTypes,
-    input: any
+    input: any,
+    requestId: string
 }
 
 export enum GrpcMessageTypes {

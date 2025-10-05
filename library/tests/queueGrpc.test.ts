@@ -1,6 +1,5 @@
 import { describe, it, beforeAll, expect } from "bun:test"
 import { connect } from "../index.ts"
-import { Cache } from "../cacheClass.ts"
 
 describe("Cache", () => {
     let cache: ReturnType<typeof connect>
@@ -16,50 +15,30 @@ describe("Cache", () => {
     })
 
     it("insert into the front of the queue", async () => {
-        let index = 0
-        cache.queue.insertFrontOfQueue(key1, front1Value)
-        cache.queue.insertFrontOfQueue(key2, front2Value)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result == 1)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result == 1)
-        cache.clearData()
+        let response = await cache.queue.insertFrontOfQueue(key1, front1Value, cache.grpcReadline)
+        expect(response.result == 1)
+        response = await cache.queue.insertFrontOfQueue(key2, front2Value, cache.grpcReadline)
+        expect(response.result == 1)
     })
 
     it("insert into the back of the queue", async () => {
-        let index = 0
-        cache.queue.insertBackOfQueue(key1, back1Value)
-        cache.queue.insertBackOfQueue(key2, back2Value)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result == 1)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result == 1)
-        cache.clearData()
+        let response = await cache.queue.insertBackOfQueue(key1, back1Value, cache.grpcReadline)
+        expect(response.result == 1)
+        response = await cache.queue.insertBackOfQueue(key2, back2Value, cache.grpcReadline)
+        expect(response.result == 1)
     })
 
     it("remove from the front of the queue", async () => {
-        let index = 0
-        cache.queue.removeFrontOfQueue(key1)
-        cache.queue.removeFrontOfQueue(key1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(front1Value == atob(res.value))
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(back1Value == atob(res.value))
-        cache.clearData()
+        let response = await cache.queue.removeFrontOfQueue(key1, cache.grpcReadline)
+        expect(front1Value == atob(response.value))
+        response = await cache.queue.removeFrontOfQueue(key1, cache.grpcReadline)
+        expect(back1Value == atob(response.value))
     })
 
     it("remove from the back of the queue", async () => {
-        let index = 0
-        cache.queue.removeBackOfQueue(key2)
-        cache.queue.removeBackOfQueue(key2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(back2Value == atob(res.value))
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(front2Value == atob(res.value))
-        cache.clearData()
+        let response = await cache.queue.removeBackOfQueue(key2, cache.grpcReadline)
+        expect(back2Value == atob(response.value))
+        response = await cache.queue.removeBackOfQueue(key2, cache.grpcReadline)
+        expect(front2Value == atob(response.value))
     })
 })

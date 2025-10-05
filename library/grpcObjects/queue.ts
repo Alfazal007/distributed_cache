@@ -1,5 +1,6 @@
 import * as net from "net"
 import { GrpcMessageTypes, type GrpcMessageType } from "../types"
+import * as readline from "readline"
 
 export class GrpcQueue {
     private static instance: GrpcQueue
@@ -13,51 +14,119 @@ export class GrpcQueue {
         return GrpcQueue.instance
     }
 
-    insertFrontOfQueue(key: string, value: string) {
-        let bytesValue = Buffer.from(value).toString('base64')
-        let insertFrontOfQueueMsg: GrpcMessageType = {
-            messageType: GrpcMessageTypes.QueueInsertFront,
-            input: {
+    insertFrontOfQueue(key: string, value: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let bytesValue = Buffer.from(value).toString('base64')
+            let insertFrontOfQueueMsg: GrpcMessageType = {
+                messageType: GrpcMessageTypes.QueueInsertFront,
+                input: {
+                    key,
+                    value: bytesValue
+                },
                 key,
-                value: bytesValue
-            },
-            key
-        }
-        GrpcQueue.grpcConn.write(JSON.stringify(insertFrontOfQueueMsg) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcQueue.grpcConn.write(JSON.stringify(insertFrontOfQueueMsg) + "\n")
+        })
     }
 
-    insertBackOfQueue(key: string, value: string) {
-        let bytesValue = Buffer.from(value).toString('base64')
-        let insertBackOfQueueMsg: GrpcMessageType = {
-            messageType: GrpcMessageTypes.QueueInsertBack,
-            input: {
+    insertBackOfQueue(key: string, value: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let bytesValue = Buffer.from(value).toString('base64')
+            let insertBackOfQueueMsg: GrpcMessageType = {
+                messageType: GrpcMessageTypes.QueueInsertBack,
+                input: {
+                    key,
+                    value: bytesValue
+                },
                 key,
-                value: bytesValue
-            },
-            key
-        }
-        GrpcQueue.grpcConn.write(JSON.stringify(insertBackOfQueueMsg) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcQueue.grpcConn.write(JSON.stringify(insertBackOfQueueMsg) + "\n")
+        })
     }
 
-    removeFrontOfQueue(key: string) {
-        let removeFrontOfQueueMsg: GrpcMessageType = {
-            messageType: GrpcMessageTypes.QueueRemoveFront,
-            input: {
+    removeFrontOfQueue(key: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let removeFrontOfQueueMsg: GrpcMessageType = {
+                messageType: GrpcMessageTypes.QueueRemoveFront,
+                input: {
+                    key,
+                },
                 key,
-            },
-            key
-        }
-        GrpcQueue.grpcConn.write(JSON.stringify(removeFrontOfQueueMsg) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcQueue.grpcConn.write(JSON.stringify(removeFrontOfQueueMsg) + "\n")
+        })
     }
 
-    removeBackOfQueue(key: string) {
-        let removeBackOfQueueMsg: GrpcMessageType = {
-            messageType: GrpcMessageTypes.QueueRemoveBack,
-            input: {
+    removeBackOfQueue(key: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let removeBackOfQueueMsg: GrpcMessageType = {
+                messageType: GrpcMessageTypes.QueueRemoveBack,
+                input: {
+                    key,
+                },
                 key,
-            },
-            key
-        }
-        GrpcQueue.grpcConn.write(JSON.stringify(removeBackOfQueueMsg) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcQueue.grpcConn.write(JSON.stringify(removeBackOfQueueMsg) + "\n")
+        })
     }
 }

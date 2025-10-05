@@ -1,6 +1,5 @@
 import { describe, it, beforeAll, expect } from "bun:test"
 import { connect } from "../index.ts"
-import { Cache } from "../cacheClass.ts"
 
 describe("Cache", () => {
     let cache: ReturnType<typeof connect>
@@ -15,72 +14,54 @@ describe("Cache", () => {
     })
 
     it("should insert value into set", async () => {
-        let index = 0
-        cache.set.insertToSet(key1, [value1Key1, value2Key1])
-        cache.set.insertToSet(key2, [value3Key2])
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result == 1)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result == 1)
-        cache.clearData()
+        let response = await cache.set.insertToSet(key1, [value1Key1, value2Key1], cache.grpcReadline)
+        expect(response.result == 1)
+        response = await cache.set.insertToSet(key2, [value3Key2], cache.grpcReadline)
+        expect(response.result == 1)
     })
 
     it("set has a element or not", async () => {
-        let index = 0
-        cache.set.setHasMember(key1, value1Key1)
-        cache.set.setHasMember(key1, value2Key1)
-        cache.set.setHasMember(key1, value3Key2)
-        cache.set.setHasMember(key2, value3Key2)
-        cache.set.setHasMember(key2, value1Key1)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 100))
+        let responses = []
+        responses.push(await cache.set.setHasMember(key1, value1Key1, cache.grpcReadline))
+        responses.push(await cache.set.setHasMember(key1, value2Key1, cache.grpcReadline))
+        responses.push(await cache.set.setHasMember(key1, value3Key2, cache.grpcReadline))
+        responses.push(await cache.set.setHasMember(key2, value3Key2, cache.grpcReadline))
+        responses.push(await cache.set.setHasMember(key2, value1Key1, cache.grpcReadline))
         let expected = [true, true, false, true, false]
         for (let i = 0; i < expected.length; i++) {
             let expectedResponse = expected[i] as boolean
-            let res = JSON.parse(Cache.currentGrpcData[index++] as string)
+            let res = responses[i]
             if (expectedResponse == true) {
                 expect(res.hasValue == expectedResponse)
             }
             else {
-                expect(res).toStrictEqual({})
+                let { requestId, ...rest } = res
+                expect(rest).toStrictEqual({})
             }
         }
-        cache.clearData()
     })
 
     it("should get values from a set", async () => {
-        let index = 0
-        cache.set.getSetValues(key1)
-        cache.set.getSetValues(key2)
-        cache.set.getSetValues("key3")
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 500))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.values).toStrictEqual([value1Key1, value2Key1])
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.values).toStrictEqual([value3Key2])
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res).toStrictEqual({})
-        cache.clearData()
+        let response = await cache.set.getSetValues(key1, cache.grpcReadline)
+        expect(response.values).toStrictEqual([value1Key1, value2Key1])
+        response = await cache.set.getSetValues(key2, cache.grpcReadline)
+        expect(response.values).toStrictEqual([value3Key2])
+        response = await cache.set.getSetValues("key3", cache.grpcReadline)
+        let { requestId, ...rest } = response
+        expect(rest).toStrictEqual({})
     })
 
     it("should remove value from a set", async () => {
-        let index = 0
-        cache.set.setRemoveMember(key1, value1Key1)
-        cache.set.setRemoveMember(key1, value3Key2)
-        cache.set.setRemoveMember(key2, value3Key2)
-        cache.set.getSetValues(key1)
-        cache.set.getSetValues(key2)
-        await new Promise((resolve) => setTimeout(() => { resolve(true) }, 500))
-        let res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result).toStrictEqual(1)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result).toStrictEqual(-1)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.result).toStrictEqual(1)
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res.values).toStrictEqual([value2Key1])
-        res = JSON.parse(Cache.currentGrpcData[index++] as string)
-        expect(res).toStrictEqual({})
-        cache.clearData()
+        let response = await cache.set.setRemoveMember(key1, value1Key1, cache.grpcReadline)
+        expect(response.result).toStrictEqual(1)
+        response = await cache.set.setRemoveMember(key1, value3Key2, cache.grpcReadline)
+        expect(response.result).toStrictEqual(-1)
+        response = await cache.set.setRemoveMember(key2, value3Key2, cache.grpcReadline)
+        expect(response.result).toStrictEqual(1)
+        response = await cache.set.getSetValues(key1, cache.grpcReadline)
+        expect(response.values).toStrictEqual([value2Key1])
+        response = await cache.set.getSetValues(key2, cache.grpcReadline)
+        let { requestId, ...rest } = response
+        expect(rest).toStrictEqual({})
     })
 })

@@ -1,4 +1,5 @@
 import * as net from "net"
+import * as readline from "readline"
 import { GrpcMessageTypes, type GrpcMessageType } from "../types"
 
 export class GrpcPublisher {
@@ -13,16 +14,33 @@ export class GrpcPublisher {
         return GrpcPublisher.instance
     }
 
-    insertToPublisher(key: string, value: string) {
-        let bytesValue = Buffer.from(value).toString("base64")
-        let mapInsert: GrpcMessageType = {
-            messageType: GrpcMessageTypes.PublishMessage,
-            input: {
+    insertToPublisher(key: string, value: string, rl: readline.Interface): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let id = crypto.randomUUID()
+            let bytesValue = Buffer.from(value).toString("base64")
+            let mapInsert: GrpcMessageType = {
+                messageType: GrpcMessageTypes.PublishMessage,
+                input: {
+                    key,
+                    value: bytesValue
+                },
                 key,
-                value: bytesValue
-            },
-            key
-        }
-        GrpcPublisher.grpcConn.write(JSON.stringify(mapInsert) + "\n")
+                requestId: id
+            }
+            const online = (line: string) => {
+                try {
+                    const response = JSON.parse(line)
+                    if (response.requestId == id) {
+                        resolve(response)
+                    } else {
+                        rl.once("line", online)
+                    }
+                } catch (err) {
+                    reject(err)
+                }
+            }
+            rl.once("line", online)
+            GrpcPublisher.grpcConn.write(JSON.stringify(mapInsert) + "\n")
+        })
     }
 }
