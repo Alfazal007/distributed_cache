@@ -11,6 +11,7 @@ import * as readline from "readline";
 import { pingMessage } from "./helpers/pingMessage"
 import { TcpQueueManager } from "./tcpObjects/queue"
 import { TcpStreamManager } from "./tcpObjects/stream"
+import { TcpPubSubManager } from "./tcpObjects/pubsub"
 
 /**
  * Cache class that talks to master and provides necessary functions to talk to the master node
@@ -32,6 +33,7 @@ export class Cache {
     public static publisher: GrpcPublisher
     public static tcpQueue: TcpQueueManager
     public static tcpStream: TcpStreamManager
+    public static tcpPubSub: TcpPubSubManager
 
     static connect(host: string) {
         if (!Cache.instance) {
@@ -52,6 +54,7 @@ export class Cache {
             Cache.publisher = GrpcPublisher.getInstance(Cache.grpcConnection)
             Cache.tcpQueue = TcpQueueManager.getInstance(Cache.tcpConnection)
             Cache.tcpStream = TcpStreamManager.getInstance(Cache.tcpConnection)
+            Cache.tcpPubSub = TcpPubSubManager.getInstance(Cache.tcpConnection)
         }
     }
 
