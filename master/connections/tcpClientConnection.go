@@ -27,6 +27,8 @@ func HandleConnClientTcp(conn net.Conn, clientId string, connectedClients *types
 			jsonMessage = append(jsonMessage, byte('\n'))
 			connToWrite.Write(jsonMessage)
 			connectedClients.AddSubscription(clientId, clientMessage.Key, clientMessage.MessageType)
+		} else {
+			conn.Write([]byte("PONG\n"))
 		}
 	}
 }

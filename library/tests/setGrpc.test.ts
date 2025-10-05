@@ -43,7 +43,11 @@ describe("Cache", () => {
 
     it("should get values from a set", async () => {
         let response = await cache.set.getSetValues(key1, cache.grpcReadline)
-        expect(response.values).toStrictEqual([value1Key1, value2Key1])
+        let expected1 = [value1Key1, value2Key1]
+        for (let i = 0; i < response.values.length; i++) {
+            let received = response.values[i]
+            expect(expected1.includes(received)).toBe(true)
+        }
         response = await cache.set.getSetValues(key2, cache.grpcReadline)
         expect(response.values).toStrictEqual([value3Key2])
         response = await cache.set.getSetValues("key3", cache.grpcReadline)

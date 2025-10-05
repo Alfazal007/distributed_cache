@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/json"
 	"net"
 	"slices"
 
@@ -72,7 +73,15 @@ func (connectedClients *ConnectedClients) SendMessageToAllClients(subscriptionKe
 		}
 		for _, keys := range subscription {
 			if keys.MessageType == messageType {
-				client.Conn.Write(value)
+				jsonData, err := json.Marshal(map[string]any{
+					"key":         subscriptionKey,
+					"value":       value,
+					"messageType": messageType,
+				})
+				if err != nil {
+					continue
+				}
+				client.Conn.Write(append(jsonData, '\n'))
 				break
 			}
 		}

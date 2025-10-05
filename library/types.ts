@@ -40,3 +40,16 @@ export enum GrpcMessageTypes {
 
     PublishMessage,
 }
+
+export enum TcpMessageType {
+    QUEUE = 0,
+    STREAM,
+    SUBSCRIBER,
+    PING
+}
+
+export type TcpMessageTypes = {
+    messageType: TcpMessageType,
+    key: string,
+    subscribe: boolean
+}

@@ -8,6 +8,8 @@ import { GrpcHll } from "./grpcObjects/hyperloglog"
 import { GrpcBloomFilters } from "./grpcObjects/bloomFilters"
 import { GrpcPublisher } from "./grpcObjects/publisher"
 import * as readline from "readline";
+import { pingMessage } from "./helpers/pingMessage"
+import { TcpQueueManager } from "./tcpObjects/queue"
 
 /**
  * Cache class that talks to master and provides necessary functions to talk to the master node
@@ -17,6 +19,7 @@ export class Cache {
     private static instance: Cache
     static grpcConnection: net.Socket
     static grpcReadline: readline.Interface
+    static tcpReadline: readline.Interface
     static tcpConnection: net.Socket
     public static hashmap: GrpcHashMap
     public static queue: GrpcQueue
@@ -26,6 +29,7 @@ export class Cache {
     public static hll: GrpcHll
     public static bloomFilters: GrpcBloomFilters
     public static publisher: GrpcPublisher
+    public static tcpQueue: TcpQueueManager
 
     static connect(host: string) {
         if (!Cache.instance) {
@@ -33,7 +37,9 @@ export class Cache {
             const [grpcConnection, grpcReadline] = Cache.instance.connectToGrpc()
             Cache.grpcConnection = grpcConnection
             Cache.grpcReadline = grpcReadline
-            Cache.tcpConnection = Cache.instance.connectToTcp()
+            const [tcpConnection, tcpReadline] = Cache.instance.connectToTcp()
+            Cache.tcpConnection = tcpConnection
+            Cache.tcpReadline = tcpReadline
             Cache.hashmap = GrpcHashMap.getInstance(Cache.grpcConnection)
             Cache.queue = GrpcQueue.getInstance(Cache.grpcConnection)
             Cache.set = GrpcSet.getInstance(Cache.grpcConnection)
@@ -42,6 +48,7 @@ export class Cache {
             Cache.hll = GrpcHll.getInstance(Cache.grpcConnection)
             Cache.bloomFilters = GrpcBloomFilters.getInstance(Cache.grpcConnection)
             Cache.publisher = GrpcPublisher.getInstance(Cache.grpcConnection)
+            Cache.tcpQueue = TcpQueueManager.getInstance(Cache.tcpConnection)
         }
     }
 
@@ -49,11 +56,18 @@ export class Cache {
         this.host = host
     }
 
-    private connectToTcp(): net.Socket {
+    private connectToTcp(): [net.Socket, readline.Interface] {
         const PORT = 8003
         const client = new net.Socket()
         client.connect(PORT, this.host, () => {
             console.log(`Connected to tcp server at ${this.host}:${PORT}`)
+        })
+        setInterval(() => {
+            client.write(pingMessage() + "\n")
+        }, 10000)
+        const rl = readline.createInterface({
+            input: client,
+            crlfDelay: Infinity,
         })
         client.on("close", () => {
             console.log("Connection closed")
@@ -63,7 +77,7 @@ export class Cache {
             console.error("Connection error:", err.message)
             process.exit(1)
         })
-        return client
+        return [client, rl]
     }
 
     private connectToGrpc(): [net.Socket, readline.Interface] {
