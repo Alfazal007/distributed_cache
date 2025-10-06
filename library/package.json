@@ -1,8 +1,10 @@
 {
-  "name": "library",
-  "module": "index.ts",
+  "name": "@itachi__uchiha/distcachelibrary",
+  "version": "1.0.2",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
   "type": "module",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "@types/bun": "latest"
   },
@@ -11,6 +13,7 @@
   },
   "types": "./dist/index.d.ts", 
   "scripts": {
-    "build": "bun build ./index.ts --outdir=dist --target=node --format=esm"
-  }
+    "build": "bun build ./index.ts --outdir=dist --target=node --format=esm && tsc"
+  },
+  "files": ["dist"]
 }

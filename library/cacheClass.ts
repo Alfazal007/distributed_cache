@@ -58,6 +58,13 @@ export class Cache {
         }
     }
 
+    static disconnect() {
+        Cache.grpcConnection?.destroy()
+        Cache.grpcReadline?.close()
+        Cache.tcpConnection?.destroy()
+        Cache.tcpReadline?.close()
+    }
+
     private constructor(host: string) {
         this.host = host
     }

@@ -1,0 +1,15 @@
+{
+  "name": "testclient",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@itachi__uchiha/distcachelibrary": "^1.0.2"
+  }
+}
